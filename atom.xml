@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>无编程</title>
+  
+  <subtitle>wubc的个人博客，公众号：后端随笔</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="wubc.me/"/>
+  <updated>2020-02-29T07:24:36.099Z</updated>
+  <id>wubc.me/</id>
+  
+  <author>
+    <name>wubc</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zookeeper系列教程之一（Mac下安装zookeeper）</title>
+    <link href="wubc.me/2020/02/29/zookeeper%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B%E4%B9%8B%E4%B8%80%EF%BC%88Mac%E4%B8%8B%E5%AE%89%E8%A3%85zookeeper%EF%BC%89/"/>
+    <id>wubc.me/2020/02/29/zookeeper%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B%E4%B9%8B%E4%B8%80%EF%BC%88Mac%E4%B8%8B%E5%AE%89%E8%A3%85zookeeper%EF%BC%89/</id>
+    <published>2020-02-29T07:09:30.000Z</published>
+    <updated>2020-02-29T07:24:36.099Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、-Mac下zookeeper的安装"><a href="#一、-Mac下zookeeper的安装" class="headerlink" title="一、 Mac下zookeeper的安装"></a>一、 Mac下zookeeper的安装</h3><p>两种下载方式</p><p>第一种直接网上下载</p><p>下载地址：<br><strong><a href="https://zookeeper.apache.org/releases.html#download" target="_blank" rel="noopener">https://zookeeper.apache.org/releases.html#download</a></strong></p><p>国内的镜像地址：<br><strong><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/</a></strong></p><p>注意如果不需要源码包请下载文件名带bin的那个文件，那个是编译好的，否则运行zookeeper时会出现</p><blockquote><p>错误: 找不到或无法加载主类 org.apache.zookeeper.server.quorum.QuorumPeerMain的问题</p></blockquote><p>第二种使用homebrew下载：</p><blockquote><p>brew install zookeeper</p></blockquote><h3 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h3><p>1、配置解释</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime&#x3D;2000</span><br><span class="line"># The number of ticks that the initial </span><br><span class="line"># synchronization phase can take</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line"># The number of ticks that can pass between </span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use &#x2F;tmp for storage, &#x2F;tmp here is just </span><br><span class="line"># example sakes.</span><br><span class="line">dataDir&#x3D;&#x2F;tmp&#x2F;zookeeper</span><br><span class="line"># the port at which the clients will connect</span><br><span class="line">clientPort&#x3D;2181</span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line">#maxClientCnxns&#x3D;60</span><br><span class="line">#</span><br><span class="line"># Be sure to read the maintenance section of the </span><br><span class="line"># administrator guide before turning on autopurge.</span><br><span class="line">#</span><br><span class="line"># http:&#x2F;&#x2F;zookeeper.apache.org&#x2F;doc&#x2F;current&#x2F;zookeeperAdmin.html#sc_maintenance</span><br><span class="line">#</span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line">#autopurge.snapRetainCount&#x3D;3</span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line">#autopurge.purgeInterval&#x3D;1</span><br><span class="line">server.1&#x3D;127.0.0.1:2888:3888</span><br></pre></td></tr></table></figure><ul><li><p>tickTime：ZK中的一个时间单元。ZK中所有时间都是以这个时间单元为基础，进行整数倍配置的。例如，session的最小超时时间是2*tickTime。</p></li><li><p>initLimit：Follower在启动过程中，会从Leader同步所有最新数据，然后确定自己能够对外服务的起始状态。Leader允许F在initLimit时间内完成这个工作。通常情况下，我们不用太在意这个参数的设置。如果ZK集群的数据量确实很大了，F在启动的时候，从Leader上同步数据的时间也会相应变长，因此在这种情况下，有必要适当调大这个参数了。(No Java system property)</p></li><li><p>syncLimit：在运行过程中，Leader负责与ZK集群中所有机器进行通信，例如通过一些心跳检测机制，来检测机器的存活状态。如果L发出心跳包在syncLimit之后，还没有从F那里收到响应，那么就认为这个F已经不在线了。注意：不要把这个参数设置得过大，否则可能会掩盖一些问题。(No Java system property)</p></li><li><p>dataDir：存储快照文件snapshot的目录。默认情况下，事务日志也会存储在这里。建议同时配置参数dataLogDir, 事务日志的写性能直接影响zk性能。</p></li><li><p>clientPort： 客户端连接server的端口，即对外服务端口，默认是2181。</p></li><li><p>server.x=[hostname]:nnnnn[:nnnnn]：这里的x是一个数字，与myid文件中的id是一致的。右边可以配置两个端口，第一个端口用于F和L之间的数据同步和其它通信，第二个端口用于Leader选举过程中投票通信。</p></li></ul><p>2、配置修改</p><p>单机模式：</p><p>伪集群模式</p><h3 id="三、启动与连接"><a href="#三、启动与连接" class="headerlink" title="三、启动与连接"></a>三、启动与连接</h3><ul><li><p>1、服务端启动：进入zookeeper的bin目录，在终端下执行如下命令启动</p><blockquote><p>./zkServer.sh start</p></blockquote><p>  当输出<strong>Starting zookeeper … STARTED</strong> 时表示成功了</p></li><li><p>2、客户端连接，同样在bin目录下执行命令</p><blockquote><p>./zkCli.sh</p></blockquote><p>  然后就进入到JLine控制台命令交互模式</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;一、-Mac下zookeeper的安装&quot;&gt;&lt;a href=&quot;#一、-Mac下zookeeper的安装&quot; class=&quot;headerlink&quot; title=&quot;一、 Mac下zookeeper的安装&quot;&gt;&lt;/a&gt;一、 Mac下zookeeper的安装&lt;/h3&gt;&lt;p&gt;两种
+      
+    
+    </summary>
+    
+    
+      <category term="分布式" scheme="wubc.me/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="分布式" scheme="wubc.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="zookeeper" scheme="wubc.me/tags/zookeeper/"/>
+    
+  </entry>
+  
+</feed>
