@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java基础复习 | 无编程 | wubc的个人博客，公众号：后端随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java基础">
+    <meta name="description" content="Java基础1、基础语法1、1 深拷贝和浅拷贝要区别是深拷贝对于对象的引用类型会创建新的对象引用，而浅拷贝直接指向同一个引用。object的clone方法是浅拷贝。 想要实现深拷贝，对象以及被引用的对象都需要实现Cloneable接口 1、2 equals和hashcode如果equals为true，那么hashcode一定相同，反之hashcode相等，equals不一定为true。 equal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础复习">
+<meta property="og:url" content="wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="无编程">
+<meta property="og:description" content="Java基础1、基础语法1、1 深拷贝和浅拷贝要区别是深拷贝对于对象的引用类型会创建新的对象引用，而浅拷贝直接指向同一个引用。object的clone方法是浅拷贝。 想要实现深拷贝，对象以及被引用的对象都需要实现Cloneable接口 1、2 equals和hashcode如果equals为true，那么hashcode一定相同，反之hashcode相等，equals不一定为true。 equal">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-21T12:32:28.000Z">
+<meta property="article:modified_time" content="2020-03-21T12:34:52.197Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:wubc.me@gmail.com" title="wubc.me@gmail.com" class="mail">wubc.me@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://dh.wubc.me" target="_blank" >
+                <i class="icon icon-lg icon-location-arrow"></i>
+                无编程导航网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java基础复习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java基础复习</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-03-21T12:32:28.000Z" itemprop="datePublished" class="page-time">
+  2020-03-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java基础"><span class="post-toc-number">1.</span> <span class="post-toc-text">Java基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、基础语法"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">1、基础语法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、1-深拷贝和浅拷贝"><span class="post-toc-number">1.0.1.1.</span> <span class="post-toc-text">1、1 深拷贝和浅拷贝</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、2-equals和hashcode"><span class="post-toc-number">1.0.1.2.</span> <span class="post-toc-text">1、2 equals和hashcode</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、3-参数传递形式"><span class="post-toc-number">1.0.1.3.</span> <span class="post-toc-text">1、3 参数传递形式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、4-重载和重写的区别"><span class="post-toc-number">1.0.1.4.</span> <span class="post-toc-text">1、4 重载和重写的区别</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、5-接口和抽象类的区别与特点"><span class="post-toc-number">1.0.1.5.</span> <span class="post-toc-text">1、5 接口和抽象类的区别与特点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、6-String特性"><span class="post-toc-number">1.0.1.6.</span> <span class="post-toc-text">1、6 String特性</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、Java异常机制"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">2、Java异常机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、1-分类"><span class="post-toc-number">1.0.2.1.</span> <span class="post-toc-text">2、1 分类</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、2-tr…catch-finally的返回值"><span class="post-toc-number">1.0.2.2.</span> <span class="post-toc-text">2、2 tr…catch..finally的返回值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、3-throw-和-throws-的区别"><span class="post-toc-number">1.0.2.3.</span> <span class="post-toc-text">2、3 throw 和 throws 的区别</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、4-final、finally、finalize-的区别？"><span class="post-toc-number">1.0.2.4.</span> <span class="post-toc-text">2、4 final、finally、finalize 的区别？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、5-StringBuilder-、StringBuffer-的区别"><span class="post-toc-number">1.0.2.5.</span> <span class="post-toc-text">2、5 StringBuilder 、StringBuffer 的区别</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java基本数据类型及范围"><span class="post-toc-number">1.0.2.6.</span> <span class="post-toc-text">Java基本数据类型及范围</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#包装类"><span class="post-toc-number">1.0.2.7.</span> <span class="post-toc-text">包装类</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、IO"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">3、IO</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、1-流的分类："><span class="post-toc-number">1.0.3.1.</span> <span class="post-toc-text">3、1 流的分类：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、2-流的基本操作"><span class="post-toc-number">1.0.3.2.</span> <span class="post-toc-text">3、2 流的基本操作</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、集合"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">4、集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、1-ArrayList的实现"><span class="post-toc-number">1.0.4.1.</span> <span class="post-toc-text">4、1 ArrayList的实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#一、构造方法分析"><span class="post-toc-number">1.0.4.1.1.</span> <span class="post-toc-text">一、构造方法分析</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#二、add方法"><span class="post-toc-number">1.0.4.1.2.</span> <span class="post-toc-text">二、add方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#三、remove方法"><span class="post-toc-number">1.0.4.1.3.</span> <span class="post-toc-text">三、remove方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#四、clear方法"><span class="post-toc-number">1.0.4.1.4.</span> <span class="post-toc-text">四、clear方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、2-并发集合"><span class="post-toc-number">1.0.4.2.</span> <span class="post-toc-text">4、2 并发集合</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、3-HashMap和HashTable"><span class="post-toc-number">1.0.4.3.</span> <span class="post-toc-text">4、3 HashMap和HashTable</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、4-SortMap和TreeMap"><span class="post-toc-number">1.0.4.4.</span> <span class="post-toc-text">4、4 SortMap和TreeMap</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、5-ArrayList和LinkList"><span class="post-toc-number">1.0.4.5.</span> <span class="post-toc-text">4、5 ArrayList和LinkList</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Java基础复习"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java基础复习</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-03-21 20:32:28" datetime="2020-03-21T12:32:28.000Z"  itemprop="datePublished">2020-03-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h3 id="1、基础语法"><a href="#1、基础语法" class="headerlink" title="1、基础语法"></a>1、基础语法</h3><h4 id="1、1-深拷贝和浅拷贝"><a href="#1、1-深拷贝和浅拷贝" class="headerlink" title="1、1 深拷贝和浅拷贝"></a>1、1 深拷贝和浅拷贝</h4><p>要区别是深拷贝对于对象的引用类型会创建新的对象引用，而浅拷贝直接指向同一个引用。object的clone方法是浅拷贝。</p>
+<p>想要实现深拷贝，对象以及被引用的对象都需要实现Cloneable接口</p>
+<h4 id="1、2-equals和hashcode"><a href="#1、2-equals和hashcode" class="headerlink" title="1、2 equals和hashcode"></a>1、2 equals和hashcode</h4><p>如果equals为true，那么hashcode一定相同，反之hashcode相等，equals不一定为true。</p>
+<p>equals特性：自反性、传递性</p>
+<p>重写equals方法：</p>
+<ul>
+<li>1、参数是否为这个对象的引用、</li>
+<li>2、使用 instanceof 操作符检查”参数是否为正确的类型 </li>
+<li>3、是否满足对称性、传递性、一致性 </li>
+<li>4、重写 hashCode</li>
+</ul>
+<h4 id="1、3-参数传递形式"><a href="#1、3-参数传递形式" class="headerlink" title="1、3 参数传递形式"></a>1、3 参数传递形式</h4><p>Java参数传递都是值传递。<br>分析参考文章：<a href="https://juejin.im/post/5bce68226fb9a05ce46a0476#heading-12" target="_blank" rel="noopener">这一次，彻底解决Java的值传递和引用传递</a></p>
+<h4 id="1、4-重载和重写的区别"><a href="#1、4-重载和重写的区别" class="headerlink" title="1、4 重载和重写的区别"></a>1、4 重载和重写的区别</h4><p>重载：编译时的多态性，发生在一个类中。规则：</p>
+<ul>
+<li>方法名一致，参数列表中参数的顺序，类型，个数不同</li>
+<li>重载与方法的返回值无关（因编译器无法只根据返回类型来确定调用哪个方法），存在于父类和子类，同类中</li>
+<li>可以抛出不同的异常，可以有不同修饰符</li>
+</ul>
+<p>重写：运行时多态，子类重写父类的方法。规则：</p>
+<ul>
+<li>.参数列表、返回类型与父类一致</li>
+<li>构造方法、被final、static修饰的方法不能被重写</li>
+<li>访问权限不能比父类的方法小</li>
+<li>不能抛出新的强制性异常、更广泛的强制性异常</li>
+</ul>
+<h4 id="1、5-接口和抽象类的区别与特点"><a href="#1、5-接口和抽象类的区别与特点" class="headerlink" title="1、5 接口和抽象类的区别与特点"></a>1、5 接口和抽象类的区别与特点</h4><p>抽象类：</p>
+<ul>
+<li>抽象类中可以定义构造器</li>
+<li>可以有抽象方法和具体方法 </li>
+<li>接口中的成员全都是 public 的 </li>
+<li>抽象类中可以定义成员变量 </li>
+<li>有抽象方法的类必须被声明为抽象类，而抽象类未必要有抽象方法 </li>
+<li>抽象类中可以包含静态方法（该静态方法不能是抽象的，因为静态方法不能被重写）</li>
+<li>一个类只能继承一个抽象类</li>
+</ul>
+<p>接口类;</p>
+<ul>
+<li>接口中不能定义构造器 </li>
+<li>方法全部都是抽象方法 </li>
+<li>抽象类中的成员可以是 private、默认、protected、public</li>
+<li>接口中定义的成员变量实际上都是常量 </li>
+<li>接口中不能有静态方法 </li>
+<li>一个类可以实现多个接口</li>
+</ul>
+<h4 id="1、6-String特性"><a href="#1、6-String特性" class="headerlink" title="1、6 String特性"></a>1、6 String特性</h4><ul>
+<li>String是不可变的，如果进行了“+”操作，那么将产生新的对象，指向了新的对象</li>
+<li>字符串内容相同，认为是代表同一个对象</li>
+<li>每次通过new实例一个字符串，即使字符串内容相同，也会产生新的对象</li>
+</ul>
+<h3 id="2、Java异常机制"><a href="#2、Java异常机制" class="headerlink" title="2、Java异常机制"></a>2、Java异常机制</h3><h4 id="2、1-分类"><a href="#2、1-分类" class="headerlink" title="2、1 分类"></a>2、1 分类</h4><ul>
+<li>异常exceptionError<ul>
+<li>编译时异常：在编译时可以体现出来。用 try…catch 块或抛出该异常进行处理</li>
+<li>运行时异常：在运行时发生的异常，常见的有下标越界等</li>
+</ul>
+</li>
+<li>错误Error:一般是指与虚拟机相关的问题</li>
+</ul>
+<h4 id="2、2-tr…catch-finally的返回值"><a href="#2、2-tr…catch-finally的返回值" class="headerlink" title="2、2 tr…catch..finally的返回值"></a>2、2 tr…catch..finally的返回值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(getNum());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">10</span>/<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述打印结果是3，如果try语句块中发生了异常，那么它将进行到catch块进行处理，catch块里是一个return语句，而存在finally，所以会先执行finally里面的语句，finally语句又是一个return语句，那么该方法将会被结束，catch的返回结果不能被真正返回.</p>
+<h4 id="2、3-throw-和-throws-的区别"><a href="#2、3-throw-和-throws-的区别" class="headerlink" title="2、3 throw 和 throws 的区别"></a>2、3 throw 和 throws 的区别</h4><p>throw:</p>
+<ul>
+<li>作用在方法体内，向外抛出异常实例<br>throws:</li>
+<li>声明在方法后面，由调用者处理，抛出的某种类型的异常，抛出的异常不一定会发生</li>
+</ul>
+<h4 id="2、4-final、finally、finalize-的区别？"><a href="#2、4-final、finally、finalize-的区别？" class="headerlink" title="2、4 final、finally、finalize 的区别？"></a>2、4 final、finally、finalize 的区别？</h4><p>final：</p>
+<ul>
+<li>用于声明属性，方法和类，分别表示属性不可变，方法不可覆盖，被其修饰的类不可继承</li>
+</ul>
+<p>finally：</p>
+<ul>
+<li>异常处理语句结构的一部分，表示总是执行</li>
+</ul>
+<p>finalize：</p>
+<ul>
+<li>Object 类的一个方法，在垃圾回收器执行的时候会调用被回收对象的此方法 </li>
+</ul>
+<h4 id="2、5-StringBuilder-、StringBuffer-的区别"><a href="#2、5-StringBuilder-、StringBuffer-的区别" class="headerlink" title="2、5 StringBuilder 、StringBuffer 的区别"></a>2、5 StringBuilder 、StringBuffer 的区别</h4><p>StringBuilder：非同步，效率高，多线程下不安全<br>StringBuffer：同步，效率低，线程安全</p>
+<p><strong>tips</strong>: String的“+”号操作编译为到StringBuilder的append,因此在建议在循环中不要直接使用“+”号进行连接字符串，这样会产生大量的StringBuilder对象。</p>
+<h4 id="Java基本数据类型及范围"><a href="#Java基本数据类型及范围" class="headerlink" title="Java基本数据类型及范围"></a>Java基本数据类型及范围</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>字节数</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1</td>
+<td>-128～127</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>-32768～32767</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>-2147483648～2147483647</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8</td>
+<td>-2^63～2^63-1</td>
+</tr>
+<tr>
+<td>flot</td>
+<td>4</td>
+<td>-3.403E38～3.403E38</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>-1.798E308～1.798E308</td>
+</tr>
+<tr>
+<td>char</td>
+<td>2</td>
+<td>表示一个字符</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>1</td>
+<td>true、false</td>
+</tr>
+</tbody></table>
+<h4 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h4><p>每个基本类型都有对象的包装类。</p>
+<p><strong>note</strong>: 如果两个包装类Integer进行比较，如果比较的数值在-128 到 127 之间， 那么不会 new 新的 Integer 对象， 而是直接引用常量池中的 Integer 对象。<br>而Integer和int类型进行比较，将会自动拆箱成两个int类型比较。</p>
+<h3 id="3、IO"><a href="#3、IO" class="headerlink" title="3、IO"></a>3、IO</h3><h4 id="3、1-流的分类："><a href="#3、1-流的分类：" class="headerlink" title="3、1 流的分类："></a>3、1 流的分类：</h4><p>从方向划分：输入流、输出流<br>从功能划分：节点流、处理流<br>从处理数据单位划分：字节流、字符流</p>
+<h4 id="3、2-流的基本操作"><a href="#3、2-流的基本操作" class="headerlink" title="3、2 流的基本操作"></a>3、2 流的基本操作</h4><h3 id="4、集合"><a href="#4、集合" class="headerlink" title="4、集合"></a>4、集合</h3><h4 id="4、1-ArrayList的实现"><a href="#4、1-ArrayList的实现" class="headerlink" title="4、1 ArrayList的实现"></a>4、1 ArrayList的实现</h4><p>底层是使用一个Object[]数组实现的。</p>
+<h5 id="一、构造方法分析"><a href="#一、构造方法分析" class="headerlink" title="一、构造方法分析"></a>一、构造方法分析</h5><p>1）空参构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 其中private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}   //一个空数组</p>
+</blockquote>
+<p>2）带参构造：指定初始值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (initialCapacity == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal Capacity: "</span>+</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3) 带参构造：参数为一个Collection子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    elementData = c.toArray();</span><br><span class="line">    <span class="keyword">if</span> ((size = elementData.length) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)</span></span><br><span class="line">        <span class="keyword">if</span> (elementData.getClass() != Object[]<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">            <span class="title">elementData</span> </span>= Arrays.copyOf(elementData, size, Object[]<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// replace with empty array.</span></span><br><span class="line">        <span class="keyword">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、add方法"><a href="#二、add方法" class="headerlink" title="二、add方法"></a>二、add方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里调用了<strong>ensureCapacityInternal</strong>方法，让我们继续看这个方法;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>计算分配的容量，DEFAULT_CAPACITY这个值为10，通过Math.max方法来取得它们之间的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCapacity</span><span class="params">(Object[] elementData, <span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> minCapacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">        grow(minCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>note</strong>:modCount的作用:用来记录集合的修改次数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法的主要作用是复制一个新的数组。首先初始新分配的容量newCapacity为原来的容量+原来容量的一般，当与minCapacity比价时，取最大的。然后再与MAX_ARRAY_SIZE进行比较，这个<em>MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8</em>  ，如果比这个值还要大，将进行下面的判断;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hugeCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (minCapacity &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> OutOfMemoryError();</span><br><span class="line">    <span class="keyword">return</span> (minCapacity &gt; MAX_ARRAY_SIZE) ?</span><br><span class="line">        Integer.MAX_VALUE :</span><br><span class="line">        MAX_ARRAY_SIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可见newCapacity的值，最多为Integer.MAX_VALUE</p>
+<h5 id="三、remove方法"><a href="#三、remove方法" class="headerlink" title="三、remove方法"></a>三、remove方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index,</span><br><span class="line">                         numMoved);</span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先检查下标是否越界，获取需要删除的值，用来做返回值，如果要删除的元素不是最后一个元素，那么数组中后面的元素整体往前移动一位。</p>
+<h5 id="四、clear方法"><a href="#四、clear方法" class="headerlink" title="四、clear方法"></a>四、clear方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     modCount++;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// clear to let GC do its work</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">         elementData[i] = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">     size = <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>该方法实现比较简单，仅仅是将所有元素置为空了。</p>
+<h4 id="4、2-并发集合"><a href="#4、2-并发集合" class="headerlink" title="4、2 并发集合"></a>4、2 并发集合</h4><p><strong>ConcurrentHashMap</strong> 分析：</p>
+<p>与普通的HashMap相比，多了个concurrencyLevel属性，内部使用到了锁分段技术，Segment 数组，默认情况下有16个段。</p>
+<p>put操作：该操作运行16个线程并发无阻塞操作集合镀锡，通过计算hash来确定Segment对象，借此对象的put方法来完成操作。</p>
+<p>get操作：类似于put操作，也是借用Segment对象的get方法来实现的。由于Segment对象对象的数组HashEntity的数量是用volatile声明的，因此总是能正确的获取到数组的大小。而HashEntity的属性也是final，所以该链表对象不会发生改变。</p>
+<h4 id="4、3-HashMap和HashTable"><a href="#4、3-HashMap和HashTable" class="headerlink" title="4、3 HashMap和HashTable"></a>4、3 HashMap和HashTable</h4><p>两者都实现了Map接口。<br>HashMap：</p>
+<ul>
+<li>非线程安全、高效、支持键值对都为null的</li>
+</ul>
+<p>HashTable:</p>
+<ul>
+<li>线程安全，不支持null值和null键</li>
+</ul>
+<h4 id="4、4-SortMap和TreeMap"><a href="#4、4-SortMap和TreeMap" class="headerlink" title="4、4 SortMap和TreeMap"></a>4、4 SortMap和TreeMap</h4><h4 id="4、5-ArrayList和LinkList"><a href="#4、5-ArrayList和LinkList" class="headerlink" title="4、5 ArrayList和LinkList"></a>4、5 ArrayList和LinkList</h4><p>ArrayList:</p>
+<ul>
+<li>访问速度快</li>
+<li>插入慢 </li>
+<li>开销不固定</li>
+<li>底层是数组实现</li>
+</ul>
+<p>LinkList:</p>
+<ul>
+<li>随机访问速度较慢</li>
+<li>插入快</li>
+<li>底层是双向循环列表</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-21T12:34:52.197Z" itemprop="dateUpdated">2020-03-21 20:34:52</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/" target="_blank" rel="external">wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wubc.me">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&title=《Java基础复习》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&title=《Java基础复习》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java基础复习》 — 无编程&url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/02/29/zookeeper%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B%E4%B9%8B%E4%B8%80%EF%BC%88Mac%E4%B8%8B%E5%AE%89%E8%A3%85zookeeper%EF%BC%89/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">zookeeper系列教程之一（Mac下安装zookeeper）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&title=《Java基础复习》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&title=《Java基础复习》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java基础复习》 — 无编程&url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/03/21/Java%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3ay07FMAwFQP7/py8SKxC0OrYDosl0VeU+munCsh2/vcXX6+P6fv955X796rp/1uILAwPjsYzkMVcrvU3fr9yvX74CDAyMAxhJkO09OF9PgvvlOgYGBkbx/j4QJ2EaAwMDYy0j2Vz1txgYGBi9IjZvxiWbq5a7y2pxDAyMBzImBwO/ff9H5xsYGBj/mPEqXpO0Lw+U5V1hYGBszci3dV9ArmrGVaNr1NXDwMB4OKPaLEsSx7w9lxTG0R4wMDC2ZvRGvtZ+pzfe8cP/Y2BgbMroDWn1Auj8cBQDA+NMRjXLmhScvTR0tAcMDIyNGJMf50cI1QQxfy4GBsZpjPkR46Qb1itrMTAwTmBMtpuniUlw7/0DBgbG3oykuTZv31dfVsIunGxgYGA8nFEtRAvjpINhjmoxjIGBsTdjMvg1eQXzMvXLNzEwMLZm5CVrNThWG3m9sI6BgXECY1469o4n8++XgywGBsZ2jOroQ3WEojcWNhq2wMDA2I5RTeyqnbx800kzrtBuw8DAOIYx2cpk2KJa7mJgYOzNmEyQ9VK9cmk6eX0YGBhbMOaDFMnQWP5pNTUcnSpgYGA8hJFfk3bb/Fe9JBIDA2MnRj7WsKpBVm3JLRgIw8DA2ILRS/LWlqYLhi0wMDCOZ/TSuF7YzQtdDAwMjISRb6LawisMmWFgYBzA6BWxyehYNRFMno6BgXEao3owkIS/PKWrFrGj40wMDIznMd4BoffMUhP4QokAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '无编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
