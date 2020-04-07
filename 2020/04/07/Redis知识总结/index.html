@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Redis知识总结 | 无编程 | wubc的个人博客，公众号：后端随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="Redis一、数据类型                                                                                             数据类型               1.1 字符串命令：  setnx命令：键必须不存在，才可以设置成功。可作为分布式锁的一种实现方案  命令实例： 12345127.0.0.1:6379&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis知识总结">
+<meta property="og:url" content="wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="无编程">
+<meta property="og:description" content="Redis一、数据类型                                                                                             数据类型               1.1 字符串命令：  setnx命令：键必须不存在，才可以设置成功。可作为分布式锁的一种实现方案  命令实例： 12345127.0.0.1:6379&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1176412373,2457025458&fm=26&gp=0.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/04/01/wIhoX9ZbqLQln3z.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/01/VR3YtajseSTpOX9.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/OrA1I8CVLDXBltY.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/01/KIto5RLaOpbJTEn.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/01/X84EPMnzSYh3c5q.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/wENJBh7mWU5GZqu.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/6MSofA2hqnGCNZb.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/6atIAc9LqDZRFOd.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/05/rMO1RiY2tU87laA.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/05/UVkiPLCsbJ9ofDQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/cFlaswjIQX1oG4L.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/3YWrpLs7ocXRFOl.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/phRo7TJqNLacb6Q.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/07/abUO3pxQo1dE8tc.png">
+<meta property="article:published_time" content="2020-04-07T15:15:45.000Z">
+<meta property="article:modified_time" content="2020-04-07T15:17:46.924Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1176412373,2457025458&fm=26&gp=0.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://dh.wubc.me" target="_blank" >
+                <i class="icon icon-lg icon-location-arrow"></i>
+                无编程导航网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Redis知识总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Redis知识总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-07T15:15:45.000Z" itemprop="datePublished" class="page-time">
+  2020-04-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、数据类型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">一、数据类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-字符串"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">1.1 字符串</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-hash"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">1.2 hash</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-列表"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">1.3 列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-集合"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">1.4 集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-5-有序集合"><span class="post-toc-number">1.1.4.1.</span> <span class="post-toc-text">1.5 有序集合</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-数据机构对应的内部编码"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">2 数据机构对应的内部编码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、Redis单线程模型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">二、Redis单线程模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、Redis其他功能"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">三、Redis其他功能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-bitmap"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">3.1 bitmap</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-HyperLogLog"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">3.2 HyperLogLog</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-3-发布订阅"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">3.3 发布订阅</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-4-GEO-地理信息定位"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">3.4 GEO 地理信息定位</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、Redis客户端"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">四、Redis客户端</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-1-java-客户端jedis"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">4.1 java 客户端jedis</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-Redis客户端API"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">4.2 Redis客户端API</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-3-缓冲区"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">4.3 缓冲区</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-4-常见异常及产生原因："><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">4.4 常见异常及产生原因：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、持久化"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">五、持久化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-1-RDB"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">5.1 RDB</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-2-AOF"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">5.2 AOF</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2-1-命令写入"><span class="post-toc-number">1.5.2.1.</span> <span class="post-toc-text">5.2.1 命令写入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2-2-文件同步"><span class="post-toc-number">1.5.2.2.</span> <span class="post-toc-text">5.2.2 文件同步</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2-3-文件重写"><span class="post-toc-number">1.5.2.3.</span> <span class="post-toc-text">5.2.3 文件重写</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、性能问题与解决"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">六、性能问题与解决</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七、复制"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">七、复制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#八、阻塞"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">八、阻塞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#九、内存"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">九、内存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-1-内存消耗"><span class="post-toc-number">1.9.1.</span> <span class="post-toc-text">9.1 内存消耗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-2-内存管理"><span class="post-toc-number">1.9.2.</span> <span class="post-toc-text">9.2 内存管理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-3-内存回收策略"><span class="post-toc-number">1.9.3.</span> <span class="post-toc-text">9.3 内存回收策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-4-内存优化"><span class="post-toc-number">1.9.4.</span> <span class="post-toc-text">9.4 内存优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#十、缓存设计"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">十、缓存设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-1-缓存更新策略"><span class="post-toc-number">1.10.1.</span> <span class="post-toc-text">10.1 缓存更新策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-2-缓存粒度控制"><span class="post-toc-number">1.10.2.</span> <span class="post-toc-text">10.2 缓存粒度控制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-3-缓存穿透"><span class="post-toc-number">1.10.3.</span> <span class="post-toc-text">10.3 缓存穿透</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-4-无底洞优化"><span class="post-toc-number">1.10.4.</span> <span class="post-toc-text">10.4 无底洞优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-5-雪崩优化"><span class="post-toc-number">1.10.5.</span> <span class="post-toc-text">10.5 雪崩优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-5-热点key重建优化"><span class="post-toc-number">1.10.6.</span> <span class="post-toc-text">10.5 热点key重建优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-number">1.10.7.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Redis知识总结"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Redis知识总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-07 23:15:45" datetime="2020-04-07T15:15:45.000Z"  itemprop="datePublished">2020-04-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="一、数据类型"><a href="#一、数据类型" class="headerlink" title="一、数据类型"></a>一、数据类型</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1176412373,2457025458&fm=26&gp=0.jpg" alt="数据类型" title="">
+                </div>
+                <div class="image-caption">数据类型</div>
+            </figure>
+
+<h3 id="1-1-字符串"><a href="#1-1-字符串" class="headerlink" title="1.1 字符串"></a>1.1 字符串</h3><p>命令：</p>
+<ul>
+<li>setnx命令：键必须不存在，才可以设置成功。可作为分布式锁的一种实现方案</li>
+</ul>
+<p>命令实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set hello world</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">&quot;world&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/01/wIhoX9ZbqLQln3z.png" alt="时间复杂度" title="">
+                </div>
+                <div class="image-caption">时间复杂度</div>
+            </figure>
+
+<p>内部编码有三种情况：</p>
+<ul>
+<li>int： 8个字节的长整型</li>
+<li>embstr: 小于39个字节的字符串</li>
+<li>raw: 大于39个字节的字符串</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>缓存</li>
+<li>计数</li>
+<li>共享session</li>
+<li>限速</li>
+</ul>
+<h3 id="1-2-hash"><a href="#1-2-hash" class="headerlink" title="1.2 hash"></a>1.2 hash</h3><p>命令：</p>
+<ul>
+<li>hset、hget</li>
+<li>hexists</li>
+<li>hkeys、hvals</li>
+<li>hincrby</li>
+</ul>
+<p>命令实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hmset dev name &quot;devtool&quot; desc &quot;haha&quot; likes good</span><br><span class="line">127.0.0.1:6379&gt; hgetall dev</span><br><span class="line">1) &quot;name&quot;</span><br><span class="line">2) &quot;devtool&quot;</span><br><span class="line">3) &quot;desc&quot;</span><br><span class="line">4) &quot;haha&quot;</span><br><span class="line">5) &quot;likes&quot;</span><br><span class="line">6) &quot;good&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/01/VR3YtajseSTpOX9.png" alt="hash时间复杂度" title="">
+                </div>
+                <div class="image-caption">hash时间复杂度</div>
+            </figure>
+
+<p>内部编码：</p>
+<ul>
+<li>ziplist 压缩列表，元素个数小于hash-max-ziplist-entries配置（默认512个）使用</li>
+<li>hashtable,当value大于64个字节或field个数大于512，编码有ziplist变为hashtable</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>保存对象属性</li>
+</ul>
+<h3 id="1-3-列表"><a href="#1-3-列表" class="headerlink" title="1.3 列表"></a>1.3 列表</h3><blockquote>
+<p>一个列表最多可以存储232 -1个元素，可重复</p>
+</blockquote>
+<p>命令：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/07/OrA1I8CVLDXBltY.png" alt="命令" title="">
+                </div>
+                <div class="image-caption">命令</div>
+            </figure>
+
+<p>命令实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush hello world</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; lpush hello nice</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; lpush hello with</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; lpush hello you</span><br><span class="line">(integer) 4</span><br><span class="line">127.0.0.1:6379&gt; lrange hello 0 10</span><br><span class="line">1) &quot;you&quot;</span><br><span class="line">2) &quot;with&quot;</span><br><span class="line">3) &quot;nice&quot;</span><br><span class="line">4) &quot;world&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>br命令不会阻塞导致后面的命令的不执行吗？</p>
+<p>时间复杂度：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/01/KIto5RLaOpbJTEn.png" alt="时间复杂度" title="">
+                </div>
+                <div class="image-caption">时间复杂度</div>
+            </figure>
+
+<p>内部编码：</p>
+<ul>
+<li>ziplist</li>
+<li>linkedlist</li>
+<li>quicklist</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>消息队列</li>
+<li>文章列表</li>
+<li>组成队列、栈等<ul>
+<li>lpush+lpop=Stack（栈）</li>
+<li>lpush+rpop=Queue（队列）</li>
+<li>lpsh+ltrim=Capped Collection（有限集合）</li>
+<li>lpush+brpop=Message Queue（消息队列）</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-4-集合"><a href="#1-4-集合" class="headerlink" title="1.4 集合"></a>1.4 集合</h3><p>常用命令：</p>
+<ul>
+<li>zadd</li>
+<li>srem</li>
+<li>scard</li>
+<li>spop</li>
+<li>smembers</li>
+<li>sinter 交集</li>
+<li>sunion 并集   </li>
+<li>sdiff 差集</li>
+</ul>
+<p>命令实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd fruit apple</span><br><span class="line">127.0.0.1:6379&gt; sadd fruit orange</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS fruit</span><br><span class="line">1) &quot;orange&quot;</span><br><span class="line">2) &quot;apple&quot;</span><br></pre></td></tr></table></figure>
+
+<p>内部编码</p>
+<ul>
+<li>intset（整数集合）：当集合中的元素都是整数且元素个数小于set-max-intset-entries配置（默认512个）时使用</li>
+<li>hahstable</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>标签</li>
+<li>随机数</li>
+<li>社交需求</li>
+</ul>
+<h4 id="1-5-有序集合"><a href="#1-5-有序集合" class="headerlink" title="1.5 有序集合"></a>1.5 有序集合</h4><p>命令实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd language 1 java</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd language 2 php</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd language 3 python</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd language 4 c</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE language 0 10 withscores</span><br><span class="line">1) &quot;java&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;php&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;python&quot;</span><br><span class="line">6) &quot;3&quot;</span><br><span class="line">7) &quot;c&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-数据机构对应的内部编码"><a href="#2-数据机构对应的内部编码" class="headerlink" title="2 数据机构对应的内部编码"></a>2 数据机构对应的内部编码</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/01/X84EPMnzSYh3c5q.png" alt="内部编码" title="">
+                </div>
+                <div class="image-caption">内部编码</div>
+            </figure>
+
+
+
+<h2 id="二、Redis单线程模型"><a href="#二、Redis单线程模型" class="headerlink" title="二、Redis单线程模型"></a>二、Redis单线程模型</h2><p>速度快的原因：</p>
+<ul>
+<li>内存访问</li>
+<li>NIO。使用epoll作为IO多路复用技术的实现</li>
+<li>单线程避免了线程切换和竞态产生的消耗</li>
+</ul>
+<h2 id="三、Redis其他功能"><a href="#三、Redis其他功能" class="headerlink" title="三、Redis其他功能"></a>三、Redis其他功能</h2><h3 id="3-1-bitmap"><a href="#3-1-bitmap" class="headerlink" title="3.1 bitmap"></a>3.1 bitmap</h3><p>命令： </p>
+<ul>
+<li>setbit key offset value 设置值</li>
+<li>gitbit key offset 获取值</li>
+<li>bitcount [start][end] 获取指定范围的个数</li>
+<li>bitop op destkey key[key….] op可以为and（交集）、or（并集）、not（非）、xor（异或）</li>
+</ul>
+<h3 id="3-2-HyperLogLog"><a href="#3-2-HyperLogLog" class="headerlink" title="3.2 HyperLogLog"></a>3.2 HyperLogLog</h3><h3 id="3-3-发布订阅"><a href="#3-3-发布订阅" class="headerlink" title="3.3 发布订阅"></a>3.3 发布订阅</h3><p>命令：</p>
+<ul>
+<li>publish channel message 发布消息</li>
+<li>subscribe channel [channel …] 订阅消息</li>
+<li>unsubscribe [channel [channel …]] 取消订阅</li>
+<li>pubsub channels [pattern] 查看活跃的频道</li>
+<li>pubsub numsub [channel …] 查询频道数</li>
+</ul>
+<h3 id="3-4-GEO-地理信息定位"><a href="#3-4-GEO-地理信息定位" class="headerlink" title="3.4 GEO 地理信息定位"></a>3.4 GEO 地理信息定位</h3><p>用来实现基于地理位置信息的应用,例如查找附近的人</p>
+<h2 id="四、Redis客户端"><a href="#四、Redis客户端" class="headerlink" title="四、Redis客户端"></a>四、Redis客户端</h2><p>RESP格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*&lt;参数数量</span><br><span class="line">&gt; CRLF</span><br><span class="line">$&lt;参数1的字节数量</span><br><span class="line">&gt; CRLF</span><br><span class="line">&lt;参数1</span><br><span class="line">&gt; CRLF</span><br><span class="line">...</span><br><span class="line">$&lt;参数N的字节数量</span><br><span class="line">&gt; CRLF</span><br><span class="line">&lt;参数N</span><br><span class="line">&gt; CRLF</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-java-客户端jedis"><a href="#4-1-java-客户端jedis" class="headerlink" title="4.1 java 客户端jedis"></a>4.1 java 客户端jedis</h3><p>主要要熟悉其api和jedis连接池的使用</p>
+<ul>
+<li>jedis 基本使用</li>
+<li>jedis 使用pipeline</li>
+<li>jedis 使用lua</li>
+<li>jedis poll Jedis对象个数是有限的，默认是8个</li>
+</ul>
+<h3 id="4-2-Redis客户端API"><a href="#4-2-Redis客户端API" class="headerlink" title="4.2 Redis客户端API"></a>4.2 Redis客户端API</h3><p>命令</p>
+<ul>
+<li>client list 列出与Redis服务端相连的所有客户端连接信息</li>
+<li>info clients 列出缓冲区信息<br>两者相比较<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/02/wENJBh7mWU5GZqu.png" alt="两种命令的比较" title="">
+                </div>
+                <div class="image-caption">两种命令的比较</div>
+            </figure>
+
+</li>
+</ul>
+<h3 id="4-3-缓冲区"><a href="#4-3-缓冲区" class="headerlink" title="4.3 缓冲区"></a>4.3 缓冲区</h3><p>输入缓冲区：</p>
+<ul>
+<li>qbuf：缓冲区总容量</li>
+<li>qbuf-free: 剩余容量</li>
+</ul>
+<p>输出缓冲区：</p>
+<ul>
+<li>obl： 固定缓冲区的长度</li>
+<li>oll： 动态缓冲区列表的长度</li>
+<li>omem： 使用的字节数</li>
+</ul>
+<p>输出缓冲区有三种客户端：普通客户端、发布订阅客户端、slave客户端</p>
+<h3 id="4-4-常见异常及产生原因："><a href="#4-4-常见异常及产生原因：" class="headerlink" title="4.4 常见异常及产生原因："></a>4.4 常见异常及产生原因：</h3><ul>
+<li>无法从连接池获取到连接</li>
+<li>客户端读写超时</li>
+<li>客户端连接超时</li>
+<li>客户端缓冲区异常</li>
+<li>Lua脚本正在执行</li>
+<li>Redis正在加载持久化文件</li>
+<li>Redis使用的内存超过maxmemory配置</li>
+<li>客户端连接数过大</li>
+</ul>
+<h2 id="五、持久化"><a href="#五、持久化" class="headerlink" title="五、持久化"></a>五、持久化</h2><p>两种持久化方式：<br>RDB、AOF</p>
+<h3 id="5-1-RDB"><a href="#5-1-RDB" class="headerlink" title="5.1 RDB"></a>5.1 RDB</h3><blockquote>
+<p><strong>RDB</strong>：<br>间隔时间生成数据集快照。适用于灾难恢复，只有一个文件，恢复速度快。父进程通过fork一个子线程来进行保存RDB的工作。由于生成RDB文件不是实时的，因此如果遇到故障，可能会丢失数据，使用fork创建子线程，频繁执行成本高，存在RDB文件格式兼容性问题。</p>
+</blockquote>
+<p>触发RDB持久化过程分为手动触发和自动触发。<br>手动触发命令：</p>
+<ul>
+<li>save</li>
+<li>bgsave</li>
+</ul>
+<p>自动触发：</p>
+<ul>
+<li>使用save相关配置</li>
+<li>从节点执行全量复制操作</li>
+</ul>
+<h3 id="5-2-AOF"><a href="#5-2-AOF" class="headerlink" title="5.2 AOF"></a>5.2 AOF</h3><blockquote>
+<p><strong>AOF</strong>：<br>通过文件追加命令的方式生成AOF文件，AOF是以Redis协议格式保存的，新的命令会被追加到文件末尾。AOF可以通过设置fsync策略来决定什么时候写，默认为每秒钟 fsync 一次。与RDB相比较，AOF速度较慢、文件体积较大。</p>
+</blockquote>
+<p>AOF工作流程</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/07/6MSofA2hqnGCNZb.png" alt="6MSofA2hqnGCNZb" title="">
+                </div>
+                <div class="image-caption">6MSofA2hqnGCNZb</div>
+            </figure>
+
+
+
+<h4 id="5-2-1-命令写入"><a href="#5-2-1-命令写入" class="headerlink" title="5.2.1 命令写入"></a>5.2.1 命令写入</h4><p>所有的写入命令会追加到aof_buf（缓冲区）中。<br>直接追加文本，写入到缓冲区有个好处是Redis可以提供多种缓冲区同步硬盘的策略，在性能和安全性方面做出平衡。</p>
+<h4 id="5-2-2-文件同步"><a href="#5-2-2-文件同步" class="headerlink" title="5.2.2 文件同步"></a>5.2.2 文件同步</h4><p>AOF缓冲区根据对应的策略向硬盘做同步操作。<br>文件同步策略：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/04/6atIAc9LqDZRFOd.png" alt="6atIAc9LqDZRFOd" title="">
+                </div>
+                <div class="image-caption">6atIAc9LqDZRFOd</div>
+            </figure>
+
+<ul>
+<li>write操作会触发延迟写机制,同步硬盘操作依赖于系统调度机制.</li>
+<li>fsync针对单个文件操作（比如AOF文件），做强制硬盘同步，fsync将阻塞直到写入硬盘完成后返回，保证了数据持久化.</li>
+</ul>
+<h4 id="5-2-3-文件重写"><a href="#5-2-3-文件重写" class="headerlink" title="5.2.3 文件重写"></a>5.2.3 文件重写</h4><p>随着AOF文件越来越大，需要定期对AOF文件进行重写，达到压缩的目的。<br>重写文件可以使其变小，主要是因为：超时、无效命令不再写入、多条命令可以合并成一条。</p>
+<p>AOP文件的重写机制分为手动和主动触发两种方式：</p>
+<ul>
+<li>手动触发 ：直接调用bgrewriteaof命令。</li>
+<li>自动触发 ：根据auto-aof-rewrite-min-size和auto-aof-rewrite-percentage参数确定自动触发时机<ul>
+<li>auto-aof-rewrite-min-size：表示运行AOF重写时文件最小体积，默认为64MB。</li>
+</ul>
+</li>
+</ul>
+<p>重写过程：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/05/rMO1RiY2tU87laA.png" alt="rMO1RiY2tU87laA" title="">
+                </div>
+                <div class="image-caption">rMO1RiY2tU87laA</div>
+            </figure>
+<p>1、执行AOF重写请求<br>2、fork子线程<br>3、响应其他命令，并且将期间的命令写入到AOF缓冲区<br>4、写入到新AOF文件<br>5、子线程发送信号给父进程<br>6、将AOF重写缓冲区写入到新的AOF文件<br>7、替换旧AOF文件，完成重写</p>
+<p>4）当Redis服务器重启时，可以加载AOF文件进行数据恢复。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/05/UVkiPLCsbJ9ofDQ.png" alt="UVkiPLCsbJ9ofDQ" title="">
+                </div>
+                <div class="image-caption">UVkiPLCsbJ9ofDQ</div>
+            </figure>
+
+
+
+<h2 id="六、性能问题与解决"><a href="#六、性能问题与解决" class="headerlink" title="六、性能问题与解决"></a>六、性能问题与解决</h2><ul>
+<li>master不要做持久化工作，例如存快照和AOF日志文件</li>
+<li>Master 调用 BGREWRITEAOF 重写 AOF 文件，占大量的 CPU 和内存资源，导致服务 load 过高，出现短暂服务暂停现象</li>
+<li>为了主从复制的速度和连接的稳定性，Slave 和 Master 最好在同一个局域网内</li>
+<li>如果部署多个Redis实例，尽量保证同一时刻只有一个子进程在工作</li>
+<li>避免在大量写入时做子进程重写操作，这样将导致父进程维护大量页副本，造成内存消耗</li>
+<li>不要和其他CPU密集型服务部署在一起，造成CPU过度竞争</li>
+<li>不要和其他高硬盘负载的服务部署在一起</li>
+<li>开启配置no-appendfsync-on-rewrite，表示在AOF重写期间不做fsync操作。</li>
+</ul>
+<h2 id="七、复制"><a href="#七、复制" class="headerlink" title="七、复制"></a>七、复制</h2><blockquote>
+<p>在分布式系统中为了解决单点问题，通常会把数据复制多个副本部署到其他机器，满足故障恢复和负载均衡等需求</p>
+</blockquote>
+<p>复制的数据流是单向的，只能由主节点复制到从节点。</p>
+<p>复制过程：</p>
+<ul>
+<li>保存主节点（master）信息</li>
+<li>主从建立socket连接</li>
+<li>发送ping命令</li>
+<li>权限验证</li>
+<li>同步数据集： 同步过程分为：全量复制和部分复制</li>
+<li>命令持续复制</li>
+</ul>
+<h2 id="八、阻塞"><a href="#八、阻塞" class="headerlink" title="八、阻塞"></a>八、阻塞</h2><p>内在原因：</p>
+<ul>
+<li>API或数据结构使用不合理</li>
+<li>CPU饱和</li>
+<li>持久化阻塞</li>
+</ul>
+<p>外在原因：</p>
+<ul>
+<li>CPU竞争： 进程竞争、绑定CPU（对于开启了持久化或参与复制的主节点不建议绑定CPU）</li>
+<li>内存交换</li>
+<li>网络问题</li>
+</ul>
+<h2 id="九、内存"><a href="#九、内存" class="headerlink" title="九、内存"></a>九、内存</h2><h3 id="9-1-内存消耗"><a href="#9-1-内存消耗" class="headerlink" title="9.1 内存消耗"></a>9.1 内存消耗</h3><p>内存消耗可以分为进程自身消耗和子进程消耗<br>info memory命令获取内存相关指标。</p>
+<p>Redis进程内消耗主要包括：自身内存+对象内存+缓冲内存+内存碎片</p>
+<p>子进程内存消耗</p>
+<blockquote>
+<p>子进程内存消耗主要指执行AOF/RDB重写时Redis创建的子进程内存消耗</p>
+</blockquote>
+<h3 id="9-2-内存管理"><a href="#9-2-内存管理" class="headerlink" title="9.2 内存管理"></a>9.2 内存管理</h3><p>使用maxmemory参数限制最大可用内存，通过config set maxmemory进行动态修改内存上限</p>
+<h3 id="9-3-内存回收策略"><a href="#9-3-内存回收策略" class="headerlink" title="9.3 内存回收策略"></a>9.3 内存回收策略</h3><ul>
+<li>删除过期键对象<ul>
+<li>惰性删除</li>
+<li>定时任务删除</li>
+</ul>
+</li>
+<li>内存溢出控制策略<ul>
+<li>noeviction：默认策略，不会删除任何数据，拒绝所有写入操作并返回客户端错误信息。</li>
+<li>volatile-lru：根据LRU算法删除设置了超时属性的键</li>
+<li>allkeys-lru：根据LRU算法删除键，不管数据有没有设置超时属性</li>
+<li>allkeys-random：随机删除所有键</li>
+<li>volatile-random：随机删除过期键</li>
+<li>volatile-random：随机删除过期键</li>
+<li>volatile-ttl：根据键值对象的ttl属性，删除<em>最近将要过期数据</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="9-4-内存优化"><a href="#9-4-内存优化" class="headerlink" title="9.4 内存优化"></a>9.4 内存优化</h3><p>内存优化几个点：</p>
+<ul>
+<li>缩减键值对象：key尽量使用简写，value可以进行压缩序列化</li>
+<li>尽量使用整数对象以节省内存。注意：使用了LRU淘汰策略会使对象池无效，原因在于LRU字段被共享了，无法获取最后的访问时间。</li>
+<li>尽量减少字符串频繁修改操作如append、setrange，改为直接使用set修改字符串，降低预分配带来的内存浪费和内存碎片化。</li>
+<li>不一定把每份数据作为字符串整体存储，可以使用其他数据结构</li>
+<li>编码优化：例如使用ziplist编码类型可以大幅降低内存占用、整数集合时尽量使用intset编码且使用intset编码的集合时，尽量保持整数范围一致</li>
+<li>减少键的个数</li>
+</ul>
+<h2 id="十、缓存设计"><a href="#十、缓存设计" class="headerlink" title="十、缓存设计"></a>十、缓存设计</h2><h3 id="10-1-缓存更新策略"><a href="#10-1-缓存更新策略" class="headerlink" title="10.1 缓存更新策略"></a>10.1 缓存更新策略</h3><ul>
+<li>LRU/LFU/FIFO算法剔除：</li>
+<li>超时剔除：</li>
+<li>主动更新</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/07/cFlaswjIQX1oG4L.png" alt="cFlaswjIQX1oG4L" title="">
+                </div>
+                <div class="image-caption">cFlaswjIQX1oG4L</div>
+            </figure>
+
+<h3 id="10-2-缓存粒度控制"><a href="#10-2-缓存粒度控制" class="headerlink" title="10.2 缓存粒度控制"></a>10.2 缓存粒度控制</h3><p>缓存全部属性、只缓存部分重要属性</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/07/3YWrpLs7ocXRFOl.png" alt="缓存粒度对比" title="">
+                </div>
+                <div class="image-caption">缓存粒度对比</div>
+            </figure>
+
+<h3 id="10-3-缓存穿透"><a href="#10-3-缓存穿透" class="headerlink" title="10.3 缓存穿透"></a>10.3 缓存穿透</h3><blockquote>
+<p>指查询一个根本不存在的数据，缓存层和存储层都不会命中</p>
+</blockquote>
+<p>由于缓存层不存在的数据，导致每次请求都要到存储层去查询，增加了后端存储的负载。</p>
+<p><strong>优化方法</strong><br>1、缓存空对象：存储不命中后，将空对象作为值保存在缓存层中，可以设置一个较短的过期时间来防止大量的键占用空间。<br>2、布隆过滤器拦截：</p>
+<h3 id="10-4-无底洞优化"><a href="#10-4-无底洞优化" class="headerlink" title="10.4 无底洞优化"></a>10.4 无底洞优化</h3><blockquote>
+<p>无底洞:投入越多不一定产出越多，即节点越多效率更加慢的现象</p>
+</blockquote>
+<p>主要是减少网络操作次数：</p>
+<ul>
+<li>串行命令，逐次执行n个get命令</li>
+<li>串行IO：将属于同一个节点的key进行归档</li>
+<li>并行IO：将串行IO改为多线程执行</li>
+<li>hash_tag实现：hash_tag可以将多个key强制分配到一个节点上</li>
+</ul>
+<p>几种优化方案对比：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/07/phRo7TJqNLacb6Q.png" alt="phRo7TJqNLacb6Q" title="">
+                </div>
+                <div class="image-caption">phRo7TJqNLacb6Q</div>
+            </figure>
+
+<h3 id="10-5-雪崩优化"><a href="#10-5-雪崩优化" class="headerlink" title="10.5 雪崩优化"></a>10.5 雪崩优化</h3><blockquote>
+<p>雪崩: 如果缓存层由于某些原因不能提供服务，于是所有的请求都会达到存储层，存储层的调用量会暴增，造成存储层也会级联宕机的情况。</p>
+</blockquote>
+<p>优化：</p>
+<ul>
+<li>保证缓存层服务高可用性</li>
+<li>依赖隔离组件为后端限流并降级：例如可以使用hystrix</li>
+</ul>
+<h3 id="10-5-热点key重建优化"><a href="#10-5-热点key重建优化" class="headerlink" title="10.5 热点key重建优化"></a>10.5 热点key重建优化</h3><p>主要是要减少重建缓存的次数。</p>
+<ul>
+<li>互斥锁</li>
+<li>永不过期<ul>
+<li>从缓存层面来看，确实没有设置过期时间</li>
+<li>从功能层面来看，为每个value设置一个逻辑过期时间，过期是利用单线程去构建缓存</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/04/07/abUO3pxQo1dE8tc.png" alt="abUO3pxQo1dE8tc"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>《Redis开发与运维》</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-07T15:17:46.924Z" itemprop="dateUpdated">2020-04-07 23:17:46</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_blank" rel="external">wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wubc.me">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《Redis知识总结》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《Redis知识总结》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis知识总结》 — 无编程&url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/03/22/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">java设计模式总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《Redis知识总结》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《Redis知识总结》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis知识总结》 — 无编程&url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/04/07/Redis%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACO0lEQVR42u3a0Y6DMAxE0f7/T1OpT5UQYWYcqsa5PKGFlhwqee3Yr5d8HJ/jfP79l6t7zufn+6+eNfmAAQPGsoxjeOgLzT475ilrgwEDxj4MJcgqS9EDtxLQjaAMAwYMGMMl6gF3fA8MGDBgzGKMS9As4XNfHwwYMPZk6AFxVhHrFs/TanEYMGAsyKg0Bp4+/1F/AwYMGH/MOMxDSdfGCV+WUN6sCgYMGK0ZSqlZKVP1UlkPskaGCwMGjBaMSqh1Ryj0sTB7gAwGDBitGdkwhB4us/Eyd5MOBgwYvRnZ6EO2rKw5Kl2FAQPGNgx3/EtPB8PaWm9hwoABozUjC5r60pURjcoajN8EBgwYizPqAxZ6CpiF+OzfAwwYMLoy3DLV3e6vzK/ZQRYGDBiNGNlgRH3TX3kFxkYeDBgwtmG4TcRstKIyonFTi8OAAaMdwx26coOmHsqz8hgGDBj7MLLApyArjUyleQkDBowdGNkj3ealm1DqZXO6qQgDBoz1GFnBWWlwPjh8BgMGjHYMd5xL2r0TwqXybUbjAQYMGNsw3KKxElizxuflVRgwYLRmVAa2shBcL6GNuhwGDBgtGId5uOHVDaZuQ9TOQGHAgLEgw20A1IOyniy6aSIMGDB6M7IgOyu8ujmsNGwBAwaMpoxKEHSTy6yIvfk2GDBgwBCGuvTJjkrKePkpGDBgwBAGI/SRL/2q8eJgwICxASMb2MoGxdztPOX1wYABozfDbQzoD9bHyyYUsTBgwOjJeAOxl/UbPqMm0AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '无编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
