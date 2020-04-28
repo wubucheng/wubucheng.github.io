@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>zookeeper知识总结 | 无编程 | wubc的个人博客，公众号：后端随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="zookeeper">
+    <meta name="description" content="zookeeper概念、作用 ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、命名服务、分布式同步、组服务等。  应用场景：  数据发布&#x2F;订阅：当数据发生变化则发送watch消息给客户端，让客户端重新读取这个节点的数据。可以实现配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zookeeper知识总结">
+<meta property="og:url" content="wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="无编程">
+<meta property="og:description" content="zookeeper概念、作用 ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、命名服务、分布式同步、组服务等。  应用场景：  数据发布&#x2F;订阅：当数据发生变化则发送watch消息给客户端，让客户端重新读取这个节点的数据。可以实现配">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/04/26/evl2JKy5FQ4T3mi.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/19/aWcFAhqoIwKT9Ym.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/19/7uknPxmVTDvBdib.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/19/6m9lp3vKbZVQJUd.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/19/xiKI1YPLUzvp8hr.png">
+<meta property="article:published_time" content="2020-04-28T13:30:46.000Z">
+<meta property="article:modified_time" content="2020-04-28T13:31:56.226Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/26/evl2JKy5FQ4T3mi.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://dh.wubc.me" target="_blank" >
+                <i class="icon icon-lg icon-location-arrow"></i>
+                无编程导航网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">zookeeper知识总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">zookeeper知识总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-28T13:30:46.000Z" itemprop="datePublished" class="page-time">
+  2020-04-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#zookeeper"><span class="post-toc-number">1.</span> <span class="post-toc-text">zookeeper</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概念、作用"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">概念、作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置文件解析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">配置文件解析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#节点"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点类型"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">节点类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#节点信息"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">节点信息</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#角色"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">角色</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工作状态"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">工作状态</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据同步"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">数据同步</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注册流程："><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">注册流程：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步分类"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">同步分类</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件系统"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">文件系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#节点类型-1"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">节点类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Watcher-机制"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">Watcher 机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#watcher特性"><span class="post-toc-number">1.8.1.</span> <span class="post-toc-text">watcher特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#watcher事件类型"><span class="post-toc-number">1.8.2.</span> <span class="post-toc-text">watcher事件类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#客户端注册watcher"><span class="post-toc-number">1.8.3.</span> <span class="post-toc-text">客户端注册watcher</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#服务端处理watcher"><span class="post-toc-number">1.8.4.</span> <span class="post-toc-text">服务端处理watcher</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#客户端回调watcher"><span class="post-toc-number">1.8.5.</span> <span class="post-toc-text">客户端回调watcher</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件监听demo"><span class="post-toc-number">1.8.6.</span> <span class="post-toc-text">事件监听demo</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ACL"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">ACL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ZAB协议"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">ZAB协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2PC"><span class="post-toc-number">1.10.1.</span> <span class="post-toc-text">2PC</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#zookeeper的2PC（二阶提交）"><span class="post-toc-number">1.10.2.</span> <span class="post-toc-text">zookeeper的2PC（二阶提交）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#崩溃恢复"><span class="post-toc-number">1.10.3.</span> <span class="post-toc-text">崩溃恢复</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#消息广播：改进版本的2pc"><span class="post-toc-number">1.10.4.</span> <span class="post-toc-text">消息广播：改进版本的2pc</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选举"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">选举</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#zookeeper实现分布式锁"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">zookeeper实现分布式锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#zookeeper工作流程"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">zookeeper工作流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户端"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">客户端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据同步-1"><span class="post-toc-number">1.15.</span> <span class="post-toc-text">数据同步</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DIFF：直接差异化同步"><span class="post-toc-number">1.15.1.</span> <span class="post-toc-text">DIFF：直接差异化同步</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TRUNC-DIFF-先回滚再差异化同步"><span class="post-toc-number">1.15.2.</span> <span class="post-toc-text">TRUNC+DIFF:先回滚再差异化同步</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#TRUNC：仅回滚同步"><span class="post-toc-number">1.15.3.</span> <span class="post-toc-text">TRUNC：仅回滚同步</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SNAP-全量同步"><span class="post-toc-number">1.15.4.</span> <span class="post-toc-text">SNAP:全量同步</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-zookeeper知识总结"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">zookeeper知识总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-28 21:30:46" datetime="2020-04-28T13:30:46.000Z"  itemprop="datePublished">2020-04-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h1><h2 id="概念、作用"><a href="#概念、作用" class="headerlink" title="概念、作用"></a>概念、作用</h2><blockquote>
+<p>ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、命名服务、分布式同步、组服务等。</p>
+</blockquote>
+<p>应用场景：</p>
+<ul>
+<li>数据发布/订阅：当数据发生变化则发送watch消息给客户端，让客户端重新读取这个节点的数据。可以实现配置文件动态更新。</li>
+<li>负载均衡</li>
+<li>命名服务：类似于注册中心</li>
+<li>分布式协调/通知：某个节点改变了，将这个变化发送给注册了这个节点的watcher的所有客户端</li>
+<li>集群管理：能感知新接节点加入或节点的删除</li>
+<li>分布式锁：将znode作废一把锁，能够创建成功的客户端则获取这把锁，删除则释放锁。<ul>
+<li>保持独占</li>
+<li>控制时序</li>
+</ul>
+</li>
+<li>分布式队列<ul>
+<li>同步队列：利用临时节点，监听节点数目是否已达到要求</li>
+<li>队列按照 FIFO 方式进行入队和出队操作：创建持久有序节点，znode 用于消息存储，出队则删除序列号最小的节点。</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h2><ul>
+<li>dataDir:快照文件存储目录</li>
+<li>dataLogDir:日志存储目录</li>
+<li>tickTime:zookeeper中最小的时间单元长度</li>
+<li>initLimit:默认为10，表示的tickTime值的倍数，用于配置数据同步的时间</li>
+<li>syncLimit:默认值为5，表示tickTime的倍数，用于配置leader服务器和follower服务器之间进行心跳检车的最大延时时间。</li>
+<li>server.id=host:port1:port2 ：配置集群机器列表。第一个端口用于leader和follower之间的通信和数据同步，第二个端口用进行选举过程的投票通信</li>
+</ul>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><blockquote>
+<p>DataNode 数据节点，底层是ConcurrentHashMap。</p>
+</blockquote>
+<h3 id="节点类型"><a href="#节点类型" class="headerlink" title="节点类型"></a>节点类型</h3><ul>
+<li>持久节点</li>
+<li>临时节点</li>
+<li>持久有序节点</li>
+<li>临时有序节点</li>
+</ul>
+<h3 id="节点信息"><a href="#节点信息" class="headerlink" title="节点信息"></a>节点信息</h3><table>
+<thead>
+<tr>
+<th>状态属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>czxid</td>
+<td>节点被创建时的事务ID</td>
+</tr>
+<tr>
+<td>mzxid</td>
+<td>节点最后一次被修改时的事务ID</td>
+</tr>
+<tr>
+<td>ctime</td>
+<td>节点被创建时的时间</td>
+</tr>
+<tr>
+<td>mtime</td>
+<td>节点最后一次被修改时的时间</td>
+</tr>
+<tr>
+<td>version</td>
+<td>节点的版本号：变更次数</td>
+</tr>
+<tr>
+<td>cversion</td>
+<td>子节点的版本号</td>
+</tr>
+<tr>
+<td>aversion</td>
+<td>ACL版本号</td>
+</tr>
+<tr>
+<td>ephemeralOwner</td>
+<td>临时节点的会话sessionID</td>
+</tr>
+<tr>
+<td>dataLength</td>
+<td>数据内容的长度</td>
+</tr>
+<tr>
+<td>numChildern</td>
+<td>子节点的个数</td>
+</tr>
+<tr>
+<td>pzxid</td>
+<td>子节点列表最后一次被修改时的事务ID（当子节点列表更改才会修改这个值）</td>
+</tr>
+</tbody></table>
+<h2 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h2><ul>
+<li>leader</li>
+<li>foollower</li>
+<li>observer</li>
+</ul>
+<h3 id="工作状态"><a href="#工作状态" class="headerlink" title="工作状态"></a>工作状态</h3><ul>
+<li>looking：没有leader，需要进行选举</li>
+<li>following：表示当前server的角色是follower</li>
+<li>leading： 表示当前server的角色是leader</li>
+<li>observing： 表示当前server的角色是observer</li>
+</ul>
+<h2 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h2><h3 id="注册流程："><a href="#注册流程：" class="headerlink" title="注册流程："></a>注册流程：</h3><ul>
+<li>1、follower和observer向leader注册</li>
+<li>2、数据同步</li>
+<li>3、同步确认</li>
+</ul>
+<h3 id="同步分类"><a href="#同步分类" class="headerlink" title="同步分类"></a>同步分类</h3><ul>
+<li>直接差异化同步（DIFF同步）：场景：peerLastZxid 介于 minCommittedLog 和 maxCommittedLog</li>
+<li>先回滚再差异化公布： 场景：旧的的leader存在一条事务不在新的leader服务器上</li>
+<li>仅回滚同步（TRUNC同步）：场景：peerLastZxid 大于 maxCommittedLog</li>
+<li>全量同步（SNAP同步）：</li>
+</ul>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><blockquote>
+<p>提供一个多层级的节点命名空间（节点称为 znode），每个节点的存放数据上限为1M。</p>
+</blockquote>
+<h2 id="节点类型-1"><a href="#节点类型-1" class="headerlink" title="节点类型"></a>节点类型</h2><ul>
+<li>持久节点</li>
+<li>临时节点：不能存在子节点</li>
+<li>持久有序节点</li>
+<li>临时有序节点</li>
+</ul>
+<p>有序节点节点名称可以同名？</p>
+<h2 id="Watcher-机制"><a href="#Watcher-机制" class="headerlink" title="Watcher 机制"></a>Watcher 机制</h2><h3 id="watcher特性"><a href="#watcher特性" class="headerlink" title="watcher特性"></a>watcher特性</h3><ul>
+<li><p>一次性：watcher被触发了，就会从存储中删除</p>
+</li>
+<li><p>串行执行：客户端watcher回调是一个串行同步的过程</p>
+</li>
+<li><p>轻量</p>
+</li>
+<li><p>异步：watcher通知事件从server发送到client是异步的</p>
+</li>
+<li><p>注册watcher</p>
+<ul>
+<li>getData</li>
+<li>exists</li>
+<li>getChildren</li>
+</ul>
+</li>
+<li><p>触发watcher</p>
+<ul>
+<li>create</li>
+<li>delete</li>
+<li>setData</li>
+</ul>
+</li>
+</ul>
+<h3 id="watcher事件类型"><a href="#watcher事件类型" class="headerlink" title="watcher事件类型"></a>watcher事件类型</h3><ul>
+<li>NodeCreated</li>
+<li>NodeDeleted</li>
+<li>NodeDataChanged</li>
+<li>NodeChildrenChanged</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>event For “/path”</th>
+<th>event For “/path/child”</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>create(“/path”)</td>
+<td>NodeCreated</td>
+<td>无</td>
+</tr>
+<tr>
+<td>delete(“/path”)</td>
+<td>NodeDeleted</td>
+<td>无</td>
+</tr>
+<tr>
+<td>setData(“/path”)</td>
+<td>NodeDataChanged</td>
+<td>无</td>
+</tr>
+<tr>
+<td>create(“/path/child”)</td>
+<td>NodeChildrenChanged</td>
+<td>NodeCreated</td>
+</tr>
+<tr>
+<td>delete(“/path/child”)</td>
+<td>NodeChildrenChanged</td>
+<td>NodeDeleted</td>
+</tr>
+<tr>
+<td>setData(“/path/child”)<span class="Apple-tab-span" style="white-space:pre"></span></td>
+<td>无</td>
+<td>NodeDataChanged</td>
+</tr>
+</tbody></table>
+<h3 id="客户端注册watcher"><a href="#客户端注册watcher" class="headerlink" title="客户端注册watcher"></a>客户端注册watcher</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/26/evl2JKy5FQ4T3mi.png" alt="客户端注册watcher流程图" title="">
+                </div>
+                <div class="image-caption">客户端注册watcher流程图</div>
+            </figure>
+
+<h3 id="服务端处理watcher"><a href="#服务端处理watcher" class="headerlink" title="服务端处理watcher"></a>服务端处理watcher</h3><ul>
+<li>服务端接收 Watcher 并存储</li>
+<li>Watcher 触发<ul>
+<li>封装 WatchedEvent</li>
+<li>查询 Watcher<ul>
+<li>没有找到，则客户端没有注册watcher</li>
+<li>找到，则中watchtable和watcher2paths中删除对应watcher</li>
+</ul>
+</li>
+<li>调用 process 方法来触发 Watcher</li>
+</ul>
+</li>
+</ul>
+<h3 id="客户端回调watcher"><a href="#客户端回调watcher" class="headerlink" title="客户端回调watcher"></a>客户端回调watcher</h3><ul>
+<li>反序列化成watcherEvent对象</li>
+<li>取出相关的全部watcher，添加到等待队列，等待EventThread的消费</li>
+<li>EventThread线程每次从waiting Events队列中取出一个watcher进行串行同步处理</li>
+<li>回调process方法完成回调。</li>
+</ul>
+<h3 id="事件监听demo"><a href="#事件监听demo" class="headerlink" title="事件监听demo"></a>事件监听demo</h3><ul>
+<li>使用zookeeper原生方法监听watcher事件：<a href="https://github.com/wubucheng/zookeeper-learn/blob/master/src/main/java/me/wubc/zookeeperlearn/origin/WatcherDemo.java" target="_blank" rel="noopener">zookeeer监听watcher事件</a></li>
+<li>使用curator监听watcher事件：<a href="https://github.com/wubucheng/zookeeper-learn/blob/master/src/main/java/me/wubc/zookeeperlearn/curator/CuratorWatcherDemo.java" target="_blank" rel="noopener">curator监听watcher事件</a></li>
+</ul>
+<h2 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h2><p><strong>权限模式</strong></p>
+<ul>
+<li>IP：通过IP地址细粒度进行权限控制</li>
+<li>Digest: 通过权限标识来进行权限匹配</li>
+<li>World:一种特殊的 digest 模式，只有一个权限标识，“world:anyone“，最开放的</li>
+<li>Super: 超级用户</li>
+</ul>
+<p><strong>授权对象</strong></p>
+<p><strong>权限permission</strong></p>
+<ul>
+<li>CREATE</li>
+<li>DELETE</li>
+<li>READ</li>
+<li>WRITE</li>
+<li>ADMIN</li>
+</ul>
+<h2 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h2><blockquote>
+<p>一种支持崩溃恢复的原子广播协议</p>
+</blockquote>
+<h3 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h3><p>提到ZAB协议，我们需要先了解一个2PC（二阶提交）的原理。示例图如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/19/aWcFAhqoIwKT9Ym.png" alt="事务提交" title="">
+                </div>
+                <div class="image-caption">事务提交</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/19/7uknPxmVTDvBdib.png" alt="中断提交" title="">
+                </div>
+                <div class="image-caption">中断提交</div>
+            </figure>
+
+
+
+<h3 id="zookeeper的2PC（二阶提交）"><a href="#zookeeper的2PC（二阶提交）" class="headerlink" title="zookeeper的2PC（二阶提交）"></a>zookeeper的2PC（二阶提交）</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/19/6m9lp3vKbZVQJUd.png" alt="zookeeper的2PC" title="">
+                </div>
+                <div class="image-caption">zookeeper的2PC</div>
+            </figure>
+
+<h3 id="崩溃恢复"><a href="#崩溃恢复" class="headerlink" title="崩溃恢复"></a>崩溃恢复</h3><p>奔溃恢复需要保证两种特性:</p>
+<ul>
+<li>已提交的事务不被丢弃：确保那些已经在 Leader 提交的事务最终会被所有服务器提交</li>
+<li>已丢弃的事务不再出现：丢弃那些只在 Leader 提出/复制，但没有提交的事务</li>
+</ul>
+<p>选举出zxid最大的那个服务器作为leader，这样保证了已提交事务的不会被丢失、被丢弃的消息不会再出现。</p>
+<p>包含了上一个epoch周期未提交的事务proposal的服务器再次启动时，不能成为leader，因为集群中的机器包含了更高epoch的事务proposal。</p>
+<h3 id="消息广播：改进版本的2pc"><a href="#消息广播：改进版本的2pc" class="headerlink" title="消息广播：改进版本的2pc"></a>消息广播：改进版本的2pc</h3><blockquote>
+<p>与传统2PC相比较，去除了中断逻辑。消息广播协议是居于具有FIFO的TCP协议来进行网络通信的，确保消息接收和发送的顺序性。</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/04/19/xiKI1YPLUzvp8hr.png" alt="消息广播示例图" title="">
+                </div>
+                <div class="image-caption">消息广播示例图</div>
+            </figure>
+
+<p><strong>ZXID</strong></p>
+<blockquote>
+<p>消息广播使用到64位的ZXID来作为事务ID，该ID是全局唯一的、递增的。有高32位epochID和低32位消息计数器组成。每当有新的leader被选举出来时，epochID会进行加一，消息计算器则会重写从0开始计算。</p>
+</blockquote>
+<h2 id="选举"><a href="#选举" class="headerlink" title="选举"></a>选举</h2><p>myid越大，在leader选举中权重越大。</p>
+<p>投票过程：</p>
+<ul>
+<li>1、先判断epoch，大的为leader，相等则进入第二步</li>
+<li>2、判断zxid: zxid比较大的服务器优先作为leader，相等则判断myid</li>
+<li>3、判断myid:如果是首次启动，zxid都为0，那么需要判断myid，myid最大的服务器作为leader</li>
+<li>统计投票:如果半数服务器接收到相同的投票信息，那么便认为选举出了leader了</li>
+</ul>
+<p><em>选举算法可以看《Zookeeper选举算法分析: 以FastLeader为例》这一篇</em></p>
+<p>选举需要保证同在logicallock?</p>
+<h2 id="zookeeper实现分布式锁"><a href="#zookeeper实现分布式锁" class="headerlink" title="zookeeper实现分布式锁"></a>zookeeper实现分布式锁</h2><blockquote>
+<p>多个客户端创建临时有序节点，节点集合中编号最小的节点的持有者，表示获取到锁。<br> 锁用完后，删除节点，表示释放锁。而剩下节点最小的也获取到锁，以此列推。子节点集合中各个节点只监听编号比自己小的节点。</p>
+</blockquote>
+<p> <a href="https://github.com/wubucheng/zookeeper-learn/blob/master/src/main/java/me/wubc/zookeeperlearn/distribute/DistributedLockDemo.java" target="_blank" rel="noopener">zookeeper实现分布式锁例子</a></p>
+<p>注：原生的方式比较麻烦，可以使用curator提供的API实现分布式锁</p>
+<h2 id="zookeeper工作流程"><a href="#zookeeper工作流程" class="headerlink" title="zookeeper工作流程"></a>zookeeper工作流程</h2><ul>
+<li>发现：选举出leader</li>
+<li>同步：leader和flower进行数据同步</li>
+<li>广播：结束事务请求。广播消息</li>
+</ul>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ul>
+<li>初始化阶段：<ul>
+<li>初始化zookeeper对象</li>
+<li>设置会话默认watcher：该watcher保存到ClientWatchManager中</li>
+<li>构造zookeeper服务器地址列表管理器：HostProvider</li>
+<li>创建并初始化客户端网络连接器：ClientCnxn</li>
+<li>初始化SendThread和EventThread</li>
+</ul>
+</li>
+<li>会话创建阶段：<ul>
+<li>启动SendThread和EventThread</li>
+<li>获取服务器地址</li>
+<li>创建TCP连接</li>
+<li>构造ConnectRequest请求</li>
+<li>发送请求</li>
+</ul>
+</li>
+<li>响应处理阶段：<ul>
+<li>接收服务端响应</li>
+<li>处理response，得到ConnectResponse对象</li>
+<li>连接成功：生成SyncConnected-None事件 </li>
+<li>查询watcher，将其放到waitingEvent队列</li>
+<li>处理事件:EventThread处理waitingEvent中的watcher对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据同步-1"><a href="#数据同步-1" class="headerlink" title="数据同步"></a>数据同步</h2><p>先来看下面三个概念：</p>
+<ul>
+<li>1、peerLastZxid:该learner服务器最后处理的ZXID</li>
+<li>2、minCommittedLog：leader服务器提议缓存队列committedLog的最小ZXID</li>
+<li>3、maxCommittedLog：leader服务器提议缓存队列committedLog的最大ZXID</li>
+</ul>
+<h3 id="DIFF：直接差异化同步"><a href="#DIFF：直接差异化同步" class="headerlink" title="DIFF：直接差异化同步"></a>DIFF：直接差异化同步</h3><blockquote>
+<p>peerLastZxid介于minCommittedLog和maxCommittedLog使用</p>
+</blockquote>
+<h3 id="TRUNC-DIFF-先回滚再差异化同步"><a href="#TRUNC-DIFF-先回滚再差异化同步" class="headerlink" title="TRUNC+DIFF:先回滚再差异化同步"></a>TRUNC+DIFF:先回滚再差异化同步</h3><blockquote>
+<p>leader服务器发现某个learner包含了一条自己没有的事务记录，那么就让learner进行事务回滚，回滚到leader服务器上存在，同时最接近peerLastZxid的ZXID。</p>
+</blockquote>
+<h3 id="TRUNC：仅回滚同步"><a href="#TRUNC：仅回滚同步" class="headerlink" title="TRUNC：仅回滚同步"></a>TRUNC：仅回滚同步</h3><blockquote>
+<p>peerLastZxid大于maxCommittedLog</p>
+</blockquote>
+<h3 id="SNAP-全量同步"><a href="#SNAP-全量同步" class="headerlink" title="SNAP:全量同步"></a>SNAP:全量同步</h3><blockquote>
+<p>场景：peerLastZxid小于minCommittedLog或leader服务器没有提议缓存队列，peerLastZxid不等于lastProcessedZxid。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-28T13:31:56.226Z" itemprop="dateUpdated">2020-04-28 21:31:56</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_blank" rel="external">wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wubc.me">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/" rel="tag">zookeeper</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《zookeeper知识总结》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《zookeeper知识总结》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《zookeeper知识总结》 — 无编程&url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/04/11/Spring%E6%8B%BE%E9%81%97/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Spring拾遗</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《zookeeper知识总结》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&title=《zookeeper知识总结》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《zookeeper知识总结》 — 无编程&url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/04/28/zookeeper%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACr0lEQVR42u3asXYqMQwE0Pz/T7/XpgAyI9mcLS5VTlgW3y0sMfLPT/z69+b1+91317+72+fPJlcee+Hh4eEdWvrnr0nebe/QUj+vGQ8PD+82b7Z9J/9PNvSkGCT3xMPDw3smL9/u2453tgY8PDy8J/NaTNJYJ9fnxQYPDw/vm7wkjMgjg9mG3vIOZy14eHh4MS9vfJ/z95X5Hh4eHt56qp4Xg6RFbrf4duj14g54eHh4F3izowP5oCtvc2cDsyiSwMPDwzvKm4WwOWmz6c9W9aLu4eHh4R3l5c1xvq23MWs+ymofNB4eHt4NXr6sdli1KRWbYRgeHh7ebV4bEGwCiFl0uy88eHh4eDd4+ZApiVzbQCEvLcPQGQ8PD+8or116Hg3kI6s25C1iETw8PLwv8mavZJTVBrttqz2cleHh4eGVvPbddqB1NnoYBrV4eHh4R3l5I9te2d5hc7hqGEbg4eHhjdLXNoz4vE3PNv3NAazifAQeHh7eUd5s+85HXPea72i+h4eHh3eIN/uRnx94mpWWTQmpvwYPDw9vxMtH+8XwadGCt0cQ3t4BDw8P7xpvNnCaLXcWGc+oeHh4eLd5+bGq2fGC9nG0vBefxcPDw7vAO/Vbvl3cpnhs2nE8PDy8U7zPY6T2qeSHpTYhRX3oCg8PD+8CLx8yzYpEzl5Ft8lzwsPDwzvKy3vR/AHl99mHy3h4eHjf5G0i1LwF37fs9QEFPDw8vKO8zQAsb6zbkpOXmT+KHB4eHt4F3mbbbR9Bzq6D2k3DjYeHhzfitZFrfiCgvWZTGP6IcfHw8PAu8DaHrhJ2UiSSB1RH0nh4eHiP57Wb+9njAnh4eHhP5uVNbf7ZtmBEIzQ8PDy8a7xZGJFs+u2obDaEuxLj4uHh4a0HYPvhVtuU5yQ8PDy8r/D+A1c4tnMSDqnDAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '无编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
