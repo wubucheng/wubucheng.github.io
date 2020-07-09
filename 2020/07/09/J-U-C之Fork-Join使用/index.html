@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>J.U.C之Fork-Join使用 | 无编程 | wubc的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="多线程,并发包">
+    <meta name="description" content="作用 ForkJoinPool继承AbstractExecutorService，提供线程池的功能  常用方法 execute：以异步的形式执行任务，该方法 没有返回值  submit：有返回值，使用ForkJoinTask的get方法获取  invoke：异步执行任务，直接将返回结果返回  shutdown：关闭任务，但不具有中断的效果  shutdownNow：如果跟isInterrupted">
+<meta property="og:type" content="article">
+<meta property="og:title" content="J.U.C之Fork-Join使用">
+<meta property="og:url" content="wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="无编程">
+<meta property="og:description" content="作用 ForkJoinPool继承AbstractExecutorService，提供线程池的功能  常用方法 execute：以异步的形式执行任务，该方法 没有返回值  submit：有返回值，使用ForkJoinTask的get方法获取  invoke：异步执行任务，直接将返回结果返回  shutdown：关闭任务，但不具有中断的效果  shutdownNow：如果跟isInterrupted">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-09T04:24:13.000Z">
+<meta property="article:modified_time" content="2020-07-09T04:25:34.282Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="并发包">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://dh.wubc.me" target="_blank" >
+                <i class="icon icon-lg icon-location-arrow"></i>
+                无编程导航网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">J.U.C之Fork-Join使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">J.U.C之Fork-Join使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-09T04:24:13.000Z" itemprop="datePublished" class="page-time">
+  2020-07-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">常用方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ForkJoinTask"><span class="post-toc-number"></span> <span class="post-toc-text">ForkJoinTask</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-J-U-C之Fork-Join使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">J.U.C之Fork-Join使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-09 12:24:13" datetime="2020-07-09T04:24:13.000Z"  itemprop="datePublished">2020-07-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><blockquote>
+<p>ForkJoinPool继承AbstractExecutorService，提供线程池的功能</p>
+</blockquote>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
+<li><p>execute：以异步的形式执行任务，该方法 没有返回值</p>
+</li>
+<li><p>submit：有返回值，使用ForkJoinTask的get方法获取</p>
+</li>
+<li><p>invoke：异步执行任务，直接将返回结果返回</p>
+</li>
+<li><p>shutdown：关闭任务，但不具有中断的效果</p>
+</li>
+<li><p>shutdownNow：如果跟isInterrupted==true来判断，那么会立即停止当前正在执行的任务，并不允许接收新任务；没有跟isInterrupted==true来判断，那么当前执行的任务会正常运行到结束</p>
+</li>
+<li><p>isTerminated()：如果关闭后所有任务都已完成则返回true</p>
+</li>
+<li><p>isShutdown：判断任务是否关闭</p>
+</li>
+<li><p>awaitTermination：等待线程池被销毁的最长时间，具有阻塞性</p>
+</li>
+<li><p>isCompletedNormally:判断任务是否正常执行完毕</p>
+</li>
+<li><p>getException：获取任务执行时返回的异常信息</p>
+</li>
+</ul>
+<h2 id="ForkJoinTask"><a href="#ForkJoinTask" class="headerlink" title="ForkJoinTask"></a>ForkJoinTask</h2><p>执行任务的具体类，但该类是一个抽象类，下面三个类是其子类：</p>
+<ul>
+<li><p>RecursiveAction：没有返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecursiveActionDemo1</span> <span class="keyword">extends</span> <span class="title">RecursiveAction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> beginValue;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> endValue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RecursiveActionDemo1</span><span class="params">(<span class="keyword">int</span> beginValue, <span class="keyword">int</span> endValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beginValue = beginValue;</span><br><span class="line">        <span class="keyword">this</span>.endValue = endValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"-----------开始"</span>);</span><br><span class="line">        <span class="keyword">if</span> (endValue - beginValue &gt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> middleNum = (beginValue + endValue) / <span class="number">2</span>;</span><br><span class="line">            RecursiveActionDemo1 leftAction = <span class="keyword">new</span> RecursiveActionDemo1(beginValue, middleNum);</span><br><span class="line">            RecursiveActionDemo1 rightAction = <span class="keyword">new</span> RecursiveActionDemo1(middleNum+<span class="number">1</span>, endValue);</span><br><span class="line">            <span class="keyword">this</span>.invokeAll(leftAction, rightAction);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"打印组合为: "</span> + beginValue + <span class="string">"---"</span> + endValue);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">"-----------结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ForkJoinPool forkJoinPool = <span class="keyword">new</span> ForkJoinPool();</span><br><span class="line">        forkJoinPool.submit(<span class="keyword">new</span> RecursiveActionDemo1(<span class="number">1</span>, <span class="number">10</span>));</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li>CountedCompleter：具有返回值</li>
+</ul>
+<ul>
+<li><p>RecursiveTask</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecursiveTaskDemo1</span> <span class="keyword">extends</span> <span class="title">RecursiveTask</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Integer <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        RecursiveTaskDemo1 recursiveTaskDemo1 = <span class="keyword">new</span> RecursiveTaskDemo1();</span><br><span class="line">        ForkJoinPool forkJoinPool = <span class="keyword">new</span> ForkJoinPool();</span><br><span class="line">        ForkJoinTask&lt;Integer&gt; joinTask = forkJoinPool.submit(recursiveTaskDemo1);</span><br><span class="line">        System.out.println(<span class="string">"joinTask: "</span> + joinTask.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>ForkJoinTask有两种方法获取返回值：get和join，前者遇到异常时能够进行捕获，join则直接抛出，执行多个 任务时join获取结果是同步的</code></pre></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-07-09T04:25:34.282Z" itemprop="dateUpdated">2020-07-09 12:25:34</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wubc.me">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91%E5%8C%85/" rel="tag">并发包</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/07/09/J-U-C%E4%B9%8BExecutor-%E5%92%8CThreadPoolExecutor%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">J.U.C之Executor 和ThreadPoolExecutor知识总结</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">J.U.C之Phaser移相器使用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3awY7CMAxFUf7/pzvSrEZCDffZGaQ6NysEJc0pkoljv154XL/j/Z2/719v426Gu2/d3WvbkCFDxmMZ13KkS1xfX3u9XpsMGTLOYayDLA+RacDl7A9rliFDhgy8uE6oJZ/KkCFDRo1BAmXtUxkyZMhIk1gydTpPes2GXFyGDBkPZKSFgW++/sf6hgwZMh7CuEpjPU8nmNZWJUOGjNkMPjW/QSsRBQ8F5eIyZMgYxODBrl/gTA/vglAuQ4aM0QwSZGu5JJ85DbtBYUCGDBnjGGn7F2nwSq9JWzpkyJBxAoMceNW2d/0HQUoUMmTIOIGRtkrsavDiR3VxgVOGDBnjGGkorG0BOxtE8i0ZMmScxuDtEWnDBC8t8AY1GTJknMDoh0J0ntdOX+NTQxkyZIxjkIT2w+astNVDPWthgi1Dhox5jHRBaXCsBc1iEitDhoyhDJIo1gqKaRjlqWz8vyFDhoyhjPTAi1NrqSwpi8qQIWMqY73x4s0QaZsF3zLG/w8yZMgYxwgKhJjNE06yxNZ5oQwZMkYw0mOv2jFZjRdsE2XIkDGakaaOtc3irrYw9EBlyJAxjnGFIy1J8kZYHrhvfwEZMmQMZew6v0oLBrw5TIYMGTLSYgA/XCNL4fciYBkyZJzA4GExLQPs7fgIsnAZMmQczOjAePCNk1gZMmTIKCWotTIAP+aTIUPGaYx+EptuB3nSi5AyZMgYzegXBtKyQacY0KpyyJAh43mMH5xkHfPYWDRTAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '无编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
