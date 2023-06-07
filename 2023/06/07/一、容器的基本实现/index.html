@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>一、容器的基本实现 | 吴编程 | wubc的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Spring,源码解析，读书笔记">
+    <meta name="description" content="一、容器的基本实现容器的基础XmlBeanFactory配置文件的封装通过ClassPathResource进行封装，该类间接实现了Resource接口，这个接口定义了底层资源的方法，对于不同资源都有着不同的是吸纳，例如ClassPathResource（ClassPath资源）、FileSystemResource（文件资源） 加载Bean资源加载入口： 1234public XmlBeanFa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一、容器的基本实现">
+<meta property="og:url" content="wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="吴编程">
+<meta property="og:description" content="一、容器的基本实现容器的基础XmlBeanFactory配置文件的封装通过ClassPathResource进行封装，该类间接实现了Resource接口，这个接口定义了底层资源的方法，对于不同资源都有着不同的是吸纳，例如ClassPathResource（ClassPath资源）、FileSystemResource（文件资源） 加载Bean资源加载入口： 1234public XmlBeanFa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-07T13:35:00.000Z">
+<meta property="article:modified_time" content="2023-06-07T13:37:54.952Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="源码解析，读书笔记">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://dh.wubc.me" target="_blank" >
+                <i class="icon icon-lg icon-location-arrow"></i>
+                无编程导航网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">一、容器的基本实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">一、容器的基本实现</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-06-07T13:35:00.000Z" itemprop="datePublished" class="page-time">
+  2023-06-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、容器的基本实现"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、容器的基本实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器的基础XmlBeanFactory"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">容器的基础XmlBeanFactory</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件的封装"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">配置文件的封装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加载Bean"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">加载Bean</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注册和解析BeanDefinitions"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">注册和解析BeanDefinitions</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-一、容器的基本实现"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">一、容器的基本实现</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-06-07 21:35:00" datetime="2023-06-07T13:35:00.000Z"  itemprop="datePublished">2023-06-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="一、容器的基本实现"><a href="#一、容器的基本实现" class="headerlink" title="一、容器的基本实现"></a>一、容器的基本实现</h1><h2 id="容器的基础XmlBeanFactory"><a href="#容器的基础XmlBeanFactory" class="headerlink" title="容器的基础XmlBeanFactory"></a>容器的基础XmlBeanFactory</h2><h3 id="配置文件的封装"><a href="#配置文件的封装" class="headerlink" title="配置文件的封装"></a>配置文件的封装</h3><p>通过ClassPathResource进行封装，该类间接实现了Resource接口，这个接口定义了底层资源的方法，对于不同资源都有着不同的是吸纳，例如ClassPathResource（ClassPath资源）、FileSystemResource（文件资源）</p>
+<h3 id="加载Bean"><a href="#加载Bean" class="headerlink" title="加载Bean"></a>加载Bean</h3><p>资源加载入口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">XmlBeanFactory</span><span class="params">(Resource resource, BeanFactory parentBeanFactory)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">	<span class="keyword">super</span>(parentBeanFactory);</span><br><span class="line">	<span class="keyword">this</span>.reader.loadBeanDefinitions(resource);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入到：XmlBeanDefinitionReader#loadBeanDefinitions(EncodedResource) <em>省略掉无关代码</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里是载入XML形式Bean定义资源文件方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(EncodedResource encodedResource)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">	<span class="comment">// 记录已加载的资源</span></span><br><span class="line">	Set&lt;EncodedResource&gt; currentResources = <span class="keyword">this</span>.resourcesCurrentlyBeingLoaded.get();</span><br><span class="line">	<span class="keyword">if</span> (currentResources == <span class="keyword">null</span>) &#123;</span><br><span class="line">		currentResources = <span class="keyword">new</span> HashSet&lt;&gt;(<span class="number">4</span>);</span><br><span class="line">		<span class="keyword">this</span>.resourcesCurrentlyBeingLoaded.set(currentResources);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!currentResources.add(encodedResource)) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//将资源文件转为InputStream的IO流</span></span><br><span class="line">		InputStream inputStream = encodedResource.getResource().getInputStream();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//从InputStream中得到XML的解析源</span></span><br><span class="line">			InputSource inputSource = <span class="keyword">new</span> InputSource(inputStream);</span><br><span class="line">			<span class="keyword">if</span> (encodedResource.getEncoding() != <span class="keyword">null</span>) &#123;</span><br><span class="line">				inputSource.setEncoding(encodedResource.getEncoding());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//这里是具体的读取过程</span></span><br><span class="line">			<span class="keyword">return</span> doLoadBeanDefinitions(inputSource, encodedResource.getResource());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">//关闭从Resource中得到的IO流</span></span><br><span class="line">			inputStream.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">					...</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">finally</span> &#123;</span><br><span class="line">		currentResources.remove(encodedResource);</span><br><span class="line">		<span class="keyword">if</span> (currentResources.isEmpty()) &#123;</span><br><span class="line">			<span class="keyword">this</span>.resourcesCurrentlyBeingLoaded.remove();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这上面主要作用是获取InputSource，在这里调用了XmlBeanDefinitionReader#doLoadBeanDefinitions，是具体的读取过程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从特定XML文件中实际载入Bean定义资源的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">doLoadBeanDefinitions</span><span class="params">(InputSource inputSource, Resource resource)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">//将XML文件转换为DOM对象，解析过程由documentLoader实现</span></span><br><span class="line">			Document doc = doLoadDocument(inputSource, resource);</span><br><span class="line">			<span class="comment">//这里是启动对Bean定义解析的详细过程，该解析过程会用到Spring的Bean配置规则</span></span><br><span class="line">			<span class="keyword">return</span> registerBeanDefinitions(doc, resource);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要做了三件事情：</p>
+<ul>
+<li><p>•</p>
+<p>获取XML文件的验证模式</p>
+</li>
+<li><p>•</p>
+<p>加载XML文件，并得到对应的Document</p>
+</li>
+<li><p>•</p>
+<p>根据返回的Document注册Bean信息</p>
+</li>
+</ul>
+<h2 id="注册和解析BeanDefinitions"><a href="#注册和解析BeanDefinitions" class="headerlink" title="注册和解析BeanDefinitions"></a>注册和解析BeanDefinitions</h2><p>XmlBeanDefinitionReader#registerBeanDefinitions</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按照Spring的Bean语义要求将Bean定义资源解析并转换为容器内部数据结构</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">registerBeanDefinitions</span><span class="params">(Document doc, Resource resource)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">	<span class="comment">//得到BeanDefinitionDocumentReader来对xml格式的BeanDefinition解析</span></span><br><span class="line">	BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();</span><br><span class="line">	<span class="comment">//获得容器中注册的Bean数量</span></span><br><span class="line">	<span class="keyword">int</span> countBefore = getRegistry().getBeanDefinitionCount();</span><br><span class="line">	<span class="comment">//解析过程入口，这里使用了委派模式，BeanDefinitionDocumentReader只是个接口,</span></span><br><span class="line">	<span class="comment">//具体的解析实现过程有实现类DefaultBeanDefinitionDocumentReader完成</span></span><br><span class="line">	documentReader.registerBeanDefinitions(doc, createReaderContext(resource));</span><br><span class="line">	<span class="comment">//统计解析的Bean数量</span></span><br><span class="line">	<span class="keyword">return</span> getRegistry().getBeanDefinitionCount() - countBefore;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是使用BeanDefinitionDocumentReader的实现类DefaultBeanDefinitionDocumentReader进行处理，走到这个类的registerBeanDefinitions方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(Document doc, XmlReaderContext readerContext)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//获得XML描述符</span></span><br><span class="line">	<span class="keyword">this</span>.readerContext = readerContext;</span><br><span class="line">	logger.debug(<span class="string">"Loading bean definitions"</span>);</span><br><span class="line">	<span class="comment">//获得Document的根元素</span></span><br><span class="line">	Element root = doc.getDocumentElement();</span><br><span class="line">	<span class="comment">// 解析的具体实现</span></span><br><span class="line">	doRegisterBeanDefinitions(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个很重要的目的是提取root。DefaultBeanDefinitionDocumentReader#doRegisterBeanDefinitions是真正开始解析了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doRegisterBeanDefinitions</span><span class="params">(Element root)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//具体的解析过程由BeanDefinitionParserDelegate实现，</span></span><br><span class="line">	<span class="comment">//BeanDefinitionParserDelegate中定义了Spring Bean定义XML文件的各种元素</span></span><br><span class="line">	BeanDefinitionParserDelegate parent = <span class="keyword">this</span>.delegate;</span><br><span class="line">	<span class="keyword">this</span>.delegate = createDelegate(getReaderContext(), root, parent);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.delegate.isDefaultNamespace(root)) &#123;</span><br><span class="line">		String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);</span><br><span class="line">		<span class="keyword">if</span> (StringUtils.hasText(profileSpec)) &#123;</span><br><span class="line">			String[] specifiedProfiles = StringUtils.tokenizeToStringArray(</span><br><span class="line">					profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);</span><br><span class="line">			<span class="keyword">if</span> (!getReaderContext().getEnvironment().acceptsProfiles(specifiedProfiles)) &#123;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//在解析Bean定义之前，进行自定义的解析，增强解析过程的可扩展性</span></span><br><span class="line">	preProcessXml(root);</span><br><span class="line">	<span class="comment">//从Document的根元素开始进行解析Bean定义的Document对象</span></span><br><span class="line">	parseBeanDefinitions(root, <span class="keyword">this</span>.delegate);</span><br><span class="line">	<span class="comment">//在解析Bean定义之后，进行自定义的解析，增加解析过程的可扩展性</span></span><br><span class="line">	postProcessXml(root);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.delegate = parent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解析并注册BeanDefinition：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Spring的Bean规则从Document的根元素开始进行Bean定义的Document对象</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">parseBeanDefinitions</span><span class="params">(Element root, BeanDefinitionParserDelegate delegate)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//Bean定义的Document对象使用了Spring默认的XML命名空间</span></span><br><span class="line">	<span class="keyword">if</span> (delegate.isDefaultNamespace(root)) &#123;</span><br><span class="line">		<span class="comment">//获取Bean定义的Document对象根元素的所有子节点</span></span><br><span class="line">		NodeList nl = root.getChildNodes();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nl.getLength(); i++) &#123;</span><br><span class="line">			Node node = nl.item(i);</span><br><span class="line">			<span class="comment">//获得Document节点是XML元素节点</span></span><br><span class="line">			<span class="keyword">if</span> (node <span class="keyword">instanceof</span> Element) &#123;</span><br><span class="line">				Element ele = (Element) node;</span><br><span class="line">				<span class="comment">//Bean定义的Document的元素节点使用的是Spring默认的XML命名空间</span></span><br><span class="line">				<span class="keyword">if</span> (delegate.isDefaultNamespace(ele)) &#123;</span><br><span class="line">					<span class="comment">//使用Spring的Bean规则解析元素节点</span></span><br><span class="line">					parseDefaultElement(ele, delegate);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="comment">//没有使用Spring默认的XML命名空间，则使用用户自定义的解//析规则解析元素节点</span></span><br><span class="line">					delegate.parseCustomElement(ele);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//Document的根节点没有使用Spring默认的命名空间，则使用用户自定义的</span></span><br><span class="line">		<span class="comment">//解析规则解析Document根节点</span></span><br><span class="line">		delegate.parseCustomElement(root);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-06-07T13:37:54.952Z" itemprop="dateUpdated">2023-06-07 21:37:54</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/" target="_blank" rel="external">wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wbc.wiki">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">源码解析，读书笔记</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&title=《一、容器的基本实现》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&title=《一、容器的基本实现》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《一、容器的基本实现》 — 吴编程&url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/10/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">第六章 类文件结构</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&title=《一、容器的基本实现》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&title=《一、容器的基本实现》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《一、容器的基本实现》 — 吴编程&url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/07/%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADI0lEQVR42u3ay44aMRAF0Pz/TxMpqyzSnXtdPRIUxys0Qxsfsyjq8etXvF5/Vvv3v9fVU6+Lle9zdYYHFjY2NvaHsF+36/6gyT5XT51d2f17Egs2Njb2VvZ9cGqvJqFOeGdXiY2NjY19/7oNMPdnuE8w8qvHxsbGxn7sp//t0c8+vf0asLGxsXezJ2X6szSjTVfyZx+upWFjY2O/Pbtt9L7z6x/sb2NjY2O/JftVrrM9n2rinrUu/rEbNjY29iJ2W5rPD5o0gJ8qIZ0NBmFjY2PvY+fNgEmhP0kkkuCUIy//i42Njb2I3Y7IJIWn/D05ch59sLGxsb+BnQeA9oh5YejsytqyFDY2NvYOdv4xSaE/Lx61z+YXFxWbsLGxsVez85JNTk1Cy0+Usf7T38bGxsZewZ6nAZPSz8O5VBn8sLGxsXew80HJ5Kd/O3wzaQmMdsbGxsZex87LNG1Cko/aPFWEikTY2NjYS9ktYFLQz3eYJDzY2NjY38Bux2sm6UTeEmhbC3mDARsbG/t72GdbtMGvbfrmX09+QmxsbOxN7DyRmJecJqX/fJAoagxjY2NjL2LPG6tngS1Pe+7BT437YGNjY38W+z7YTJKNs6GcyQBQkcBgY2NjL2XnRfxJs3ZS7m8bupfPYmNjYy9it+lEO0AzGcrJS1HtF4aNjY29j52kH+1x28Qj3/NsDKhu8WJjY2N/FLsttZ+NziTB7GyfsxYFNjY29ib2WRDKD3QWzJ5tCWBjY2NvZbc/5fOUYN4GbhsSdVcEGxsbexF7UnavM56Hdsh3w8bGxt7Nbgs6c0Aefs7OU+yMjY2NvYI9+Yk/Gbt5NnWpC2HY2NjY69htAtAGoUkjYZKiXJ4QGxsbex27LcrngapNRSYFrOJU2NjY2IvYbQDIy0Z187W8iORseeDExsbG/nR2HrQmrda2nZyMCk3GibCxsbH3sfNjJYd4dp/8qaL8hI2Njf2V7DZVmLdyz8Jh9BQ2NjY29rgFm1/cZP1IAMPGxsZ+S3becM157bDOfQBLikpF6xcbGxt7EXsOaBu3SfKQt5DbZjM2Njb2IvZvN/nzh580h8UAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '无编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

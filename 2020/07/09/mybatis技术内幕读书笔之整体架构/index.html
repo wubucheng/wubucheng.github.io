@@ -21,7 +21,7 @@
     
     
     
-    <title>mybatis技术内幕读书笔之整体架构 | 无编程 | wubc的个人博客</title>
+    <title>mybatis技术内幕读书笔之整体架构 | 吴编程 | wubc的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -32,7 +32,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis技术内幕读书笔之整体架构">
 <meta property="og:url" content="wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/index.html">
-<meta property="og:site_name" content="无编程">
+<meta property="og:site_name" content="吴编程">
 <meta property="og:description" content="Mybatis技术内幕读书笔记（一）Java应用执行mybatis的流程 1、加载mybatis-config.xml配置文件 2、创建SqlSessionFactory对象 3、通过SqlSessionFactory创建sqlsession对象 4、通过sqlsession执行mapper文件的SQL语句 5、通过sqlsession提交事务 6、最后关闭sqlsession对象  mybati">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.pianshen.com/images/694/db62d0cafefb88434877c62ef2eed326.png">
@@ -43,7 +43,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.pianshen.com/images/694/db62d0cafefb88434877c62ef2eed326.png">
     
-        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -296,7 +296,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -306,7 +306,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -316,7 +316,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 吴编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -455,7 +455,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -465,7 +465,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -475,7 +475,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 吴编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

@@ -21,7 +21,7 @@
     
     
     
-    <title>并发包中锁原理剖析 | 无编程 | wubc的个人博客</title>
+    <title>并发包中锁原理剖析 | 吴编程 | wubc的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -32,7 +32,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发包中锁原理剖析">
 <meta property="og:url" content="wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
-<meta property="og:site_name" content="无编程">
+<meta property="og:site_name" content="吴编程">
 <meta property="og:description" content="并发包中锁原理剖析LockSupport 主要作用是挂起和唤醒线程  主要方法 park：挂起线程 unpark：如果因park挂起的，调用unpark后，线程被唤醒 parkNanos：如果没有拿到许可证，超时后会自动返回 parkUntil：与parkNanos区别是parkUntil的时间是从1970年开始算的  AQS 抽象队列同步器，是一个双向队列，通过Node类型的head和tail记">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-09T04:35:37.000Z">
@@ -42,7 +42,7 @@
 <meta property="article:tag" content="并发包">
 <meta name="twitter:card" content="summary">
     
-        <link rel="alternate" type="application/atom+xml" title="无编程" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -298,7 +298,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -308,7 +308,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -318,7 +318,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 吴编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -457,7 +457,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -467,7 +467,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -477,7 +477,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 吴编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
