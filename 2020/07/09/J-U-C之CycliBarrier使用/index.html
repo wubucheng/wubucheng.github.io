@@ -31,7 +31,7 @@
     <meta name="description" content="作用 实现屏障等待功能，支持多个线程一起完成任务的目标，与CountDownLatch相比较，CyclicBarrier侧重的是一个线程没完成任务，则多个线程必须等待。  API await：等待 await(long timeout, TimeUnit unit)：在规定时间内还没达到parties数量，则抛出超时异常 getNumberWaiting: 获取已到屏障掉的线程数 getParti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="J.U.C之CycliBarrier使用">
-<meta property="og:url" content="wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="作用 实现屏障等待功能，支持多个线程一起完成任务的目标，与CountDownLatch相比较，CyclicBarrier侧重的是一个线程没完成任务，则多个线程必须等待。  API await：等待 await(long timeout, TimeUnit unit)：在规定时间内还没达到parties数量，则抛出超时异常 getNumberWaiting: 获取已到屏障掉的线程数 getParti">
 <meta property="og:locale" content="zh_CN">
@@ -260,12 +260,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/</a>
+        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -291,7 +291,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -301,22 +301,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CycliBarrier使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CycliBarrier使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -432,7 +432,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -450,7 +450,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -460,22 +460,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&title=《J.U.C之CycliBarrier使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CycliBarrier使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CycliBarrier使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCycliBarrier%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -486,7 +486,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3a0YqiMQwGUN//pWdhrxYG9fuS1pmF0yuR6t9ToalJHo94fP0d/77+Pp596tmcr2B8n/m4MfDw8PBGS88fkC86eWK+KbP14OHh4d3jtcEgn/8a9pqRz3n6Ph4eHt6P8pILd8tOwkC+Hjw8PLz/hZcc33mYmQUPPDw8vM/zkmREcmTPLsqvqR/KteDh4eHFvFkB7GdfX6/v4eHh4Y2q6vmR3bYXtDNnAw8PD+8Gr02kthfxvBi2b7cq/jHg4eHhrXl5mnW29Dbhu0n7Rq1XeHh4eAve/ihP5rcphvYK/vR9PDw8vAu8trh1qsmgTWHkjQJ4eHh4t3n5UvIQsgk2bTgpEhB4eHh4h3jJcZ+UvvKjf3ONHjZ44eHh4V3gtaWm2TV605TQpobx8PDwPsNLEgT5cjeLmF3Kix8JDw8P7xBvc7gfKFOtQ85jPwkPDw9vxEvKUW26YRZa2nRDnYzAw8PDW/PyAz0vTSXBIEG2K8HDw8O7x9sXnPLtaBMKSZgpKnt4eHh4F3ibUlOSG263b7bRq3YrPDw8vLievjnci4L9rBa3CFR4eHh4N3h521N+lLfp11lSONpoPDw8vGu8tjlgVgzbbOXsWXh4eHg3eMVf+nWpbMNu0xx4eHh4n+G1H85He9XelOWKMhgeHh7eiLdvdWqvy+2hv2nwwsPDw7vNyxsIkgckiYP8G2bfiYeHh3eD16YGNh0KLaNNjrwJM3h4eHiHeJu0Qp78bTclT4W8CTN4eHh4F3izA7d95KnC2Gab8PDw8M7ykmCQLyU/uDdpiyIRjIeHh3eNdyoY5Nt0uzyGh4eH9xt4yULzNoJ9sInSvnh4eHi/gHcKkyw3+c43W4aHh4d3jddehffJizbdMGzwwsPDw7vAm/VqJaRNKWu2rcOBh4eHl/L+ADRVQQUxnlo6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3aQU7EMAwF0Ln/pUFixabttx0zI/SyQjOo8TNSY+y8XvH6+llXn1x9+3tdfXv1hPvfP7zw8PDwWqFfrXyDZPskEfcx5DHj4eHhbfPuQ+nhk1f//XMS6oMFDw8P7628Xlh5iZwcA3h4eHj/iZeHkrz6e80LPDw8vL/kVRsBOTJvUvSK+GO9Fjw8PLyYVx2AfcLPi/M9PDw8vMFUvfdSzi8NFMri3r54eHh4C7zekKm3cY/Xi+GVZBQPDw+vxetdGqi2bvNDIr+aEB05eHh4eAu8ZECVD/urF6dODcAeUomHh4e3wEsOg3yD/DDovfR7AzY8PDy8DV416OSQSNLXG7bln+Dh4eHt8ZKgN8ri/BjIk/7Qq8bDw8Mb8OYDqnm5XH1OofTHw8PDW+DlVwGq1wUmhXiSoDzFeHh4eBu8/PVdpfYK8bwpXJjv4eHh4R3l9cZOvVbvxtCr0GvBw8PDG/O+gjVvIvTGWr3n4OHh4W3zkqI5PxjKV6DGzd/RzQg8PDy8Fu9w9zcufHtN22qTAg8PD2+DVz0M7h+UA+bleHkAhoeHh3eUd3bQNSmdqymoto/x8PDwNninAJMg5lcNCvU+Hh4eXovXK1h71JyXx/NwqODh4eGt8fJ//qujqWoTtteuvYwKDw8P7yivt3G+8iHWpCi/TCUeHh7eMm/eup0cBnmrN79qgIeHh7fBK9TdrXZqnohqDAcme3h4eHgt3rxETl7fvRZt9a/00IzAw8PDO8TLVzX0XslbLdmToh8PDw9vgzdpxVZL3knuR5eu8PDw8BZ4+WFQ3SZv6fYK7ocY8PDw8N7KS9qv1Vd8Na3l1gYeHh7ex/DyZkSvtXGs2YGHh4e3xqsOvaop2EhitBceHh7eAq83ADv1SbVcHl0RwMPDw5vyvgHHBUrfCcn+egAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

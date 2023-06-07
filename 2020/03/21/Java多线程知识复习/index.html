@@ -31,7 +31,7 @@
     <meta name="description" content="Java多线程复习总结1、基本概念待补充 2、线程局部变量 ThreadLocal用于实现线程内的数据共享。 使用set方法时会先获取当前线程的ThreadLocalMap 对象，而这个对象的key又是一个ThreadLocal对象。每个线程其实都有一份自己独享的 ThreadLocalMap 对象. 12345678ThreadLocalMap(ThreadLocal&lt;?&gt; firs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多线程知识复习(一)">
-<meta property="og:url" content="wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:url" content="wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="Java多线程复习总结1、基本概念待补充 2、线程局部变量 ThreadLocal用于实现线程内的数据共享。 使用set方法时会先获取当前线程的ThreadLocalMap 对象，而这个对象的key又是一个ThreadLocal对象。每个线程其实都有一份自己独享的 ThreadLocalMap 对象. 12345678ThreadLocalMap(ThreadLocal&lt;?&gt; firs">
 <meta property="og:locale" content="zh_CN">
@@ -450,12 +450,12 @@
 
 
         
-        原始连接：<a href="/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" target="_blank" rel="external">wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/</a>
+        原始连接：<a href="/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" target="_blank" rel="external">wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -481,7 +481,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -491,22 +491,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程知识复习(一)》 — 无编程&url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程知识复习(一)》 — 无编程&url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -622,7 +622,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -640,7 +640,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -650,22 +650,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&title=《Java多线程知识复习(一)》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程知识复习(一)》 — 无编程&url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java多线程知识复习(一)》 — 无编程&url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/03/21/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -676,7 +676,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLUlEQVR42u3azWorMQwG0Lz/S6dwV4WSuZ8kJ4yd41UomamPshD6eTzi8/x3/n7+/ZffJ3/2+j2vvp+/c3SwsbGxN2E/L08VNv9f+feTe758PzY2NvZx7F7Sug5KNaVdhyC/SfIUNjY29neyq0VIEqAk2eRhxcbGxsbusechmNwEGxsbGztv1vSKgXn4quzFvTRsbGzs27Mng967ff7QfBsbGxv7Nuxn60wGCdUklI+ZC/fHxsbGPohdbQzlBcCk3ZOEacHYABsbG/s4drVNU01g8xWfSWp8mcCwsbGxN2dPSohJOK6TWZ4Im4NnbGxs7OPYeXMnSRLV5ctemhyFDBsbG/tQdnWxpvfNSZiSZ5NAYGNjY5/Kvn6s12yaLHf2Rs7JkAMbGxv7PHZvnbE3fO2ltzylRQpsbGzsg9i9Bk2ePKorQXnCqy4SRYHAxsbGPoKdxya5RLXN1Bvf5gPpR4LBxsbG3pCdvzS5XF4qrFrZqQ6SsbGxsU9l99Z3esVGtVTI20aFBhM2Njb2Qex8+Wbepk9SSw6bjyWwsbGxd2e/oxGfv6E3ju2Ncv9ThGBjY2Nvzq6u5lSHuJ9Z1kmSGTY2NvZ57PcNepNEVS0zem2pj863sbGxsW/AnrTje42nXhurutZTqHKwsbGxN2QXZgjVtZjBgCFPmdUfDxsbG/tUdjUB9Ia+vXWfpHmU3w0bGxv7e9i9JDQfylabUM3/iI2NjX0Quzo0zdm95n7ShOqNh8s7p9jY2NibsHtLk5N0OEk/SYjLpQg2Njb2tux8AJCPeCeD2zxRVZMZNjY29qnsVQ2dPAWualflP0/hYGNjY2/Ivk4DvTWa/CpJQqoWIeX+GTY2Nvbm7GpKSxJbXq70Vm2qmBEeGxsb+/bsZ/FUy5g8dfXaT3kosbGxsU9lT9pMvQFALxyTQC/urmFjY2Pfkj0ZslYHDEm6qgJ6S5nY2NjY57Hzhnt+lV6JsiDfJqUINjY29tezJ8s3q9Z3JjfExsbG/k52dXy7qqmUk/JSBxsbG/s89tqmUh6+3og3D83LO2NjY2MfxJ4MeudXzEuOQnJ698oONjY29l3YP5jBJjkvVvydAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3aQXKkQAwEQP//02zEXm2YktTYQ09yIuwBOuGgUKm/vuLj+H/k52fX9q76fp7cYcGBjY2N/RD2cXlc/yZZSrKs73fIX1myzh/WgI2Njb0dOykhZ4t48YDL3+cF7/qlV4soNjY29mey89IyaWby14eNjY2NPY91kleTNAyTIoeNjY2NnYdKk/ajms8nMdMvZWnY2NjYb8++Y9D7V+d/PN/GxsbG/nX2UTyqw9frNiPfglN94gsFNjY29kbsakg0KXuTIe5kJYUODBsbG/uB7PyReclZFUjlV+XxEzY2NvZ+7FUba3qNQTUqqq7tlswMGxsb+83YVVg17pmPe/OEP4+osLGxsT+HnYdEvS0y1c031YHB6Tk2Njb2RuxeeagOD3ojgfwpy1aLjY2N/UB2vrGm12ZUU53Jpp9yK4KNjY29Bfu+ctL7e3WcMBlXY2NjY+/EnrQZ1WLWW9wkVHqxNmxsbOyHs5OLJyPV/P5Js5G3TFGohI2Njb0F+7rA9EL/PACaFMjFgRc2Njb2w9lHcMwffN9V+RZSbGxs7L3Z1UVUA6DeGCDf0FkeLWBjY2NvxM6Xmwf9awcPvVdT6L2wsbGxH8vOFzRZ7trxQP4xTp+CjY2NvRF7MtxdFSFNCufog2FjY2Nvwc4HA9eLy4+8ROWFsxx1YWNjY2/EziObXhQ1byrmw4lRUoWNjY399uy8aCW8+8Kp3n1e9F7Y2NjYG7F7ZaNauvL4vrdNpzkVwcbGxn44e1JgqsFQtTQmn2FehrGxsbH3Y+cj1WoklMdGk4ZnQauDjY2N/Sh2HrX3QvnqL6v3SQpVYcSLjY2N/XD2pPzk/10VA1XbktOdStjY2NgPZ1dvd8eDeyOKeSuFjY2NvQf7KB6TNqbXiuRbcwp3wMbGxt6IXR0V5GPaSWGrNif52BgbGxt7V3ayoFXlYRJX5S80GjxgY2Njb8fuLXEVL6dO6vAPsxFsbGzsD2PnZaxXYJIBcLUFwsbGxsZOWpE7SlG17OWvDBsbG3tXdjVUSkpUXsaqcf/kU2FjY2Pvxy7HMa1Jcm9YO99qOYnGsLGxsd+e/Q+CF2ejrAgyiQAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

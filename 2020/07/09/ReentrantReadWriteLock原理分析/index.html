@@ -31,7 +31,7 @@
     <meta name="description" content="ReentrantReadWriteLock原理分析概念 ReentrantReadWriteLock采用读写分离的策略，允许多个线程同时获取读锁，写锁是独占式锁，读写锁之间为互斥。                                                                                               ReentrantReadW">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ReentrantReadWriteLock原理分析">
-<meta property="og:url" content="wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="ReentrantReadWriteLock原理分析概念 ReentrantReadWriteLock采用读写分离的策略，允许多个线程同时获取读锁，写锁是独占式锁，读写锁之间为互斥。                                                                                               ReentrantReadW">
 <meta property="og:locale" content="zh_CN">
@@ -281,12 +281,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" target="_blank" rel="external">wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</a>
+        原始连接：<a href="/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -312,7 +312,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -322,22 +322,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReentrantReadWriteLock原理分析》 — 无编程&url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReentrantReadWriteLock原理分析》 — 无编程&url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -453,7 +453,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -471,7 +471,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -481,22 +481,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&title=《ReentrantReadWriteLock原理分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReentrantReadWriteLock原理分析》 — 无编程&url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReentrantReadWriteLock原理分析》 — 无编程&url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/ReentrantReadWriteLock%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -507,7 +507,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3aQY4bMQwEwP3/pxMg16w93ZTobICak2GMxywdLLrFr6/4+vXn+vv1+3teXclzXj3ta+PCw8PDG5WelJIXNFuIWT2v7sHDw8Pb5p380CfL8VBEvIh5zXh4eHg/gdc2vjkmfz4eHh7e/8vLY4Jkg3n/jW2QgYeHh/cZ3vkX5w30+3fyGi5nLXh4eHgx7+QA7F+9/tD5Hh4eHl55qp4f+c/euVXVy2rx8PDwFnh5C5v87Z99tl3KZFGitBgPDw/vmDc7+soLTcLZvPS8Kjw8PLy7vHxkqo199zDFsAIeHh7ex3l3Bwja2GI2KICHh4e3zZs1rHcHqtpxgXZB8fDw8O7ykmb6PSwPMmZjVbOl+Wbfw8PDw7vEO4kA8k+d3J837g8tOB4eHt4lXtIQt5tHXsQseijCYjw8PLxlXj4s1bbXObVtlB8iCTw8PLxl3nlQ27bms3eK+/Hw8PA+wmsjg5PNIGnNZ5EEHh4e3jYvjyTaDaA97M/viYIMPDw8vAVeEpuej2olT2uHD/KNBA8PD++TvBN8Hs6231UfoeHh4eFd5bU/3LMm+1aMm4cXeHh4eHu8HJMfkrXHZu1n84XAw8PD2+C1X5xHBnmAezLq+lAnHh4e3gJvFqrOruHxf7wEs8gYDw8Pr+Xd/Xt/EjTMYtyHTQgPDw9vmXcrlm0DjllSUqcpeHh4eJd4+XxBsmG07fVsZGG2IeHh4eHd4p0HCu0x1ezO5LPfUPHw8PAWeLNzoragk0GE5HWOx8PDw7vFy9vfu6XPlrKtBA8PD2+PtzFWNWuyzw/ehnsaHh4e3gLvJKLNF6U9ont4Gh4eHt6P4bWlJIFCe2oXLRkeHh7eGm8WRrTNcd4inwwf4OHh4W3z2gOw/FB/tg3kgwvDQQE8PDy8Oe834x8DJza1M0QAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3awW4bMQwE0Pz/T7tATwVS2zOUmLrA08lwNlo9BZAYkl9f8Xj8Hvkz359//DFm3ydrGA48PDy80dKfjWTq5PnvP332TbKG5Hk8PDy8bd7soH/2stffJxs0uyTw8PDwPo3XbsT5FrQXFR4eHt6n8WYLzcNlPDw8vP+L174+X1yy3Ja0kmvBw8PDi3ltAewTPi/W9/Dw8PAOquonI0nC5mWz4Rrw8PDwFnhJijYPefPZ2nLXUTMWHh4e3lVeW7jKXzO7MO4mMvDw8PD2eLN/+M8LXW07woVgGg8PD+8q724C4vXhft6yEBXe8PDw8BZ4SfDahsizoDxJ5uYbUcTmeHh4eCUvD39vtV4lb2wbCJ7Og4eHh/cjvI3QNkm55ispfhcPDw9vgXer7HSSXGg3ul0VHh4e3l3e+dGclM3aC6bdmjcJXDw8PLw1Xp5caC+Y2efkvW+QeHh4eAu8PEg9D6bz2U5aEIrwGg8PD2/Eaw/fWQK3TRPPqv9PC2B4eHh4C7y2jHR3oSfNWG9CcDw8PLw13t1k6yyBm5e1CiQeHh7eAm92PcxSCfnMbeBeJ3Dx8PDwDnjJcd+2ip40uSYz1K0DeHh4eFd557dKfojfaiyoLzM8PDy8BV6y3PMyVbtleZq4aHTAw8PDu8rLC05tm9SsvWDWsjC8EvDw8PBK3qwcNQuv8/apOlx+nXHBw8PDW+CdBLV5kH3r4smLZ3h4eHh3eY9yJId7Es22hbTkovrLHwMPDw9vgbeXXGiRJwnlOu+Ch4eHd8ybtU+1xf42NM8vpDcz4+Hh4a3xbi2lDcpv3WNFrgUPDw/vx3l5GrcNmtvGgqLdCg8PD+8f8dojPsfk6YY6vYuHh4e3xpsVvZJDvG1QmL33QhcDHh4e3qXSV3tJzA79JBDfSGHg4eHhlbxfLYOSl+iDM6QAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

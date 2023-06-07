@@ -31,7 +31,7 @@
     <meta name="description" content="CopyOnWriteArrayList常用方法分析add 添加元素1234567891011121314151617public boolean add(E e) &amp;#123;    &#x2F;&#x2F; 获取独占锁    final ReentrantLock lock &#x3D; this.lock;    lock.lock();    try &amp;#123;        &#x2F;&#x2F; 获取原来的数组        Ob">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CopyOnWriteArrayList浅析">
-<meta property="og:url" content="wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="CopyOnWriteArrayList常用方法分析add 添加元素1234567891011121314151617public boolean add(E e) &amp;#123;    &#x2F;&#x2F; 获取独占锁    final ReentrantLock lock &#x3D; this.lock;    lock.lock();    try &amp;#123;        &#x2F;&#x2F; 获取原来的数组        Ob">
 <meta property="og:locale" content="zh_CN">
@@ -244,12 +244,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" target="_blank" rel="external">wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/</a>
+        原始连接：<a href="/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -275,7 +275,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -285,22 +285,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CopyOnWriteArrayList浅析》 — 无编程&url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CopyOnWriteArrayList浅析》 — 无编程&url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -416,7 +416,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -434,7 +434,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -444,22 +444,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&title=《CopyOnWriteArrayList浅析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CopyOnWriteArrayList浅析》 — 无编程&url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CopyOnWriteArrayList浅析》 — 无编程&url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/CopyOnWriteArrayList%E6%B5%85%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -470,7 +470,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIklEQVR42u3ay2rDQAwF0P7/T6fQVaHEvtJMSqI5XpliO3O6EHp9fcXX4+f6ff/sSp559uTf39p8YWBgfCyjd6xnh6h+M7m//g4GBsY5jCTI5kE5OdD1QfOzYWBgYOwNoD08BgYGRpXRC8e94I6BgYHRC6bX764nhS+vxTEwMD6Q0RsM/M/9y+cbGBgYb894tK5ecy0fXpbPg4GBMZqRp3HXA8vqMCBPNwsLGRgYGEMZyQ9UW/zV4/YAGBgYpzE2jxIXSt/mWxgYGMcwkv7VStM/D6z5L2JgYJzDWFmAqL6bB+tyFY6BgTGasatl1hsb5O/ebItgYGAMZSTNr+qT+dpWb4R5E6wxMDBGM3pLEtWhZi99LC+NYWBgDGJUlyF2BeXe124WwjAwMA5gVINpLwVcGZTe1OIYGBijGb0hQR4u8+NWW28YGBgnMHLAyvpXr0AtnwcDA2M0Y2WIWC1N86Sz2TXEwMAYx9i1otorgPNiNQqyGBgYQxl54tX7dD4E7SWdGBgYJzDypYq8Tbay5LrUNcTAwBjKqCZtOSBJEwupXvG0GBgYkxiP4nWd9lWTvG2lLAYGxmjGeoReaatVB5n5vwwDA2MeIwmy+d97I8yVUQQGBsY5jDwsVoNsc0bxivobAwPjMEaSrlWDb7UwxsDAwMhTt97YoLqigYGBgVEtYvOViF6jPx9IYGBgnMDoBeUc0xthJmscG+YbGBgY7874BlErRrxWmvW4AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIklEQVR42u3awXLrIAwF0P7/T/vNdB/3SqKdBxxWGccxHC8UJPH1FY/neyTX3688H0Yy14KBgYGxLeN5Hcn0+dIn377jMTAwbmC8B9Pq0ifh+32Wj9cxMDAwBhu+PGhiYGBgrGIkgThZ4vv2FAMDA6OXxOYLSkJ2zlici2NgYGzIqKadf/n5F/sbGBgYmzCe4ugFx2rprbwqDAyMoxnzBLLajMw3hUl0XZYHY2Bg/PeMSdsyf3SeBk+KehgYGOcxemGul3C+Nwx6xTUMDIwbGHkaOdkg9l5QktaWs2EMDIwNGb2Ec1WVftkGFAMD42hGdfrJJi8Pzb0ZMTAwTmUkj8i3cTksT3SjkhwGBsbRjEliuSpoVl9Bnh5jYGCcwZiX+JtF/FYQL5fbMDAwrmFU09G8zbD4sAUGBsahjLwNsKrEn4TU5tMwMDCOZkwwk+A7eT4GBsZtjDyYzkt11SNohdYCBgbG0YxeYyA/ItY74FVOYjEwMA5l5MX9vBiXL70aQD/+DWBgYFzJ6KWd1XJ/fn902AIDA+NQRm+CvDDXexH5djOqGmJgYGzOeIojmTgv688LcFG9EAMDY3NGPhbU8F7vLPRaJyQMDIxtGdUgm0yTp8R5W+KH2TEwMC5glLPeVmNy/qsfaocYGBjXMybhuJr6VteAgYGB0Utc5+1PDAwMjF4SmxfmqmchkkVjYGDcyVhwUqO1xF5Tc9TIxMDA2I/xD69oJ82q8qIoAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

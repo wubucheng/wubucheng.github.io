@@ -31,7 +31,7 @@
     <meta name="description" content="概念与作用 移相器，可用于线程进行分组同步控制，解决分阶段共同完成任务的需求  常用API arriveAndAwaitAdvance：到达屏障处等待，等待其他线程达到屏障处，满足条件后继续向下一个屏障执行 arriveAndDeregister：动态撤销线程在phaser的注册，表示不参与后面阶段工作 getPhase：获取已经达到第几个屏障 onAdvance：通过新屏障时被调用，如果通过第一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="J.U.C之Phaser移相器使用">
-<meta property="og:url" content="wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="概念与作用 移相器，可用于线程进行分组同步控制，解决分阶段共同完成任务的需求  常用API arriveAndAwaitAdvance：到达屏障处等待，等待其他线程达到屏障处，满足条件后继续向下一个屏障执行 arriveAndDeregister：动态撤销线程在phaser的注册，表示不参与后面阶段工作 getPhase：获取已经达到第几个屏障 onAdvance：通过新屏障时被调用，如果通过第一">
 <meta property="og:locale" content="zh_CN">
@@ -250,12 +250,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/</a>
+        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -281,7 +281,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -291,22 +291,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Phaser移相器使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Phaser移相器使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -422,7 +422,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -440,7 +440,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -450,22 +450,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&title=《J.U.C之Phaser移相器使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Phaser移相器使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Phaser移相器使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BPhaser%E7%A7%BB%E7%9B%B8%E5%99%A8%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -476,7 +476,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3a0W7qQAwE0P7/T3OlvlagGTtckeXkqYpC2JNINfbsz098PH6P1+f/XvN4cszu8/eer9d2wYGNjY19E/bj5ZGzn93z9dKfXZmsIfns08eNjY2NfRw7LyrDr1nXkdfn69eDjY2N/ZXsnPSIj/y7Zm0MNjY2Nvb7Clhy//xlYGNjY2O3zUDeGMxG//vm5LJZGjY2NvbHs9ug95P/fmO+jY2Njf2R7Mf6aEvRs8KWl7e9AhsbG/sk9utF5FUgOd8OhvIGZrgpExsbG/s4dvLhpIBt7jB7oG3wjI2NjX0Su41XN9FsC27vWTQz2NjY2F/AbuPSfOT0f0ZLdcXGxsbGPo7ddjNtW7JpfmYvABsbG/tU9juG9VeVvdmIqmiWsLGxsY9gJ7fLN2ImrUJ+Pm9j6sgZGxsb+yB23nhsCsasLZldf9m2JGxsbOybsNtSlAyPNsP99l3lD6jIt7GxsbFvxW6D2GT4nj+Ctrrm7OIabGxs7JuzZ8VmVlTaa9qAOY8lsLGxsU9ityOk9sph8rx4fLPAAxsbG/skdruU2aL34cHmDDY2NvZJ7Pxj7WAoH0K1TU7enDxdGzY2NvZB7FnhactSGy0k7UpbmaMODBsbG/u27LypuHbbzew+bSQcvWFsbGzs27Lb7TXtQtuWpt2yk7ccT0sXNjY29tHsPBLIm5ZZXtHGEqsREjY2Nvat2JtS1G6CzDd6Fssto2JsbGzsb2DnN8obhlkw0AYMeZCMjY2NfSp7tpkyR+YRQt6KzAJpbGxs7FPZ7UCnbR7aoHcPW+GxsbGxb8te/dMvRzyzLZVJc1KLsLGxsQ9iz0rXLCpu6+q+XBUJCTY2NvZB7M2mnLwhaWOA2T4cbGxs7PPYs+j0qo047faaWTCMjY2NfTa7HRXlUe47HtPmcWBjY2OfzZ5FuZsYILkyH/fnK7kgwcbGxsb+YPbmp3/yo7+tmat6mwQG2NjY2F/M3myX2ce0yXdFQS82Njb2V7I3o//ZiCp56G2zhI2NjX0qexbuzgpJvjWnLUvFRiJsbGzsg9jtiGd2Zd0qLNYwew3Y2NjYN2T/A2wITwJuXNrDAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADO0lEQVR42u3aS27bQBAEUN//0gqQVQLDdFU3E4jjx5Wgz3DecNHqz8dHfL1+X3++bt/5vNrnT6/feX26vvrVbRc2Njb2Q9ivyyth51tMeNcHlB/39R6wsbGxz2MnQasNM224uiu4Xn8HGxsb+yez2zQgDz/fBJt4D9jY2NjYeWBIwljCuw5v+XewsbGxsZOiUh7G8hbCpj3wn2pp2NjY2G/P3hRu3u31P+9vY2NjY78Z+zW68jXvCmazpOXL/WNjY2MfxL5uxM5iwaz1uznitsCEjY2NfRL7ruLRpnHbPoYkgH1zTNjY2NgHsdtiTRuuZiFq1n5oy2HY2NjYJ7GvF2oTjE3rNy/9J2WmVR6GjY2N/Sj2LFXYbCtPbJI2wKwtjY2NjX0Ge5Z47PH7wtNsnAgbGxv7VPamVNSykyOYHW6RYmFjY2Mfzc630haJ2oJUG/CKoR9sbGzsg9jJLdtWa9KmzVdo04z6mWNjY2Mfwd5sehZy7ko82rtEkRwbGxv7sexiuifvIV8i29RoP2ZUMLCxsbEfwk5+MBuR2RSk2hBVBz9sbGzsg9h3FXra9nDeKm5D4Gx9bGxs7Kez2/J6C8hJbRM3KVR9uRNsbGzsI9hF32AUSO4tP23C5F+fYmNjYx/EzpfbNGLbjc6KWXVoxMbGxj6CPSvTJzeeJTNJKrIZHvrIJ4ywsbGxH8vO416eVLSf5i3nPNR9tKeIjY2N/RB2G5zywn2eNuSbnj0ebGxs7J/Avndbs8DThr27WhfY2NjYT2dvbtwWpDZjPZvEadUewMbGxn579uxv/b5UlK88O9akFYGNjY19KnsfZvJ//nlJqw2Bw2wMGxsb++HsPJzkG82/v2nuJof75WPDxsbGPoidD83sm6z5uE/bzLihW4KNjY39KPZmqDEv97RJQnuU9cAQNjY29kHsWYEpLw+1paJ8eGi25mqOCRsbG/uN2XnJZtNCmG0u2U9busLGxsY+lT3b6Cwx2CQJm2YzNjY2NvbmmDartU2FKJhhY2Nj/0j2XS3Y2TBQ23j4Zs/Y2NjYx7Hb0ca86NO+07YBVtOm2NjY2EewZ43evFifb3dTTsqHirCxsbEPYv8C75dY3OffercAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

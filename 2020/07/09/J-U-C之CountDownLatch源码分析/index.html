@@ -31,7 +31,7 @@
     <meta name="description" content="概念与作用 CountDownLatch是JUC包下提供的一个工具类，它的作用是让一个或者一组线程等待其他线程执行完成后，自己再接着执行，count数不为0则线程进行等待。  API await：执行等待，计数不为0则进入等待 await(long timeout, TimeUnit unit)：超时则自动唤醒，继续往下走 coutDown：计数减一 getCount：获取当前计数的值  源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="J.U.C之CountDownLatch源码分析">
-<meta property="og:url" content="wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="概念与作用 CountDownLatch是JUC包下提供的一个工具类，它的作用是让一个或者一组线程等待其他线程执行完成后，自己再接着执行，count数不为0则线程进行等待。  API await：执行等待，计数不为0则进入等待 await(long timeout, TimeUnit unit)：超时则自动唤醒，继续往下走 coutDown：计数减一 getCount：获取当前计数的值  源码分析">
 <meta property="og:locale" content="zh_CN">
@@ -284,12 +284,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_blank" rel="external">wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a>
+        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -315,7 +315,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -325,22 +325,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CountDownLatch源码分析》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CountDownLatch源码分析》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -456,7 +456,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -474,7 +474,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -484,22 +484,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&title=《J.U.C之CountDownLatch源码分析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CountDownLatch源码分析》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之CountDownLatch源码分析》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BCountDownLatch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -510,7 +510,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3ay25rIQwF0Pz/T7fSHXVy6LaN01xpMYra82ARCcjGr1fcvv618+fz9T9bcu/TE14bDQ8PD6/V9ad2fuVTR89dOT8/GY7kejw8PLxtXnVyz+86vyv/S3VBwsPDw/sEXnXbPVlgzmw8PDy8/53X23BXFxg8PDy8T+NVg4BbyA/KWvDw8PBi3q0DsHd+/oPzPTw8PLxgej1PuHc7nYQX5d7i4eHhLfAmRVGTsLW6Ee89Bw8PD2+DNxqVeOKu3lVdfh6/JDw8PLwF3hmQd25SLFW9q/pGPDw8vLu8ainVfKc65yVX4uHh4b2HN5/Ee8FEbxmIygXw8PDwFni3YojR9L3wKyEC4+Hh4bV4+ZSadOjWSJ97VYhI8PDw8JZ5kwKpfLM75xV+GODh4eGt8XrH9r2YYH7MVhgsPDw8vLfw8kk/Z+elBoV6hzyMwMPDw1vg3YpoeyUFtzCFrAUPDw9vwLt1WNULEapHbr1yBzw8PLy7vGZNQRAr3I02eksIHh4e3gavF6fePfjPN+IJ8hGMh4eHd4mXH/wnI1QNeXuBRaGUAQ8PD2+Bly8M1c30JLDYOELDw8PDu8VLjpp6sN6CkfcnGkQ8PDy8BV4vYM2n+2rUmxcHFL4GPDw8vKu86kRcnaZ7Ba95T35ZhPDw8PCWefNpOn/OPOothxF4eHh4l3h5AVMVUy2uyheJHImHh4e3wfsqtiQCSIqiqv9NrnxMWfDw8PCu8vJW3ShP1qh88z3pCR4eHt6ElywG83LV6kY8B/wyZHh4eHhrvN6xU6+YoFqsUF1sHisj8PDw8N7OS5aKaqHAJICIBgIPDw/vw3iTKTs/PMs36I9hBB4eHt4CrzrF5/FBHkPkx3KFDT0eHh7eAq93AJZvlycBRB7pNosG8PDw8Gq8b+FF7gMx43scAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNElEQVR42u3a227bQAwE0Pz/T7uvBVLLM1yliOmjJyO1LmcFlOZwv77i4/Hk+Ptfv3//2V+uz72+wvdzn13hhgMbGxv7TdiPyyO5Zc5IMNfPmXy+tmBjY2NvZee3yUtaUtjaEtiW0qd/x8bGxv549skCXZ/bNiHY2NjY2C171rrkbUlbArGxsbGxZz/xE1hewGZX+09ZGjY2NvavZ+dT0d//+Ufm29jY2Ni/mP0oj+gnfnCXWYCVREuRAhsbG3sR+/zR2209+WOdjByiGAsbGxt7BbvdFtNGSyeBfh4h3TAPwcbGxn5bdjt2PRmvnrQ0+Xggj8awsbGxd7CTrTbJppmkBOYD4/Oy+qJpwcbGxl7EzgOj2YPOBsYnI+drCzY2NvYnsJPLtS3BbISQF8W8oarzKmxsbOxfz/65kW2exucBUzvuffpisLGxsRex85YjKQz5OLZdmny0ULwSbGxs7BXsduvMSRPSDg/aeCtZXGxsbOyt7DxYn4X7M8wwIUuKIjY2NvYi9gm+Lhs/1q7MiiI2Njb2bnYbvifbd2alMQ+w2peEjY2NvYOdI/Of++0jnpSo2UvCxsbG3sSexUD3lrq2CWmDquJFYmNjY78hu42H2lJ3EjC17U2x6NjY2NiL2AkpL2b5w7X3PdkAhI2Njf0J7LaAzTbfnGzumQVPRUOCjY2N/ebsu5qENgxqh7j5+CFvabCxsbF3sJOJQdui3Nshndz9Rd3GxsbGXsdut8u0D3rXZp22HGJjY2NvZd/Vcjzi4zriubeZeTEDwcbGxl7BTr7aRvCz9qBdlJOzsLGxsfex8//uk8Yj6X7Og6f8SYotO9jY2Ngr2LPof7YobdvTNjwvhh/Y2NjYH8POh8EzatuQzIbTL1oRbGxs7LdlP8qjjZaKTKtcmjyc+sczYGNjYy9izwpSHsq3w4CTZqbeqYSNjY29iJ0XiXZUkK/uvSOEqMXCxsbGXseebc2cDWjzMUPyeRhyYWNjY388Oy9ss0Zl1vYU52JjY2N/MLstUbPv55s78yXGxsbG3s0+KR7tICFpcvJ2qB1mYGNjY+9j56FMPnydDX3b688WAhsbG3sR+w/GTyyHZCoypQAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

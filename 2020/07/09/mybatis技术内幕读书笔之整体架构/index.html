@@ -31,7 +31,7 @@
     <meta name="description" content="Mybatis技术内幕读书笔记（一）Java应用执行mybatis的流程 1、加载mybatis-config.xml配置文件 2、创建SqlSessionFactory对象 3、通过SqlSessionFactory创建sqlsession对象 4、通过sqlsession执行mapper文件的SQL语句 5、通过sqlsession提交事务 6、最后关闭sqlsession对象  mybati">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis技术内幕读书笔之整体架构">
-<meta property="og:url" content="wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="Mybatis技术内幕读书笔记（一）Java应用执行mybatis的流程 1、加载mybatis-config.xml配置文件 2、创建SqlSessionFactory对象 3、通过SqlSessionFactory创建sqlsession对象 4、通过sqlsession执行mapper文件的SQL语句 5、通过sqlsession提交事务 6、最后关闭sqlsession对象  mybati">
 <meta property="og:locale" content="zh_CN">
@@ -265,12 +265,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" target="_blank" rel="external">wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/</a>
+        原始连接：<a href="/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" target="_blank" rel="external">wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -296,7 +296,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -306,22 +306,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -437,7 +437,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -455,7 +455,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -465,22 +465,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&title=《mybatis技术内幕读书笔之整体架构》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis技术内幕读书笔之整体架构》 — 无编程&url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/mybatis%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%E8%AF%BB%E4%B9%A6%E7%AC%94%E4%B9%8B%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -491,7 +491,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEmklEQVR42u3aS27jSBAFQN//0j3A7AYeUe9l0mgVHVoJkkxWBQ1k5efrK379+ff16pPv769f33/5/crX316/f3W161/e8MKECRMmTB/J1G6p3WoLnTyq/GFsroMJEyZMmJ7E1F6uDerJNto7bg4c+d4xYcKECdPvYdonnLPN5Nloey9MmDBhwoRpli7mgXxWYr5+JO06MWHChAnTb2DaX64treahfdaY3CfSmDBhwoTpGUxtSH7S+x+cb8KECRMmTB/A9Kd85YXdNrhe/362nvzw8WblmDBhwoTpWKY87WxbiXkimvO1v5ydj4oKASZMmDBhOoRpE9T32XZ7FLgO85uHWlwTEyZMmDAdwpQnqLNDw13XmaXf+bfXn2PChAkTpnOZ2lvm4y9JQ7Etzt5FlqzkZZEXEyZMmDAdxZSHxrwRmADN0trZQ0pS66gegAkTJkyYjmWa3ThPWfPN5w9vtqr2cPCmQoAJEyZMmA5hatPOfHEt96aNmh9Q6iYuJkyYMGE6lqlu6S2KsO3m81GedqCnTYkxYcKECdO5THnP866AvU9H8+GeWVP25ktjwoQJE6a/ytSO1/xE+XVGkD+wWUH55bEAEyZMmDAdxdQG0dnQTz7ck48N5YXaPFF/uUdMmDBhwnQsUx7C74KbbbVIUGOy9iiDCRMmTJjOZcpDcj4EM2uRzoq8bbl5VrnFhAkTJkznMiXp32zp7QDN7GqbIm/xODFhwoQJ07FMm+ZiW9LNad70YEfjRPm9MGHChAnTM5jakutPJJw57ix9zVunb/53MGHChAnTI5iS9/nR4fqX7ZbyY8r+Xi9rA5gwYcKE6SimTZBuA/lmRDVPs3OmNnXHhAkTJkwnMs1Kom3ptk2b80C+L+zeUOTFhAkTJkwfzJS3BhOCqGBaNk3zEJ5sdVOYxoQJEyZMpzPNCrKbcnCbpraHjLxwXB8sMGHChAnTUUzXgf/e55APzWxGfzbB/uWqMGHChAnTgUx5EM1vkLckZ0XbNm2ePao37UxMmDBhwnQUU57f7VueCdxmzHT2V28OKJgwYcKE6XCm5JZJgzNfxD6QJ9+2lG+mdzFhwoQJ04FMeek255sVc/Pt5YeYNo0fHgswYcKECdMHM7Wp5qxhOQvVbSl2dt9oCAkTJkyYMB3L1GZ2+cby48LseDE7KLRHAUyYMGHCdDrTXY3A9ljQhvDZVm8b98GECRMmTI9gyhd3V0jeJ8Y55eo6mDBhwoTpQUxt6XMf5u8K8Hl6nKfW/5P6YsKECROmY5lmgbyuJZfQ+wGdWdsSEyZMmDA9g2kG1IbhPKHNy68tx6rIiwkTJkyYjmWaJa53hdVNWblNpNsE+D93wYQJEyZMxzLNQvLNJdTRYFCeQm+GkDBhwoQJ0zOY2gZkvpRNAbctAbccyXUwYcKECdOTmNpbzhLX+iQShOrZYeJrvwhMmDBhwvQ4pp8bxJmVX9vxnU1ijwkTJkyYfg9TW/CdlYnbtuhsQKf4W0yYMGHCdDjTpsjbNgjbz/OHurnym38gTJgwYcJ0LNNdZda2FJuE4fY3+UO6uQSMCRMmTJg+kekf347x8+0TAmkAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEgklEQVR42u3ay47aQBAF0Pn/nyZSVlmE8b1VRqLheDUCx90cR+p6/fzE1+Pv9ezzf69n3yafz9Z9dv+zvSXrDi9MmDBhwvSWTI9fr4Tj9y22a7V35ogJ5dN/iwkTJkyYDmdKHvfs/uQHJId3wt3C5etemGDChAkTpi9g2n/SJqib0CTfISZMmDBhwvQor7aYmxzn7c/Ld4gJEyZMmL6BKX/cbJk8ed63RfPnv6QWjgkTJkyY3ozproP5xL9fON+ECRMmTJjegOmxvvLj/97BoPzbG34jJkyYMGE6lilvLm6GYO6KVlq+BK5oc2LChAkTpgOZ8qbg68Zi8r9nhdrNczBhwoQJ0ycxJcd/0kqcBRZ5EDCj37RCMWHChAnTZzDlCySBQtsZbMOF2X6SgaQobsKECRMmTIcwteXa5KEt36z42+521vjEhAkTJkyfzTQb02kLvptApB0qaoMDTJgwYcJ0OlN0BMZF2+Q5++M8T6E3LxITJkyYMH0GU1IMvffbFm5TCJ6N+FxETJgwYcKE6VimzbBOssxsWGeWeOehQ9HOxIQJEyZMhzNtDs6Wrw0p2iDmZiBMmDBhwnQsU3u4tsntrH2YPH8zWlQLYMKECROmY5lmaW0bCgzjlPXPzvdQFAIwYcKECdOBTJvkNj9WkxS0PfKTvbWrR0VeTJgwYcJ0FFN7DLdHePsy8hfwGF3Ja4iwMGHChAnT2zO1BJuCbzsktGGq/1/Mkl5MmDBhwvT2TO34TlsU3gzZzO5sU+W8KIwJEyZMmE5kypPDujsapMHtnfnTNs/5z+vHhAkTJkzHMt3VgMyHY/LxoHYns1CmTcUxYcKECdNZTLVlmfpuysezAzsfNspHhTBhwoQJ0+lMbctwVtLdNyCTb2dl64sQARMmTJgwHc40K8Ju2pbtaE5yOrczNkVyjgkTJkyYDmdKDsjZt5tk+N4RolWKjgkTJkyYjmVqC6ybEu29A0B1+npTERkTJkyYMJ3ItC/CtiXd9r21jczZa7jYGyZMmDBhOpyp3cSsWdge0pvP21d4wYoJEyZMmA5kmpU+L5p/owT13sCiLSUXERMmTJgwYTqQ6d6jOgkINglqvm5bVo66vpgwYcKE6Sim/Y/cH/CzUZvN4E4bamDChAkTpnOZNod0PijTBhmzYm47mlPcgwkTJkyYDmdqG353BQptAJGHLLMiddTvxYQJEyZMBzK9AqUd35mVj9sRovZ1YsKECROmT2LajO/M0uP2YM5T8faei51gwoQJE6ZjmYYH5KjImz95MzZ013XxTEyYMGHCdAjTo7zqmaBfcWdF4baYe8NamDBhwoTpWKa7xl9a6HxIKE+PW6Y2tcaECRMmTOcyzYKADehwgKZsas7KuBfjO5gwYcKE6VimzdBM0uDcF3bbIu9m9acBASZMmDBh+kqmzbdJcDALKdrBo4s9Y8KECROmL2BKDtFNU7Nddz9alAc0mDBhwoTpdKbZsE5Sim3J2lZoizIMYjBhwoQJ07FMw6Jn2W7cDNPMSskJQbIfTJgwYcJ0LNMfFxZJ4nonDpQAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

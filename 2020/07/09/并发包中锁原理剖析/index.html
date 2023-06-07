@@ -31,7 +31,7 @@
     <meta name="description" content="并发包中锁原理剖析LockSupport 主要作用是挂起和唤醒线程  主要方法 park：挂起线程 unpark：如果因park挂起的，调用unpark后，线程被唤醒 parkNanos：如果没有拿到许可证，超时后会自动返回 parkUntil：与parkNanos区别是parkUntil的时间是从1970年开始算的  AQS 抽象队列同步器，是一个双向队列，通过Node类型的head和tail记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发包中锁原理剖析">
-<meta property="og:url" content="wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="并发包中锁原理剖析LockSupport 主要作用是挂起和唤醒线程  主要方法 park：挂起线程 unpark：如果因park挂起的，调用unpark后，线程被唤醒 parkNanos：如果没有拿到许可证，超时后会自动返回 parkUntil：与parkNanos区别是parkUntil的时间是从1970年开始算的  AQS 抽象队列同步器，是一个双向队列，通过Node类型的head和tail记">
 <meta property="og:locale" content="zh_CN">
@@ -267,12 +267,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_blank" rel="external">wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/</a>
+        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -298,7 +298,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -308,22 +308,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -439,7 +439,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -457,7 +457,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -467,22 +467,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发包中锁原理剖析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发包中锁原理剖析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E5%8C%85%E4%B8%AD%E9%94%81%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -493,7 +493,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKElEQVR42u3awa7bMAwEwPz/T7tATy1enSxJuYjl8clI8myNemC51OsVX8fvK/n8+OP6+cnPz5OnJc9/XXFhY2Nj34R9vL3OXpY/54zx/pdnv0/uk5VgY2Nj78fOX5mXsd63VXzyNGxsbGzsvCzlbUn+t/kTsLGxsbGr7F6gE7UKrVAJGxsb+8nsJFTqNQ9JLJWHQcnaFmdp2NjY2F/Prg56v/n+wvk2NjY29leyj9ZVHdPmRbH3xvL6sbGxsTdi98YAq9qAvCAl6ykPIbCxsbE3ZScPTZZS3ab8masGydjY2Nj7sfOYZlVBmsdG1W3FxsbGfg47L2DVspS3Mfl2NxXY2NjYW7B7B3EKEXzxAGVvy/ImChsbG3tXdlJacsZ89HtFqPRhvo2NjY19c3bSYFRLRe+vJqFSYYyBjY2NvRH7alLvWM/8SFCvgcHGxsa+L7t3HKcXElXDpnwry2UYGxsbeyP2vBT1juz8z1AJGxsb+8nsvEhUB7H5G/OnlSMkbGxs7Juzq/HNvIVYNSTIh80fpiLY2NjYm7JXNSp5gZxsX74qbGxs7Cewk4g/WUTybTVUqh4DxcbGxn4OOz9GMx8J55HQJFT6sEJsbGzsTdnXFZu19/lo4XQl2NjY2Buxc2S+BZOmpXpYMw+VotEvNjY29s3Zk2i+Wjx6I95loRI2Njb2Ruzef+6r31ZjoMuHzdjY2NgbsVc9dH6I84iv96Urv8fGxsbeiZ3vTRLZVIe+eYQ0aUWi80rY2NjYN2QnZaA6DK5GSNX2ZvIP89d8GxsbG3sL9mTQu6pcJR3S5FBReTaCjY2NfSv2vLU4ilfeAk0GEh/usbGxsTdi56WrNzrtbeuk1FWjK2xsbOy7s+flZz5wnYRK1fbpH3UbGxsb++bsXgGIpsetyP59MauGR5OCh42NjX0vdn7YMf9lbxg8CZuqBRUbGxt7P3ZStPIFjabNrRFyOUvDxsbGfjA7f/0Vo9xqU3S6ZmxsbOxHsvNydcV25IeHCqESNjY29kbsaqhUDfSTpaxteD6UXmxsbOyN2L2SM5kq944BTebVy+bb2NjY2N/F/gUK0+hMRowgxQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNUlEQVR42u3awY7iQAwE0Pn/n2alPa00A1TZmRU0LycEgeQ1EqbL/vqKj9vf49/H359J3tue//1a3898/GmrAxsbG/tN2LeHx71b2SxWjrm3ZI/vLboWNjY29nHs9qbz4pTfYrsE+VeCjY2Njd0uweNz2pKZLwc2NjY29izc2Qc9s0X8r3UbGxsb++XZSTl5HPHkl8xDq7Y98CtZGjY2NvbLs2dB/2s+/vX+NjY2NvaLsW/l0f7d3xS8pPDcRgc2Njb2Sez8dvc31DaD8wgpeeZr9i1hY2Njvwk7ufC+aM0WpY26kgALGxsb+zx2XjzaECcBz8L95L1PRNjY2NhHsNstRz6yc9VIUFKc6i0TNjY29kHsvIC152w6qrNWbhs2YWNjY5/BzmOaHNl+zr5kPi5g2NjY2J/AnrVI91uOfAwobxivmrvY2NjYb8ieRfltS3g/4tM2D4p2NTY2Nvabs5PYaPbLX2wM1o3husGAjY2N/THsZAmuWppk09K+WvRDsLGxsd+WPYvg95uWerwmCKTyV7GxsbHPZrch0QzWlrF9afzhXdjY2NjHsWdDOXkLOR+yaRd92K7GxsbGPoK9CmWCy8xav/tNy5Olx8bGxj6IPQvuZ7w2PEq2Sfk5UTHDxsbGfkN28ic+j/7zTU5b/GbXvXsP2NjY2B/DbqOfWfTfktoi+sOr2NjY2Aex85DocZnZtBCuGvdpWx3Y2NjY57FnxWxWbPK4v72r5MvAxsbGPo+d/4nftHXbktYO6OQLh42NjX0Su72hTSN2NogzYz/Z3mBjY2MfzW4bvcVeJ27xJke7HNjY2NinsvPilJeudihnP9wzjJawsbGxj2DnTdb9piI5Mw+JNvETNjY29nnsq4Ydr4ry91udJ5sfbGxs7OPYm/DoSam4tAEwG/35YZmwsbGxD2K3BaAdssmXeFPA2tAKGxsb+zx2Gy21a5k8nyDbmOlJAcPGxsY+jr2JkNrmbh4wRZ3qsuhiY2NjfzK73c20EdK1AzpRooaNjY39kewN4KqYqW1mXFDAsLGxsV+e/X8uv1/itkVx95OxsbGxD2K3jd5ZMDTb3rSjP9jY2Ngfxv4Dbns7TvzBxDgAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

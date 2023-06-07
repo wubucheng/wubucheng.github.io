@@ -31,7 +31,7 @@
     <meta name="description" content="并发编程基础线程几个概念 进程：程序的一次执行，是资源的基本分配单位 线程：CPU调度的基本单元，同一个进程下的线程共享进程的资源，但每个线程都有自己的程序计数器和栈区域，线程间不共享  线程的创建方法 实现Runnable接口： 继承Thread，重写run方法 使用FutureTask方式，构造参数可以接收Callable对象和Runnable对象  通知与等待 等待是线程处于阻塞状态，持有了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程基础">
-<meta property="og:url" content="wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="并发编程基础线程几个概念 进程：程序的一次执行，是资源的基本分配单位 线程：CPU调度的基本单元，同一个进程下的线程共享进程的资源，但每个线程都有自己的程序计数器和栈区域，线程间不共享  线程的创建方法 实现Runnable接口： 继承Thread，重写run方法 使用FutureTask方式，构造参数可以接收Callable对象和Runnable对象  通知与等待 等待是线程处于阻塞状态，持有了">
 <meta property="og:locale" content="zh_CN">
@@ -328,12 +328,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</a>
+        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -359,7 +359,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -369,22 +369,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发编程基础》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发编程基础》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -500,7 +500,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -518,7 +518,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -528,22 +528,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&title=《并发编程基础》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发编程基础》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发编程基础》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -554,7 +554,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3awU7jUAwF0P7/T4PEigUJ1/ZzCtLJquq0IaeLZ8+1X6/4+vi6vr/uXfd3vn/n6g4HLjw8PLzWo98/0OQz8x+oegc8PDy8Z3i9YnD1r8n5fHXoJ4UhLzN4eHh47+Xdf35y6FdbbTw8PLz/xUtgyZ3zkOLRwoCHh4cX8/IgICkbkzskpJWsBQ8PD6/TxxYGYO99vT7fw8PDwzsaHPReT8ZmzTUFPDw8vAVetQnOm9189NV7huSp8PDw8DZ4+SCqNyS7+m4vxs1DjR/qHh4eHt4hXu+P5Q/aG61Vm3g8PDy8J3nzsVOCyQPifFEgKTl4eHh4G7zeGH7SLm9Ew6MxGB4eHl6Rl4+7zi5I5cOtUQuOh4eHt8zbaJp7lapQ0+4DDjw8PLwFXq+x7jXKk3fyzxf2I/Dw8PBavF4okAyfklAjD2R7wzk8PDy8bV4e2lbDi+qBPh+/XWYteHh4eGNedajfHN7HcfCkXOWlCA8PD2/Cyz+aH/3lX7EVN0RBBh4eHt4C79R/+/P3e2sH+XcLq1d4eHh4A14+K6sGtdXlrd5aQKEg4eHh4Y151aWoHD8n5asJl38FDw8Pb4GXN8GT0Ha+wjVZ6sLDw8Pb451akEpKSHUwNh+q4eHh4Z3lnR1o5Uf5ZD2rEFjg4eHhHeXNB/zV8dV8vSDB4+Hh4T3Dq15nm/Je7BtN8/Dw8PCO8vKvnT3ukzvkA7NyscHDw8Mb8HrFoHqs9+Ld5If4peHGw8PDW+DNI4B8LWAe2uZDsmaTjYeHhxfz8mKQH/pn38mD43LigoeHhzfg5bsGebQ6Lxh5GHH5bHh4eHhv5eUBbhIiVJG9nwkPDw/v7/Dylrc6Wssj2qTRx8PDw9vjnTrcq41yea+heObj4eHhbfBODcCqwUQeAUcFYHLh4eHhpbxPD+ZpzkiOiGgAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQY7bQAwEwP3/px0gt0WwSjc5EyhA6WQIljylgzhu8usrPj6/jz/PPJ9//k5+n5/WcOzAw8PDGy39eVnPn59/+HmJn+B4/t3nR4mHh4d3j5cv6y+3G73cn+/W3gcPDw/vPbznV/Zmccm1eHh4eP8jL4kn9pFHUoTw8PDw3sDLX/1RBDB6KLMQ5FjWgoeHh9etpGiAveHzxf4eHh4e3qKrvikVyYY4PzNcJx4eHt4FXt7+n40CzL5zqhmGh4eHd4/X/r1vRwHy2CIZyWqDYDw8PLwbvHagKllEuzWflZxozXh4eHhHeXmD6lS7Kx8U2Ax7fcta8PDw8C7zNkuZtf83j6moeHh4eHiHeLOLk5BiNmLVDitEpQsPDw/vGi+Pa28Hvm1ZiqofHh4e3iFe/uJuqacC3/w+ddaCh4eHN+Llm932J/ejXW3kUU+K4eHh4a157chUXh7yLfJmkCu5Ax4eHt493v6VPWt3zRpyh2F4eHh4j7z92NOwKVXC2tGrb1kLHh4e3mVevqkdxqmj7Xu7qqJ24eHh4S14+xGrNt5NikF7/sctNR4eHt4h3o0MYx/gbgIOPDw8vNu8WatpM2qwH1AoigoeHh7eBd4meN300/LxglmwO7wADw8Pb8TLN9bt2FN7t3zDHbXT8PDw8C7wkr/9SdS7pyZnhnEJHh4e3iHePlQ9xZ5FyUWYi4eHh/dPeG0JeV7i2UgiugoPDw/vKO9THu1AQDvOlYTIUWibLAIPDw9vxJtVkjxE2G+mk989wMbDw8Mree2IVb7EWSFpH1YU4+Lh4eFd4N2OG5Kl5w+oiC3w8PDwXsmbxcF5YZgVEjw8PLw38PLmfR4ct6WiLlF4eHh413jt+NQsVmiLTV0GNlkLHh4eXvfGrhtgw+HRo+ePgfHw8PDSM78A3/TFOscKywMAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

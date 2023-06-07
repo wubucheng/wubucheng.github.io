@@ -31,7 +31,7 @@
     <meta name="description" content="并发队列原理之ConcurrentLinkedQueue原理解析概述 ConcurrentLinkedQueue是无界非阻塞队列，底层有单向链表实现，通过CAS来保证线程的安全  使用Node内部类作为链表的节点，Node的item域存放节点的值，next表示下一个节点，类图如下： 原理分析offer方法：在队列尾部添加一个元素，返回为true，不能添加null元素1234567891011121">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发队列原理之ConcurrentLinkedQueue原理解析">
-<meta property="og:url" content="wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="并发队列原理之ConcurrentLinkedQueue原理解析概述 ConcurrentLinkedQueue是无界非阻塞队列，底层有单向链表实现，通过CAS来保证线程的安全  使用Node内部类作为链表的节点，Node的item域存放节点的值，next表示下一个节点，类图如下： 原理分析offer方法：在队列尾部添加一个元素，返回为true，不能添加null元素1234567891011121">
 <meta property="og:locale" content="zh_CN">
@@ -245,12 +245,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" target="_blank" rel="external">wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</a>
+        原始连接：<a href="/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -276,7 +276,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -286,22 +286,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -417,7 +417,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -435,7 +435,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -445,22 +445,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&title=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发队列原理之ConcurrentLinkedQueue原理解析》 — 无编程&url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86%E4%B9%8BConcurrentLinkedQueue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -471,7 +471,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEeklEQVR42u3aQY7bMAwF0Nz/0tNtiyLOJ6kUpvu8GiSNJT0VoEjq9Yqfn9+e689/Lp/f/83ff+dvuH5PPvrhBxMmTJgw3ZIpX1g+cL7461m9+20y7rv3VzcVEyZMmDA9gyl5XfKrycKq78+3ZEKJCRMmTJgwVQP/u5A8GSv5Nk+DMWHChAkTpjxJToJ09WBRTY+rBV9MmDBhwvQ8pmoDsgpXLQHni/zG+zFhwoQJ05OY8sD8vL+/cr8JEyZMmDDdhumn+FRT00mCWh0l39TyqjFhwoQJ01qmPEDmCe2/KfLm21m9cvQ2qcaECRMmTAuZqsP3QmneRMyv/lQbrsknb+eJCRMmTJgewZSE6iQ1TS7B5Ih5StwrVUdjYcKECROmtUynXj1PXPPrQb1uY/VXB/q9mDBhwoTpZkzVIF0tpOaJcTV49w4HeQqNCRMmTJj2MvWalPnir/cnCdWTZmdv/oVaOCZMmDBhuj3T9ZLmV3NO5d+9duYkIS+cGjBhwoQJ0xKmasjvXZ2ptjknG3Z2DpgwYcKEaSNTr5ibD5wXc3uXcpIDx3xFmDBhwoRpO1Pehpykwb0Cbq9FejZdx4QJEyZM25mqrcekgDtvKM4PEDnQh3liwoQJE6a1TD2Cb6TQ1WZnj7taDv5wcQcTJkyYMN2e6dTCekE6J64WlKvl5g/bgwkTJkyYljNVE9dq67HZRDxUFM4p3/4WEyZMmDAtZ3oVn175NZncJBa/xs+HWjgmTJgwYVrIlKeIvWkdayW22qu9sTBhwoQJ05OYThVJ8wVUy83V5Ll6HIm2HBMmTJgwrWX63iKrhd1krGTBZ2eCCRMmTJi2M/XKr9WjwLxJWQ3/k3T9Vd0fTJgwYcJ0Y6Zqe7J60WdSwJ0XahPo/D8BJkyYMGF6BtNkMdXjQq+M20u5e8cjTJgwYcL0DKZTx4Kc41QrNNngZAPysjImTJgwYdrOdE2TQPQapZM0Ow/qk2YqJkyYMGHayJSXa6ufV9/WG/Hb88SECRMmTM9gShLXPIH8l4G/mb5WrzFhwoQJE6YHMVUvvuST66Ws+a8mDdEP24MJEyZMmNYy9ZqO1WLu/KhRvayTND7zTcWECRMmTHuZ8mQ1V68msXPoPCHvFZExYcKECdNepsnyctDetZv58kYcmDBhwoTpEUzVNmSOO7lGMzmaJLjlUTBhwoQJ03KmSXDtXeU5C5Q3OPOI/7aRiQkTJkyY1jJVm39JAnmgqBrTJJvRK1tjwoQJE6a9TJMLLtVSaa/2XD00NJddnSEmTJgwYVrC1Lvm0iuq9r7tzWF+HPnjW0yYMGHCtJapF5h7JeDr0Dsv41aPMtU3YMKECROmvUzVNmSzKRgwfaPs2ztklBNgTJgwYcJ0e6Y89F4fAr5xKjl1SWgyIiZMmDBh+t+YeqXe+eKTgmyyVfn2Y8KECROm/40pGWZ+RCgsoLgBzWYnJkyYMGFazpQXRvMpVgN58nnCPUm5D7QzMWHChAnTzZhOlVnPNiaTg0XejJyk6JgwYcKEaS3TL/SKlofIym0aAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiklEQVR42u3awW7bQAwE0Pz/T7tATwVauzOkEnjlp1MQyLb26bAccr++4uvx+3r2959Xfs/fd7bXs1/8+57kzgsuTJgwYcL0lkyPl1fyEM/ueU2TU75+2oTm9TO/XjsmTJgwYboHU/51V23PyYtpt/Ok4GhfPyZMmDBh+hymPLK+LgISmnxrb0MvJkyYMGHClEfETUM2/4a8fZwUFpgwYcKE6TOZZj+W35NE0M0LyAuLb++FY8KECROmN2Pab8nn/v2j55swYcKECdOPMz3Ka7bxz1rAbfxuj/sUq8aECRMmTMcytaPKhGMVHcuDOPnQdD/gxIQJEyZMJzK9/plrt+RNiszJNvfUpQAmTJgwYTqEaRY7k4fIX8NseZuAnb9CTJgwYcJ0LtPs1napG+48+rYBfvMNmDBhwoTpRKZZ8zT/mU3pkCx4dkCnLjUwYcKECdOBTFcdeZmxtiPSdpvf02PChAkTpnOZoobmKDrOjvW05UUemGcHd572wjFhwoQJ0yFM7fBvs+nm7d2rQmwevIvCAhMmTJgwHc50wUQ0bsJe1VzOX1K7XkyYMGHCdCemvMmbx9Grou+sxZyH5BoFEyZMmDAdwrRpd7aHeDb0+XGfpGSph5qYMGHChOlYps2j5Jt6uxnny2uZ8gD8j+/HhAkTJkwHMs0219mhmbw42LdxNxH66fkmTJgwYcJ0U6acYxZ3ZyPMqz4VDTgxYcKECdMtmPLjOJvh5ax02MfvtkDBhAkTJkz3YGqDYrv4JHZeG2iTF9kWGZgwYcKE6d5M7ZacsObbcM6aY7VrxIQJEyZMd2KaDQ5nR23a9nEL0a7rP1iYMGHChOlAplkzdBY18+IgH1ImgXzT6q3PN2HChAkTpjdjuioc5o+bDzXbqLw5YBQNWTFhwoQJ0+FMs+MsSbzMFzOLtT8TzjFhwoQJ04lMswFhG1DbseUseO9j81dbfWDChAkTpsOZ8gdtP3sVRDtznBUlmDBhwoTpHkyzbT4ny/9Ofqve1Mui5OnUFxMmTJgwHcU0G0kmWG0bNx8utoPSNswPYzAmTJgwYXpLpuQh2kfZLODa15YUKNErx4QJEyZMt2BqR495YN5MCZNvayN63cjGhAkTJkw3Ymp/bNbqnY0bk9eZIyahFxMmTJgwnc7UdoI34bMtINqFtXyrCxMmTJgwHcLUDheT/+ebcX74JmkH523itjGNCRMmTJjuwbRpp7Zb8mbZs2dbhWFMmDBhwnQLptlGPjuyk5cg+xeW3/P01WLChAkTpmOZNlt18nWzwDzbvIeDySAqY8KECROmc5ke5ZU/+qy9OysCkvZuPkD9an8YEyZMmDC9MdPs7Eo7mNyEzzZm58E+vwcTJkyYMJ3OtDnU0i41P1gz66+2r7kodDBhwoQJ0+FMsyIgj5rXtonzCN1WQE8/hQkTJkyYPoApD5z74z5XDTv3o01MmDBhwvRpTLNW6WxImaN/XwmCCRMmTJjuwdQetWnDZ0uWN5TbomEWqjFhwoQJ07lM+4M73xFN82Fq8v1JWTA804QJEyZMmN6X6Renvr9QqN/JdwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

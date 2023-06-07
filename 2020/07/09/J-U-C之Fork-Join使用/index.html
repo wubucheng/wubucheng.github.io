@@ -31,7 +31,7 @@
     <meta name="description" content="作用 ForkJoinPool继承AbstractExecutorService，提供线程池的功能  常用方法 execute：以异步的形式执行任务，该方法 没有返回值  submit：有返回值，使用ForkJoinTask的get方法获取  invoke：异步执行任务，直接将返回结果返回  shutdown：关闭任务，但不具有中断的效果  shutdownNow：如果跟isInterrupted">
 <meta property="og:type" content="article">
 <meta property="og:title" content="J.U.C之Fork-Join使用">
-<meta property="og:url" content="wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="无编程">
 <meta property="og:description" content="作用 ForkJoinPool继承AbstractExecutorService，提供线程池的功能  常用方法 execute：以异步的形式执行任务，该方法 没有返回值  submit：有返回值，使用ForkJoinTask的get方法获取  invoke：异步执行任务，直接将返回结果返回  shutdown：关闭任务，但不具有中断的效果  shutdownNow：如果跟isInterrupted">
 <meta property="og:locale" content="zh_CN">
@@ -271,12 +271,12 @@
 
 
         
-        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/</a>
+        原始连接：<a href="/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/</a>
         
     </div>
     
     <footer>
-        <a href="wubc.me">
+        <a href="wbc.wiki">
             <img src="/img/avatar.jpg" alt="wubc">
             wubc
         </a>
@@ -302,7 +302,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -312,22 +312,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -443,7 +443,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>wubc &copy; 2017 - 2020</span>
+        <p><span>wubc &copy; 2017 - 2023</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -461,7 +461,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wubc.me/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -471,22 +471,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&title=《J.U.C之Fork-Join使用》 — 无编程&source=技术、生活、工作" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wubc.me" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《J.U.C之Fork-Join使用》 — 无编程&url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/&via=wbc.wiki" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wubc.me/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2020/07/09/J-U-C%E4%B9%8BFork-Join%E4%BD%BF%E7%94%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -497,7 +497,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3awY7CMAxFUf7/pzvSrEZCDffZGaQ6NysEJc0pkoljv154XL/j/Z2/719v426Gu2/d3WvbkCFDxmMZ13KkS1xfX3u9XpsMGTLOYayDLA+RacDl7A9rliFDhgy8uE6oJZ/KkCFDRo1BAmXtUxkyZMhIk1gydTpPes2GXFyGDBkPZKSFgW++/sf6hgwZMh7CuEpjPU8nmNZWJUOGjNkMPjW/QSsRBQ8F5eIyZMgYxODBrl/gTA/vglAuQ4aM0QwSZGu5JJ85DbtBYUCGDBnjGGn7F2nwSq9JWzpkyJBxAoMceNW2d/0HQUoUMmTIOIGRtkrsavDiR3VxgVOGDBnjGGkorG0BOxtE8i0ZMmScxuDtEWnDBC8t8AY1GTJknMDoh0J0ntdOX+NTQxkyZIxjkIT2w+astNVDPWthgi1Dhox5jHRBaXCsBc1iEitDhoyhDJIo1gqKaRjlqWz8vyFDhoyhjPTAi1NrqSwpi8qQIWMqY73x4s0QaZsF3zLG/w8yZMgYxwgKhJjNE06yxNZ5oQwZMkYw0mOv2jFZjRdsE2XIkDGakaaOtc3irrYw9EBlyJAxjnGFIy1J8kZYHrhvfwEZMmQMZew6v0oLBrw5TIYMGTLSYgA/XCNL4fciYBkyZJzA4GExLQPs7fgIsnAZMmQczOjAePCNk1gZMmTIKCWotTIAP+aTIUPGaYx+EptuB3nSi5AyZMgYzegXBtKyQacY0KpyyJAh43mMH5xkHfPYWDRTAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aQYrDMAwF0N7/0hmYVWFI+mWlZSq/rEJIY78uhL/lxyO+jt/r+T55ktw/P/n7zs0XBgbG1zKOy+t6yLOBq9NNqGdzw8DA2IeRF9mzCV2X3RxQ/QIGBgZGslxLSucZ+/o5BgYGxl2MhJfDMDAwMDohNvlVHmJzxs1ZHAMD4wsZa42Bz9y/vb+BgYHx7xlH8cqLY3/5WJgVBgbGaMZagOws6fIvJCO2cjAGBsYIRrJZnx8XW4u1hVKOgYExlJEPc1fgzA+HJYDTFS4GBsY4Rh4pq23OHJm3Fk6zOAYGxlBG8oN7o+Y7lp4YGBizGclgScStRtD8T4lGx8DA2IBxb/jsh9J8ow0DA2NnRh4g8839/E+pFn0MDIzZjOpHkzZn9XBYvmH3oiGBgYExmlEtte847dCJwRgYGLMZeZhcW/a96EgU38fAwNiTkZTOzvb9WsPyhgUiBgbGaEbedMzf6bQTOgc+MDAwJjGqATWf+lroXWyFYmBgDGVUB05CbLUNkHwnOmyBgYGxDaOzOOs/WTzMioGBMZqxduhhLegubplVj3RgYGCMYxzFKy+7nTZkecMOAwNjNOPz4bO/0VadAwYGxgxGtcj2D4F1jm6cfh8DA2MDxtrOVbV52V/kYWBgYFSXg9XS2YmsUZcDAwMDo1hY1zbyqs1UDAyMfRjVZkAH1i/ZGBgYuzGq0bEfZatbcmttCQwMjBGMH3VEtz2v9UTaAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
