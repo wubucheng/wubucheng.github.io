@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Spring源码解析读书笔记之三：自定义标签的解析 | 吴编程 | 功不唐捐，玉汝于成</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Spring,源码解析">
+    <meta name="description" content="三、自定义标签的解析自定义标签的使用 创建一个需要扩展的组件 定义一个XSD文件描述组件内容 创建一个文件，实现BeanDefinitionParse接口，解析XSD文件的定义和组件定义 创建一个Handler文件，扩展自NamespaceHandlerSupport，将组件注册到spring容器 编写Spring.handlers和Spring.schemas文件  自定义标签的解析入口：Bea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring源码解析读书笔记之三：自定义标签的解析">
+<meta property="og:url" content="wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="吴编程">
+<meta property="og:description" content="三、自定义标签的解析自定义标签的使用 创建一个需要扩展的组件 定义一个XSD文件描述组件内容 创建一个文件，实现BeanDefinitionParse接口，解析XSD文件的定义和组件定义 创建一个Handler文件，扩展自NamespaceHandlerSupport，将组件注册到spring容器 编写Spring.handlers和Spring.schemas文件  自定义标签的解析入口：Bea">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-08T06:42:27.000Z">
+<meta property="article:modified_time" content="2023-06-08T06:44:38.469Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring源码解析读书笔记之三：自定义标签的解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring源码解析读书笔记之三：自定义标签的解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-06-08T06:42:27.000Z" itemprop="datePublished" class="page-time">
+  2023-06-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#三、自定义标签的解析"><span class="post-toc-number">1.</span> <span class="post-toc-text">三、自定义标签的解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义标签的使用"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">自定义标签的使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义标签的解析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">自定义标签的解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#标签的解析"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">标签的解析</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Spring源码解析读书笔记之三：自定义标签的解析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring源码解析读书笔记之三：自定义标签的解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-06-08 14:42:27" datetime="2023-06-08T06:42:27.000Z"  itemprop="datePublished">2023-06-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="三、自定义标签的解析"><a href="#三、自定义标签的解析" class="headerlink" title="三、自定义标签的解析"></a>三、自定义标签的解析</h1><h2 id="自定义标签的使用"><a href="#自定义标签的使用" class="headerlink" title="自定义标签的使用"></a>自定义标签的使用</h2><ul>
+<li>创建一个需要扩展的组件</li>
+<li>定义一个XSD文件描述组件内容</li>
+<li>创建一个文件，实现BeanDefinitionParse接口，解析XSD文件的定义和组件定义</li>
+<li>创建一个Handler文件，扩展自NamespaceHandlerSupport，将组件注册到spring容器</li>
+<li>编写Spring.handlers和Spring.schemas文件</li>
+</ul>
+<h2 id="自定义标签的解析"><a href="#自定义标签的解析" class="headerlink" title="自定义标签的解析"></a>自定义标签的解析</h2><p>入口：BeanDefinitionParserDelegate#parseCustomElement(org.w3c.dom.Element)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义标签的解析</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ele</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BeanDefinition <span class="title">parseCustomElement</span><span class="params">(Element ele)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> parseCustomElement(ele, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BeanDefinition <span class="title">parseCustomElement</span><span class="params">(Element ele, @Nullable BeanDefinition containingBd)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 获取命名空间</span></span><br><span class="line">	String namespaceUri = getNamespaceURI(ele);</span><br><span class="line">	<span class="keyword">if</span> (namespaceUri == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 根据命名空间找对应的NamespaceHandler</span></span><br><span class="line">	NamespaceHandler handler = <span class="keyword">this</span>.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);</span><br><span class="line">	<span class="keyword">if</span> (handler == <span class="keyword">null</span>) &#123;</span><br><span class="line">		error(<span class="string">"Unable to locate Spring NamespaceHandler for XML schema namespace ["</span> + namespaceUri + <span class="string">"]"</span>, ele);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 调用自定义NamespaceHandler进行解析</span></span><br><span class="line">	<span class="keyword">return</span> handler.parse(ele, <span class="keyword">new</span> ParserContext(<span class="keyword">this</span>.readerContext, <span class="keyword">this</span>, containingBd));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>this.readerContext.getNamespaceHandlerResolver()获取到的是DefaultNamespaceHandlerResolver示例（从XmlBeanDefinitionReader#createReaderContext可知）所以接着来看DefaultNamespaceHandlerResolver#resolve方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> NamespaceHandler <span class="title">resolve</span><span class="params">(String namespaceUri)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 获取所有已配置handler映射</span></span><br><span class="line">	Map&lt;String, Object&gt; handlerMappings = getHandlerMappings();</span><br><span class="line">	Object handlerOrClassName = handlerMappings.get(namespaceUri);</span><br><span class="line">	<span class="keyword">if</span> (handlerOrClassName == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (handlerOrClassName <span class="keyword">instanceof</span> NamespaceHandler) &#123;</span><br><span class="line">		<span class="comment">// 如果已经做过解析，直接从缓存中读取</span></span><br><span class="line">		<span class="keyword">return</span> (NamespaceHandler) handlerOrClassName;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 类路径</span></span><br><span class="line">		String className = (String) handlerOrClassName;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// 使用反射将类路径转化为类</span></span><br><span class="line">			Class&lt;?&gt; handlerClass = ClassUtils.forName(className, <span class="keyword">this</span>.classLoader);</span><br><span class="line">			<span class="keyword">if</span> (!NamespaceHandler<span class="class">.<span class="keyword">class</span>.<span class="title">isAssignableFrom</span>(<span class="title">handlerClass</span>)) </span>&#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> FatalBeanException(<span class="string">"Class ["</span> + className + <span class="string">"] for namespace ["</span> + namespaceUri +</span><br><span class="line">						"] does not implement the [" + NamespaceHandler.class.getName() + "] interface");</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 初始化</span></span><br><span class="line">			NamespaceHandler namespaceHandler = (NamespaceHandler) BeanUtils.instantiateClass(handlerClass);</span><br><span class="line">			namespaceHandler.init();</span><br><span class="line">			handlerMappings.put(namespaceUri, namespaceHandler);</span><br><span class="line">			<span class="keyword">return</span> namespaceHandler;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (LinkageError err) &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里主要是根据命名空间获取对应的handler。</p>
+<h3 id="标签的解析"><a href="#标签的解析" class="headerlink" title="标签的解析"></a>标签的解析</h3><p>从parseCustomElement中的handler.parse(ele, new ParserContext(this.readerContext, this, containingBd))开始阅读，走到这里NamespaceHandlerSupport#parse：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">public</span> BeanDefinition <span class="title">parse</span><span class="params">(Element element, ParserContext parserContext)</span> </span>&#123;</span><br><span class="line">           BeanDefinitionParser parser = findParserForElement(element, parserContext);</span><br><span class="line">           <span class="keyword">return</span> (parser != <span class="keyword">null</span> ? parser.parse(element, parserContext) : <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> BeanDefinitionParser <span class="title">findParserForElement</span><span class="params">(Element element, ParserContext parserContext)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 获取元素名称</span></span><br><span class="line">	String localName = parserContext.getDelegate().getLocalName(element);</span><br><span class="line">	<span class="comment">// 找到对应的解析器</span></span><br><span class="line">	BeanDefinitionParser parser = <span class="keyword">this</span>.parsers.get(localName);</span><br><span class="line">	<span class="keyword">if</span> (parser == <span class="keyword">null</span>) &#123;</span><br><span class="line">		parserContext.getReaderContext().fatal(</span><br><span class="line">				<span class="string">"Cannot locate BeanDefinitionParser for element ["</span> + localName + <span class="string">"]"</span>, element);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> parser;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>找到对应的BeanDefinitionParser，这里是AbstractBeanDefinitionParser，所以来看这个方法：AbstractBeanDefinitionParser#parse</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> BeanDefinition <span class="title">parse</span><span class="params">(Element element, ParserContext parserContext)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// parseInternal调用自定义的解析方法</span></span><br><span class="line">	AbstractBeanDefinition definition = parseInternal(element, parserContext);</span><br><span class="line">	<span class="keyword">if</span> (definition != <span class="keyword">null</span> &amp;&amp; !parserContext.isNested()) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			String id = resolveId(element, definition, parserContext);</span><br><span class="line">			<span class="keyword">if</span> (!StringUtils.hasText(id)) &#123;</span><br><span class="line">				parserContext.getReaderContext().error(</span><br><span class="line">						<span class="string">"Id is required for element '"</span> + parserContext.getDelegate().getLocalName(element)</span><br><span class="line">								+ <span class="string">"' when used as a top-level tag"</span>, element);</span><br><span class="line">			&#125;</span><br><span class="line">			String[] aliases = <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">if</span> (shouldParseNameAsAliases()) &#123;</span><br><span class="line">				String name = element.getAttribute(NAME_ATTRIBUTE);</span><br><span class="line">				<span class="keyword">if</span> (StringUtils.hasLength(name)) &#123;</span><br><span class="line">					aliases = StringUtils.trimArrayElements(StringUtils.commaDelimitedListToStringArray(name));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			BeanDefinitionHolder holder = <span class="keyword">new</span> BeanDefinitionHolder(definition, id, aliases);</span><br><span class="line">			registerBeanDefinition(holder, parserContext.getRegistry());</span><br><span class="line">			<span class="keyword">if</span> (shouldFireEvents()) &#123;</span><br><span class="line">				<span class="comment">// 需要通知监听器</span></span><br><span class="line">				BeanComponentDefinition componentDefinition = <span class="keyword">new</span> BeanComponentDefinition(holder);</span><br><span class="line">				postProcessComponentDefinition(componentDefinition);</span><br><span class="line">				parserContext.registerComponent(componentDefinition);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (BeanDefinitionStoreException ex) &#123;</span><br><span class="line">			String msg = ex.getMessage();</span><br><span class="line">			parserContext.getReaderContext().error((msg != <span class="keyword">null</span> ? msg : ex.toString()), element);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> definition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中调用了AbstractSingleBeanDefinitionParser#parseInternal，这个才是真正调用自定义解析方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> AbstractBeanDefinition <span class="title">parseInternal</span><span class="params">(Element element, ParserContext parserContext)</span> </span>&#123;</span><br><span class="line">		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition();</span><br><span class="line">		String parentName = getParentName(element);</span><br><span class="line">		<span class="keyword">if</span> (parentName != <span class="keyword">null</span>) &#123;</span><br><span class="line">			builder.getRawBeanDefinition().setParentName(parentName);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 获取自定义标签的class</span></span><br><span class="line">		Class&lt;?&gt; beanClass = getBeanClass(element);</span><br><span class="line">		<span class="keyword">if</span> (beanClass != <span class="keyword">null</span>) &#123;</span><br><span class="line">			builder.getRawBeanDefinition().setBeanClass(beanClass);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 如果子类没有重写getBeanClass方法，则尝试检查子类是否重写了getBeanClassName发放</span></span><br><span class="line">			String beanClassName = getBeanClassName(element);</span><br><span class="line">			<span class="keyword">if</span> (beanClassName != <span class="keyword">null</span>) &#123;</span><br><span class="line">				builder.getRawBeanDefinition().setBeanClassName(beanClassName);</span><br><span class="line">			&#125;</span><br><span class="line">            </span><br><span class="line">		&#125;</span><br><span class="line">		builder.getRawBeanDefinition().setSource(parserContext.extractSource(element));</span><br><span class="line">		BeanDefinition containingBd = parserContext.getContainingBeanDefinition();</span><br><span class="line">		<span class="keyword">if</span> (containingBd != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">// scope需要一致</span></span><br><span class="line">			builder.setScope(containingBd.getScope());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (parserContext.isDefaultLazyInit()) &#123;</span><br><span class="line">			<span class="comment">// 配置懒加载</span></span><br><span class="line">			builder.setLazyInit(<span class="keyword">true</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 调用自定义parse的doParse方法</span></span><br><span class="line">		doParse(element, parserContext, builder);</span><br><span class="line">		<span class="keyword">return</span> builder.getBeanDefinition();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>doParse(element, parserContext, builder)这个就是自定义Parse时所重写的方法。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-06-08T06:44:38.469Z" itemprop="dateUpdated">2023-06-08 14:44:38</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" target="_blank" rel="external">wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wbc.wiki">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&title=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&title=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%9B%9B%EF%BC%9Abean%E7%9A%84%E5%8A%A0%E8%BD%BD/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Spring源码解析读书笔记之四：bean的加载</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/06/07/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BA%8C-%E9%BB%98%E8%AE%A4%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Spring源码解析读书笔记之二:默认标签的解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&title=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&title=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之三：自定义标签的解析》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E6%9E%90/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,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" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '吴编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

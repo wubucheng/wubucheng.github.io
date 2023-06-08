@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Spring源码解析读书笔记之七：整合mybatis | 吴编程 | 功不唐捐，玉汝于成</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Spring,源码解析">
+    <meta name="description" content="七、整合mybaitsMappe FactoryBean 的创建 org.mybatis.spring.mapper.MapperFactoryBean#checkDaoConfig 123456789101112131415161718protected void checkDaoConfig() &amp;#123;    &#x2F;&#x2F; 检查sqlSession是否为空    super.checkDaoCo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring源码解析读书笔记之七：整合mybatis">
+<meta property="og:url" content="wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/index.html">
+<meta property="og:site_name" content="吴编程">
+<meta property="og:description" content="七、整合mybaitsMappe FactoryBean 的创建 org.mybatis.spring.mapper.MapperFactoryBean#checkDaoConfig 123456789101112131415161718protected void checkDaoConfig() &amp;#123;    &#x2F;&#x2F; 检查sqlSession是否为空    super.checkDaoCo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wubc.oss-cn-shenzhen.aliyuncs.com/uPic/0A5bKL.jpg">
+<meta property="article:published_time" content="2023-06-08T07:08:26.000Z">
+<meta property="article:modified_time" content="2023-06-08T07:18:14.353Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="源码解析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wubc.oss-cn-shenzhen.aliyuncs.com/uPic/0A5bKL.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring源码解析读书笔记之七：整合mybatis</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring源码解析读书笔记之七：整合mybatis</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-06-08T07:08:26.000Z" itemprop="datePublished" class="page-time">
+  2023-06-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#七、整合mybaits"><span class="post-toc-number">1.</span> <span class="post-toc-text">七、整合mybaits</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Spring源码解析读书笔记之七：整合mybatis"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring源码解析读书笔记之七：整合mybatis</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-06-08 15:08:26" datetime="2023-06-08T07:08:26.000Z"  itemprop="datePublished">2023-06-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="七、整合mybaits"><a href="#七、整合mybaits" class="headerlink" title="七、整合mybaits"></a>七、整合mybaits</h1><p><strong>Mappe FactoryBean</strong> <strong>的创建</strong></p>
+<p>org.mybatis.spring.mapper.MapperFactoryBean#checkDaoConfig</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">checkDaoConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 检查sqlSession是否为空</span></span><br><span class="line">    <span class="keyword">super</span>.checkDaoConfig();</span><br><span class="line">    Assert.notNull(<span class="keyword">this</span>.mapperInterface, <span class="string">"Property 'mapperInterface' is required"</span>);</span><br><span class="line">    Configuration configuration = <span class="keyword">this</span>.getSqlSession().getConfiguration();</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.addToConfig &amp;&amp; !configuration.hasMapper(<span class="keyword">this</span>.mapperInterface)) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 注册映射类型，需要保证接口有对应的映射文件（xml)</span></span><br><span class="line">            configuration.addMapper(<span class="keyword">this</span>.mapperInterface);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception var6) &#123;</span><br><span class="line">            <span class="keyword">this</span>.logger.error(<span class="string">"Error while adding the mapper '"</span> + <span class="keyword">this</span>.mapperInterface + <span class="string">"' to configuration."</span>, var6);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(var6);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            ErrorContext.instance().reset();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>MapperScannerConfigurer</strong></p>
+<p>扫描指定包的原理</p>
+<p>层次结构图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wubc.oss-cn-shenzhen.aliyuncs.com/uPic/0A5bKL.jpg" alt="0A5bKL" title="">
+                </div>
+                <div class="image-caption">0A5bKL</div>
+            </figure>
+
+<p>入口方法：org.mybatis.spring.mapper.MapperScannerConfigurer#postProcessBeanDefinitionRegistry</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanDefinitionRegistry</span><span class="params">(BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.processPropertyPlaceHolders) &#123;</span><br><span class="line">        <span class="keyword">this</span>.processPropertyPlaceHolders();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ClassPathMapperScanner scanner = <span class="keyword">new</span> ClassPathMapperScanner(registry);</span><br><span class="line">    scanner.setAddToConfig(<span class="keyword">this</span>.addToConfig);</span><br><span class="line">    scanner.setAnnotationClass(<span class="keyword">this</span>.annotationClass);</span><br><span class="line">    scanner.setMarkerInterface(<span class="keyword">this</span>.markerInterface);</span><br><span class="line">    scanner.setSqlSessionFactory(<span class="keyword">this</span>.sqlSessionFactory);</span><br><span class="line">    scanner.setSqlSessionTemplate(<span class="keyword">this</span>.sqlSessionTemplate);</span><br><span class="line">    scanner.setSqlSessionFactoryBeanName(<span class="keyword">this</span>.sqlSessionFactoryBeanName);</span><br><span class="line">    scanner.setSqlSessionTemplateBeanName(<span class="keyword">this</span>.sqlSessionTemplateBeanName);</span><br><span class="line">    scanner.setResourceLoader(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">    scanner.setBeanNameGenerator(<span class="keyword">this</span>.nameGenerator);</span><br><span class="line">    scanner.setMapperFactoryBeanClass(<span class="keyword">this</span>.mapperFactoryBeanClass);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(<span class="keyword">this</span>.lazyInitialization)) &#123;</span><br><span class="line">        scanner.setLazyInitialization(Boolean.valueOf(<span class="keyword">this</span>.lazyInitialization));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(<span class="keyword">this</span>.defaultScope)) &#123;</span><br><span class="line">        scanner.setDefaultScope(<span class="keyword">this</span>.defaultScope);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    scanner.registerFilters();</span><br><span class="line">    scanner.scan(StringUtils.tokenizeToStringArray(<span class="keyword">this</span>.basePackage, <span class="string">",; \t\n"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>processPropertyPlaceHolders主要做了两件事情:</p>
+<ul>
+<li>找到所有已经注册的 PropertyResourceConfigurer 类型的 bean</li>
+<li>模拟 Spring 中的环境来用处理器</li>
+</ul>
+<p><strong>registerFilters：根据属性生成过滤器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerFilters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> acceptAllInterfaces = <span class="keyword">true</span>;</span><br><span class="line">    ／／对于 annotationClass 属性 处理</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.annotationClass != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.addIncludeFilter(<span class="keyword">new</span> AnnotationTypeFilter(<span class="keyword">this</span>.annotationClass));</span><br><span class="line">        acceptAllInterfaces = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ／／对于 arkerlnterface 性的处理</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.markerInterface != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.addIncludeFilter(<span class="keyword">new</span> AssignableTypeFilter(<span class="keyword">this</span>.markerInterface) &#123;</span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">matchClassName</span><span class="params">(String className)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        acceptAllInterfaces = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (acceptAllInterfaces) &#123;</span><br><span class="line">        <span class="keyword">this</span>.addIncludeFilter((metadataReader, metadataReaderFactory) -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    ／／不扫描 <span class="keyword">package</span>-info.ava</span><br><span class="line">    <span class="keyword">this</span>.addExcludeFilter((metadataReader, metadataReaderFactory) -&gt; &#123;</span><br><span class="line">        String className = metadataReader.getClassMetadata().getClassName();</span><br><span class="line">        <span class="keyword">return</span> className.endsWith(<span class="string">"package-info"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：AnnotationTypeFilter只接受标记注解为annotationClass的接口；AssignableTypeFilter只有实现 markerInt rface 接口的接口才会被接受</p>
+<p><strong>扫描java文件</strong></p>
+<p>org.springframework.context.annotation.ClassPathBeanDefinitionScanner#scan</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">scan</span><span class="params">(String... basePackages)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> beanCountAtScanStart = <span class="keyword">this</span>.registry.getBeanDefinitionCount();</span><br><span class="line">    <span class="keyword">this</span>.doScan(basePackages);</span><br><span class="line">    ／／ 如果配置了 includeAnnotationConfig . 则注册对应处理器以保证注解功能的正常使用</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.includeAnnotationConfig) &#123;</span><br><span class="line">        AnnotationConfigUtils.registerAnnotationConfigProcessors(<span class="keyword">this</span>.registry);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.registry.getBeanDefinitionCount() - beanCountAtScanStart;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Set&lt;BeanDefinitionHolder&gt; <span class="title">doScan</span><span class="params">(String... basePackages)</span> </span>&#123;</span><br><span class="line">   Assert.notEmpty(basePackages, <span class="string">"At least one base package must be specified"</span>);</span><br><span class="line">   <span class="comment">//创建一个集合，存放扫描到Bean定义的封装类</span></span><br><span class="line">   Set&lt;BeanDefinitionHolder&gt; beanDefinitions = <span class="keyword">new</span> LinkedHashSet&lt;&gt;();</span><br><span class="line">   <span class="comment">//遍历扫描所有给定的包</span></span><br><span class="line">   <span class="keyword">for</span> (String basePackage : basePackages) &#123;</span><br><span class="line">      <span class="comment">//调用父类ClassPathScanningCandidateComponentProvider的方法</span></span><br><span class="line">      <span class="comment">//扫描给定类路径，获取符合条件的Bean定义</span></span><br><span class="line">      Set&lt;BeanDefinition&gt; candidates = findCandidateComponents(basePackage);</span><br><span class="line">      <span class="comment">//遍历扫描到的Bean</span></span><br><span class="line">      <span class="keyword">for</span> (BeanDefinition candidate : candidates) &#123;</span><br><span class="line">         <span class="comment">//获取Bean定义类中@Scope注解的值，即获取Bean的作用域</span></span><br><span class="line">         ScopeMetadata scopeMetadata = <span class="keyword">this</span>.scopeMetadataResolver.resolveScopeMetadata(candidate);</span><br><span class="line">         <span class="comment">//为Bean设置注解配置的作用域</span></span><br><span class="line">         candidate.setScope(scopeMetadata.getScopeName());</span><br><span class="line">         <span class="comment">//为Bean生成名称</span></span><br><span class="line">         String beanName = <span class="keyword">this</span>.beanNameGenerator.generateBeanName(candidate, <span class="keyword">this</span>.registry);</span><br><span class="line">         <span class="comment">//如果扫描到的Bean不是Spring的注解Bean，则为Bean设置默认值，</span></span><br><span class="line">         <span class="comment">//设置Bean的自动依赖注入装配属性等</span></span><br><span class="line">         <span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> AbstractBeanDefinition) &#123;</span><br><span class="line">            postProcessBeanDefinition((AbstractBeanDefinition) candidate, beanName);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//如果扫描到的Bean是Spring的注解Bean，则处理其通用的Spring注解</span></span><br><span class="line">         <span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> AnnotatedBeanDefinition) &#123;</span><br><span class="line">            <span class="comment">//处理注解Bean中通用的注解，在分析注解Bean定义类读取器时已经分析过</span></span><br><span class="line">            AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//根据Bean名称检查指定的Bean是否需要在容器中注册，或者在容器中冲突</span></span><br><span class="line">         <span class="keyword">if</span> (checkCandidate(beanName, candidate)) &#123;</span><br><span class="line">            BeanDefinitionHolder definitionHolder = <span class="keyword">new</span> BeanDefinitionHolder(candidate, beanName);</span><br><span class="line">            <span class="comment">//根据注解中配置的作用域，为Bean应用相应的代理模式</span></span><br><span class="line">            definitionHolder =</span><br><span class="line">                  AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, <span class="keyword">this</span>.registry);</span><br><span class="line">            beanDefinitions.add(definitionHolder);</span><br><span class="line">            <span class="comment">//向容器注册扫描到的Bean</span></span><br><span class="line">            registerBeanDefinition(definitionHolder, <span class="keyword">this</span>.registry);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> beanDefinitions;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Set&lt;BeanDefinition&gt; <span class="title">findCandidateComponents</span><span class="params">(String basePackage)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">this</span>.componentsIndex != <span class="keyword">null</span> &amp;&amp; indexSupportsIncludeFilters()) &#123;</span><br><span class="line">      <span class="keyword">return</span> addCandidateComponentsFromIndex(<span class="keyword">this</span>.componentsIndex, basePackage);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> scanCandidateComponents(basePackage);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成了文件的扫描过程并且根据对应的文件生成了对应的 bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Set&lt;BeanDefinition&gt; <span class="title">scanCandidateComponents</span><span class="params">(String basePackage)</span> </span>&#123;</span><br><span class="line">   Set&lt;BeanDefinition&gt; candidates = <span class="keyword">new</span> LinkedHashSet&lt;&gt;();</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +</span><br><span class="line">            resolveBasePackage(basePackage) + <span class="string">'/'</span> + <span class="keyword">this</span>.resourcePattern;</span><br><span class="line">      Resource[] resources = getResourcePatternResolver().getResources(packageSearchPath);</span><br><span class="line">      <span class="keyword">boolean</span> traceEnabled = logger.isTraceEnabled();</span><br><span class="line">      <span class="keyword">boolean</span> debugEnabled = logger.isDebugEnabled();</span><br><span class="line">      <span class="keyword">for</span> (Resource resource : resources) &#123;</span><br><span class="line">         <span class="keyword">if</span> (resource.isReadable()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">               MetadataReader metadataReader = getMetadataReaderFactory().getMetadataReader(resource);</span><br><span class="line">               <span class="keyword">if</span> (isCandidateComponent(metadataReader)) &#123;</span><br><span class="line">                  ScannedGenericBeanDefinition sbd = <span class="keyword">new</span> ScannedGenericBeanDefinition(metadataReader);</span><br><span class="line">                  sbd.setResource(resource);</span><br><span class="line">                  sbd.setSource(resource);</span><br><span class="line">                  <span class="keyword">if</span> (isCandidateComponent(sbd)) &#123;</span><br><span class="line">                     candidates.add(sbd);</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="keyword">else</span> &#123;</span><br><span class="line">                  &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">else</span> &#123;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(</span><br><span class="line">                     <span class="string">"Failed to read candidate component class: "</span> + resource, ex);</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span> &#123;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(<span class="string">"I/O failure during classpath scanning"</span>, ex);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> candidates;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来到 <code>isCandidateComponent</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isCandidateComponent</span><span class="params">(MetadataReader metadataReader)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">   <span class="comment">//如果读取的类的注解在排除注解过滤规则中，返回false</span></span><br><span class="line">   <span class="keyword">for</span> (TypeFilter tf : <span class="keyword">this</span>.excludeFilters) &#123;</span><br><span class="line">      <span class="keyword">if</span> (tf.match(metadataReader, getMetadataReaderFactory())) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//如果读取的类的注解在包含的注解的过滤规则中，则返回ture</span></span><br><span class="line">   <span class="keyword">for</span> (TypeFilter tf : <span class="keyword">this</span>.includeFilters) &#123;</span><br><span class="line">      <span class="keyword">if</span> (tf.match(metadataReader, getMetadataReaderFactory())) &#123;</span><br><span class="line">         <span class="keyword">return</span> isConditionMatch(metadataReader);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//如果读取的类的注解既不在排除规则，也不在包含规则中，则返回false</span></span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-06-08T07:18:14.353Z" itemprop="dateUpdated">2023-06-08 15:18:14</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" target="_blank" rel="external">wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wbc.wiki">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="tag">源码解析</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&title=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&title=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Spring源码解析读书笔记之八：事务</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AD%E3%80%81AOP/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Spring源码解析读书笔记之六、AOP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&title=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&title=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之七：整合mybatis》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiklEQVR42u3a207cMBQFUP7/p6dSn1oBmb19PO04rDyhEBJnBcnn9vERH4/fR3v+z+P6muvnfr7y88+f75P87eYDEyZMmDC9JdPj8kiWkuNev2pCvIs+f3dMmDBhwnQPpvx212eugfLNON/O1wKFOtDBhAkTJkw/gKklm185T4bzT4sJEyZMmDDlqWmbWrfF5TZJXvsYmDBhwoTpTkz57fLGYb4NT7bwNnV/eS0cEyZMmDC9GVM7uHOnn18434QJEyZMmN6A6VEea0M8eYrbJrGT4aHirTFhwoQJ07FMaw3FvKmZjwHlT2nXs+2JmDBhwoTpQKZ2/OUVuXUbCiSl3rbV+iQ9xoQJEyZMhzPlDcu2tTkf+pkk2/mzngQ3mDBhwoTpcKZ8UGb+GpPibLuGdmDo2/OYMGHChOlwprYBWWylZVtxb5CxFhZs+GKYMGHChOnNmNYCgjyhzcu70fZc/m0boDyZb8KECRMmTEcxrd0uCRraUZ52oe2YTj6EhAkTJkyY7sT0KI/kpm1AMNn4W6y19B4TJkyYMJ3LtFZUnSyiTVDXSsZt6zS6BhMmTJgw3YJpknzmEPMUOt/48zL0k38OTJgwYcJ0INPaMM1aW3EyfLN3j24bnJgwYcKE6XSmSam3hVsLMtoObVuefkKGCRMmTJgOZ9qVXrav8REfk6ZpHhB8+76YMGHChOlwpnxDTVqJ7Xabp81tyzNP6Z+sGRMmTJgwHcu01oC8DiDyM/Nhmgl0W/DFhAkTJkwnMs2HXfJFt8FBPh601iIt/jkwYcKECdOtmdoRmXwRbXM0T7+v3669BhMmTJgwnc40eeH8/NrmvbfV2j7ryXwTJkyYMGE6iukV4y852d6g4SVFXkyYMGHCdAumvESbF4jbhHNSAl5LieuRHUyYMGHCdBTTvHm5awtv25lrHyb/DJgwYcKE6a5M+ThOXjadzMPMA448oPniPpgwYcKE6XCmdtPNH9Yu6PpjzHGT4OOLt8OECRMmTMcyrYUCedo8KcuureR1DVFMmDBhwnQu066Es73npME5SYbb1B0TJkyYMN2DKU8+1zjWWpX5StqgYW3EBxMmTJgwncXUDtDMy6Zr1+9NkttEHRMmTJgwnc7UppT5NW0oMCkEr7VUo+AAEyZMmDDdgmkyuJOnkfmx9pGSldSUmDBhwoTpWKacICFrH7/WelwrBG8LIDBhwoQJ01FMuzb4SetxnrK2Ldg8tf429cWECRMmTAcytcXZ+Ra+lnxOUvS1gAYTJkyYMJ3LtLcF2Ca0H/GxltbOP8BLOqWYMGHChOkfMs1bjO3Gv7c5mrc823Dnr6dgwoQJE6ZjmdoteZ7K5slzstC2BTv5kJgwYcKE6VymtSAg3z7zMaD8t5NUNqfEhAkTJkx3Yso3zl0p7iQcWRvHGR2YMGHChOkHMK2Vd9vCbhtwTHL94imYMGHChOlHMuUJc7K4/MOsDRVdIz4JIDBhwoQJ0+FMay+cv1JbVG1LuglBO6YzqoVjwoQJE6a3Ydr7+Dlc27zMB4DagGZDIRgTJkyYMP1Ppl9Qp6o7qwSvyQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '吴编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

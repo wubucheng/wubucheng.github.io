@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66466426"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Spring源码解析读书笔记之八：事务 | 吴编程 | 功不唐捐，玉汝于成</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="https:&#x2F;&#x2F;note.youdao.com&#x2F;s&#x2F;D2m8SWxt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring源码解析读书笔记之八：事务">
+<meta property="og:url" content="wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/index.html">
+<meta property="og:site_name" content="吴编程">
+<meta property="og:description" content="https:&#x2F;&#x2F;note.youdao.com&#x2F;s&#x2F;D2m8SWxt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-08T07:18:38.000Z">
+<meta property="article:modified_time" content="2023-06-08T07:23:22.992Z">
+<meta property="article:author" content="wubc">
+<meta property="article:tag" content="Java开发、后端开发、程序员">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="吴编程" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wubc</h5>
+          <a href="mailto:hi@wbc.ink" title="hi@wbc.ink" class="mail">hi@wbc.ink</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/wubucheng" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5e5b5255f265da573b0db081" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                掘金
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-smile"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring源码解析读书笔记之八：事务</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring源码解析读书笔记之八：事务</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-06-08T07:18:38.000Z" itemprop="datePublished" class="page-time">
+  2023-06-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-Spring源码解析读书笔记之八：事务"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring源码解析读书笔记之八：事务</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-06-08 15:18:38" datetime="2023-06-08T07:18:38.000Z"  itemprop="datePublished">2023-06-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><a href="https://note.youdao.com/s/D2m8SWxt" target="_blank" rel="noopener">https://note.youdao.com/s/D2m8SWxt</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-06-08T07:23:22.992Z" itemprop="dateUpdated">2023-06-08 15:23:22</time>
+</span><br>
+
+
+        
+        原始连接：<a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" target="_blank" rel="external">wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="wbc.wiki">
+            <img src="/img/avatar.jpg" alt="wubc">
+            wubc
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&title=《Spring源码解析读书笔记之八：事务》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&title=《Spring源码解析读书笔记之八：事务》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之八：事务》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%B8%83%EF%BC%9A%E6%95%B4%E5%90%88mybatis/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Spring源码解析读书笔记之七：整合mybatis</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢支持
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>wubc &copy; 2017 - 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&title=《Spring源码解析读书笔记之八：事务》 — 吴编程&pic=wbc.wiki/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&title=《Spring源码解析读书笔记之八：事务》 — 吴编程&source=技术、生活、工作" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring源码解析读书笔记之八：事务》 — 吴编程&url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/&via=wbc.wiki" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=wbc.wiki/2023/06/08/Spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%85%AB%EF%BC%9A%E4%BA%8B%E5%8A%A1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiklEQVR42u3aWW7bQBAEUN//0gmQX0d0VTeVeOinL0PiMnw00NPLx0f8+fXn8/mbz5/rc/OzXt2rXU9y7m0fTJgwYcL0LZnyS18vbnbHlvL6mxw9f3ZMmDBhwvQMpvxyya+vjknC+fXDt3fJj//CBBMmTJgw/QCm/AE2D5asqt1S5Ck0JkyYMGHClAPlgTkvLidkbUqPCRMmTJh+AtPmckkATlqesxA+a6O+sRaOCRMmTJi+GVM7uPOkv98434QJEyZMmL4B06/y0zYa2xZjm8Tm6fHqqTFhwoQJ07FMs8duh2ByrOtY3B558x0xYcKECdMjmPIgPWtt3tWwTIaBknJwsXJMmDBhwnQgUzG2Uj52nsrm950dn5z7RRsVEyZMmDAdzjQrrW5CeHK12SucDf188T0mTJgwYTqcKU9ZZyOebWqdPMxm/LQuUmPChAkTpsOZiuGVchOQH9OmyrPV5gnwcL4JEyZMmDB9Y6Z9A3KWPLchfDamMxsqwoQJEyZMpzPtHy9fUBvmZ03KdoNS/CtgwoQJE6YDmfYPn4fY2Rbhrm82Gx1MmDBhwvQMprZsOmthtoF5lujeXIbGhAkTJkyPYMo3BHc1LPPhm1lxdvaSXtbCMWHChAnTgUwboHaj8L6w3aLnT4oJEyZMmE5n2gfUfGhmFub3a9sUo2/bd2DChAkTpv/E1J6wGZfZPHzSqpxtNfItAiZMmDBhOpFpNpqTJ8DJtmPT7MwT7E3BFxMmTJgwPYOpDaLtYM2siZg3R/NXUqfQmDBhwoTpEUxJenlNk6Psk+32VW02NJgwYcKE6VymvDG5T2U31xnOIpUbneKJMGHChAnTIUz7IZhZUXVW5M2Z3lLkxYQJEyZMD2VqtwXXjcYk4dyUgGcp8RfHYMKECROmw5nyEN4G9bxw/O4ib85UTO9iwoQJE6ajmK4DeR6GZ+3M2WubreH6Bf/lOpgwYcKE6XCmemRz3WLMf52Vj2ftzJfrx4QJEyZMxzK1pdV2oDPfTLSp6SxpXyXYmDBhwoTpQKZZcN0P0LQvoA3zs3W+XA8mTJgwYTqWaT8W05aGN8XfzUahbYhiwoQJE6ZnMO1LqKs2YXlMEsLzRmzxKyZMmDBhegTT9QmbYm7ya57E7tuW9RYEEyZMmDAdy1T0PGPKfNFtCJ9xbIaEonozJkyYMGE6kClp721+vXfyaDNaNKyFY8KECROmQ5j26Wg9/nJrkG7HgGYDRpgwYcKE6RlM7SjPbKDnrhR632TFhAkTJkw/gWlV9AwW1LK2ZejZS8pfwA2dUkyYMGHC9F+ZNi3GPJncF2pn12//FV7eBRMmTJgwHcvUhuT87wR0ds0cetNGxYQJEyZMT2LKNwFtU/OuQZ+2YblPiV+O72DChAkTpmOZ8sDZJp/17mN0hRsS1406JkyYMGF6BFNe6s2D8V1N0FmuX9wFEyZMmDD9MKY8Zc0LrLOicLuBqAdSMWHChAnTI5jyIJ1foW2R5lfYF5fzLQ4mTJgwYTqdaV/hTKDbJDlPUPNhoHYY9+ZCMCZMmDBh+tdMvwG4cUOU/yYdfwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'wubc的个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '吴编程';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
